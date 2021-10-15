@@ -6,8 +6,9 @@ using Cinemachine;
 
 public class Mouse_Look : MonoBehaviour
 {
-   
-    public AxisState m_HorizontalAxis;
+    [SerializeField] private CinemachinePOV pOV;
+    [SerializeField] private CinemachineVirtualCamera vcam;
+    
     public Transform playerBody;
 
     float xRotation = 0f;
@@ -15,19 +16,12 @@ public class Mouse_Look : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        pOV = vcam.GetCinemachineComponent<CinemachinePOV>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        //float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-        //xRotation -= mouseY;
-        //xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        
-
-        transform.localRotation = Quaternion.Euler(m_HorizontalAxis.Value, 0f, 0f);
-        playerBody.Rotate(Vector3.up * m_HorizontalAxis.Value);
+        transform.rotation = Quaternion.Euler(0f, pOV.m_HorizontalAxis.Value, 0f);
     }
 }

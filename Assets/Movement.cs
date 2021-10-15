@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Movement : MonoBehaviour
 {
+    
+
     public CapsuleCollider cap;
     public Vector3 input;
     public float speed  = 20;
