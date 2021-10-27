@@ -9,7 +9,7 @@ public class MoveToTarget : MonoBehaviour
     [SerializeField] Transform target;
     [Header("Waypoints"), Space]
     public bool waypoint_bool;
-    [SerializeField] List<Waypoint> waypoints = new List<Waypoint>();
+    public List<Waypoint> waypoints = new List<Waypoint>();
 
 
 
@@ -43,3 +43,5 @@ public class MoveToTarget : MonoBehaviour
         
     }
 }
+
+

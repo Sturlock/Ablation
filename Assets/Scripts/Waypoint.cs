@@ -3,8 +3,8 @@ using UnityEngine;
 
 [Serializable] public class Waypoint
 {
-    public float raduis;
-    public Transform position;
+    public float radius;
+    public Vector3 position;
 
     public Waypoint()
     {
@@ -13,8 +13,10 @@ using UnityEngine;
 
     public Waypoint(Waypoint _waypoint)
     {
-        raduis = _waypoint.raduis;
+        radius = _waypoint.radius;
         position = _waypoint.position;
     }
 }
+
+
 
