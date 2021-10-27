@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[UnityEditor.CustomEditor(typeof(Waypoint), true)] [CanEditMultipleObjects]
-public class WaypointHandlesDrawer : Editor
+[UnityEditor.CustomEditor(typeof(MoveToTarget))]
+public class WaypointHandlesDrawerEditor : Editor
 {
     protected MoveToTarget character;
-    protected bool drawWaypointsHandles;
+    protected bool drawWaypointsHandles = true;
     
     protected virtual void OnSceneGUI()
     {
-        if (drawWaypointsHandles) return;
-
+        if (!drawWaypointsHandles) return;
+        Debug.Log("DRAW");
         
         var refPoint = Vector3.zero;
         //var aiBase = ;
         if (character != null)
         {
+            
             AblationEditorHelpers.WaypointHandles(character.waypoints, refPoint, character);
+            Debug.Log("CHARACTER");
         }
-        else Debug.Log("NULL");
+        else { Debug.Log("NULL"); }
         
     }
 
