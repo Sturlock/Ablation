@@ -1,11 +1,10 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(Waypoint))]
-public class WaypointPositionHandleEditor : PropertyDrawer
+[CustomPropertyDrawer(typeof(Waypoint)), ExecuteInEditMode]
+public class WaypointPropertyDrawer : PropertyDrawer
 {
     protected MoveToTarget ai;
-    bool drawWaypointsHandles;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -31,18 +30,5 @@ public class WaypointPositionHandleEditor : PropertyDrawer
         EditorGUI.Slider(radiusRect, property.FindPropertyRelative("radius"), 0, 50, GUIContent.none);
 
         EditorGUI.EndProperty();
-    }
-    protected virtual void OnSceneGUI()
-    {
-        //if (!drawWaypointsHandles) return;
-
-        var refPoint = Vector3.zero;
-
-        var aiBase = ai;
-        //if (ai != null)
-        {
-            //if (charAiBase.UseLocalPositionForWaypoints) refPoint = character.transform.position;
-            AbltionEditorHelpers.WaypointHandles(aiBase.waypoints, refPoint, ai.gameObject);
-        }
     }
 }

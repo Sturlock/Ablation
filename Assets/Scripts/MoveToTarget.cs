@@ -17,7 +17,12 @@ public class MoveToTarget : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+    }
 
+    public List<Waypoint> Waypoints
+    {
+        get => waypoints;
+        set => waypoints = value;
     }
 
     // Update is called once per frame

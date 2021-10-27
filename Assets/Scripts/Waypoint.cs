@@ -10,6 +10,11 @@ using UnityEngine;
     {
 
     }
+  
+    /// <summary>
+    /// Create copy from other wp
+    /// </summary>
+    /// <param name="_waypoint"></param>
 
     public Waypoint(Waypoint _waypoint)
     {

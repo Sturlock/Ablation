@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class AbltionEditorHelpers : MonoBehaviour
+public class AblationEditorHelpers : MonoBehaviour
 {
     public static void WaypointHandles(List<Waypoint> _waypoints, Vector3 _refpoint, Object _objectToUndo)
     {

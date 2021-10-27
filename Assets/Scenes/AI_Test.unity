@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2733.543, g: 2731.1328, b: 3840.2422, a: 1}
+  m_IndirectSpecularColor: {r: 2694.3784, g: 2685.623, b: 3577.0771, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -505,7 +505,9 @@ MonoBehaviour:
   waypoint_bool: 0
   waypoints:
   - radius: 0
-    position: {x: 1, y: 0, z: 1}
+    position: {x: 5, y: 0, z: 5}
+  - radius: 0
+    position: {x: -5, y: 0, z: 5}
 --- !u!1 &157207112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2956,7 +2958,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: e8be4f669cc4cd7408d571043cba99ef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
