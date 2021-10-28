@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2737.2832, g: 2740.8281, b: 3866.711, a: 1}
+  m_IndirectSpecularColor: {r: 2738.043, g: 2735.4023, b: 3844.336, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -504,12 +504,10 @@ MonoBehaviour:
   target: {fileID: 1467433925}
   waypoint_bool: 0
   waypoints:
-  - radius: 0
-    position: {x: 5, y: 0, z: 5}
-  - radius: 0
-    position: {x: -5, y: 0, z: 5}
-  - radius: 0
-    position: {x: 1, y: 0, z: 1}
+  - radius: 7.2
+    position: {x: -11.235405, y: 0, z: -6.6}
+  - radius: 7.2
+    position: {x: -10.860851, y: 0, z: 0.53116083}
 --- !u!1 &157207112
 GameObject:
   m_ObjectHideFlags: 0
@@ -4846,7 +4844,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9921976, y: 1}
+    m_SensorSize: {x: 1.3333334, y: 1}
     Iso: 200
     ShutterSpeed: 0.005
     Aperture: 16
