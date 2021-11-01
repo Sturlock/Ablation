@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2738.043, g: 2735.4023, b: 3844.336, a: 1}
+  m_IndirectSpecularColor: {r: 2732.2695, g: 2730.1016, b: 3840.164, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -505,9 +505,13 @@ MonoBehaviour:
   waypoint_bool: 0
   waypoints:
   - radius: 7.2
-    position: {x: -11.235405, y: 0, z: -6.6}
+    position: {x: -6.979376, y: 0, z: -13.122388}
   - radius: 7.2
     position: {x: -10.860851, y: 0, z: 0.53116083}
+  - radius: 0
+    position: {x: -14.060162, y: 0, z: 14.207054}
+  - radius: 0
+    position: {x: -8.372505, y: 0, z: 24.438437}
 --- !u!1 &157207112
 GameObject:
   m_ObjectHideFlags: 0

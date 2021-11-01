@@ -5,46 +5,41 @@ using UnityEngine.AI;
 
 public class MoveToTarget : MonoBehaviour
 {
-    [SerializeField] NavMeshAgent navMeshAgent;
+    
     [SerializeField] Transform target;
-    [Header("Waypoints"), Space]
-    public bool waypoint_bool;
-    public List<Waypoint> waypoints = new List<Waypoint>();
+    CharacterAI characterAI;
 
-
+    public int currentWaypoint;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        characterAI = GetComponent<CharacterAI>();  
     }
 
-    public List<Waypoint> Waypoints
-    {
-        get => waypoints;
-        set => waypoints = value;
-    }
 
     // Update is called once per frame
-    void Update()
+    public void MovetoWaypoint()
     {
-        if (waypoint_bool)
+        if (characterAI.Waypoints.Count == 0) return;
+
+        if (characterAI.UsingWaypoint)
         {
-            if (waypoints == null) return;
-            else
+            if (characterAI.Waypoints == null) return;
+
+            if (characterAI.SelectRandomWaypoint)
             {
-                
+                currentWaypoint = Random.Range(0, characterAI.Waypoints.Count);
+                characterAI.Destination = characterAI.GetWaypointPosition(currentWaypoint);
             }
-        }
-        else
-        {
             if (target == null) return;
             else
             {
-                navMeshAgent.SetDestination(target.position);
+                characterAI.NavMeshAgent.SetDestination(target.position);
 
             }
         }
+       
         
     }
 }
