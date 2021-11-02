@@ -6,11 +6,13 @@ using UnityEngine.AI;
 public class CharacterAI : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    Transform followTarget;
-    MoveToTarget move;
+    Transform target;
+    ToNextWaypoint moveWaypoint;
+    MoveToTarget moveTarget;
     [SerializeField] Vector3 destination;
 
     public bool atDestination;
+    bool heard;
 
     [Header("Waypoints"), Space]
     [SerializeField] bool waypoint_bool;
@@ -69,29 +71,48 @@ public class CharacterAI : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        move = GetComponent<MoveToTarget>();
-        move.WaypointStart();
+        moveTarget = GetComponent<MoveToTarget>();
+        moveWaypoint = GetComponent<ToNextWaypoint>();
+        moveWaypoint.WaypointStart();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(heard)
+        {
+            moveTarget.ToDestination(target.transform);
+        }
         if (waypoint_bool)
         {
+            WaypointCheck();
+            
+        }
+    }
+
+    private void WaypointCheck()
+    {
             if (atDestination)
             {
-                move.MovetoWaypoint();
+                moveWaypoint.MovetoWaypoint();
             }
-        }
+        
         if ((destination.x != gameObject.transform.position.x) && (destination.z != gameObject.transform.position.z))
             atDestination = false;
         else atDestination = true;
 
         if (!atDestination)
             navMeshAgent.SetDestination(destination);
+    }
 
-        
-        
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "SOUND")
+        {
+            target = other.transform;
+            heard = true;
+            
 
+        }
     }
 }
