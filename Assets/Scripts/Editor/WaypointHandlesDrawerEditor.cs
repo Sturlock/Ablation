@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[UnityEditor.CustomEditor(typeof(MoveToTarget))] [CanEditMultipleObjects]
+[UnityEditor.CustomEditor(typeof(CharacterAI))] [CanEditMultipleObjects]
 public class WaypointHandlesDrawerEditor : Editor
 {
-    protected MoveToTarget character;
+    protected CharacterAI character;
     protected bool drawWaypointsHandles = true;
 
     SerializedProperty characterProperty;
@@ -14,7 +14,7 @@ public class WaypointHandlesDrawerEditor : Editor
     void OnEnable()
     {
         //     characterProperty = serializedObject.FindProperty("lookAtPoint");
-        character = serializedObject.targetObject as MoveToTarget;
+        character = serializedObject.targetObject as CharacterAI;
     }
 
     protected virtual void OnSceneGUI()
@@ -28,7 +28,7 @@ public class WaypointHandlesDrawerEditor : Editor
         if (character != null)
         {
             
-            AblationEditorHelpers.WaypointHandles(character.waypoints, refPoint, character);
+            AblationEditorHelpers.WaypointHandles(character.Waypoints, refPoint, character);
             Debug.Log("CHARACTER");
         }
         else { Debug.Log("NULL"); }

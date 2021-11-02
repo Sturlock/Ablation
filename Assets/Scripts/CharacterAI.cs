@@ -6,14 +6,19 @@ using UnityEngine.AI;
 public class CharacterAI : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    [SerializeField] Transform followTarget;
-    [SerializeField] MoveToTarget move;
-    Vector3 destination;
+    Transform followTarget;
+    MoveToTarget move;
+    [SerializeField] Vector3 destination;
+
+    public bool atDestination;
 
     [Header("Waypoints"), Space]
     [SerializeField] bool waypoint_bool;
+    [SerializeField] bool loop;
     [SerializeField] bool randomWaypoint;
     [SerializeField] List<Waypoint> waypoints = new List<Waypoint>();
+    int maxWaypoints;
+    int currentWaypoint;
 
     public NavMeshAgent NavMeshAgent
     {
@@ -30,6 +35,16 @@ public class CharacterAI : MonoBehaviour
         get => waypoints;
         set => waypoints = value;
     }
+    public int MaxWaypoints
+    {
+        get => maxWaypoints;
+        set => maxWaypoints = waypoints.Count;
+    }
+    public int CurrentWaypoint
+    {
+        get => currentWaypoint;
+        set => currentWaypoint = value;
+    }
     public bool UsingWaypoint
     {
         get => waypoint_bool;
@@ -40,7 +55,11 @@ public class CharacterAI : MonoBehaviour
         get => randomWaypoint;
         set => randomWaypoint = value;
     }
-
+    public bool LoopWaypoint
+    {
+        get => loop;
+        set => loop = value;
+    }
     public Vector3 GetWaypointPosition(int id)
     {
         return waypoints[id].position;
@@ -51,12 +70,28 @@ public class CharacterAI : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         move = GetComponent<MoveToTarget>();
+        move.WaypointStart();
     }
 
     // Update is called once per frame
     void Update()
     {
-        move.MovetoWaypoint();
+        if (waypoint_bool)
+        {
+            if (atDestination)
+            {
+                move.MovetoWaypoint();
+            }
+        }
+        if ((destination.x != gameObject.transform.position.x) && (destination.z != gameObject.transform.position.z))
+            atDestination = false;
+        else atDestination = true;
+
+        if (!atDestination)
+            navMeshAgent.SetDestination(destination);
+
         
+        
+
     }
 }
