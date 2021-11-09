@@ -1,8 +1,16 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+enum CState
+{
+    Idle,
+    Detected,
+
+
+}
 public class CharacterAI : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
@@ -13,6 +21,7 @@ public class CharacterAI : MonoBehaviour
 
     public bool atDestination;
     bool heard;
+    CState state;
 
     [Header("Waypoints"), Space]
     [SerializeField] bool waypoint_bool;
@@ -21,6 +30,8 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] List<Waypoint> waypoints = new List<Waypoint>();
     int maxWaypoints;
     int currentWaypoint;
+
+    
 
     public NavMeshAgent NavMeshAgent
     {
@@ -64,7 +75,13 @@ public class CharacterAI : MonoBehaviour
     }
     public Vector3 GetWaypointPosition(int id)
     {
-        return waypoints[id].position;
+        Waypoint waypoint = waypoints[id];
+
+        Vector3 pos = waypoint.position;
+        if (waypoint.radius == 0) return pos;
+        Vector3 rad = Random.insideUnitSphere * waypoint.radius;
+        rad.y = 0;
+        return pos + rad;
     }
 
     // Start is called before the first frame update
@@ -92,10 +109,21 @@ public class CharacterAI : MonoBehaviour
 
     private void WaypointCheck()
     {
-            if (atDestination)
-            {
-                moveWaypoint.MovetoWaypoint();
-            }
+        switch (state)
+        {
+        case (CState.Idle):
+                if (atDestination)
+                {
+                    moveWaypoint.MovetoWaypoint();
+                }
+                break;
+        case (CState.Detected):
+
+                break;
+            default:
+                break;
+        }
+            
         
         if ((destination.x != gameObject.transform.position.x) && (destination.z != gameObject.transform.position.z))
             atDestination = false;
