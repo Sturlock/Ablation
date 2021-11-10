@@ -7,10 +7,14 @@ public class MoveToTarget : MonoBehaviour
 {
     
     CharacterAI characterAI;
-    
-    public void ToDestination(Transform target)
+    void Start()
     {
-        characterAI.Destination = target.position;
+        characterAI = GetComponent<CharacterAI>();
+    }
+
+    public void ToDestination(Vector3 target)
+    {
+        characterAI.Destination = target;
     }
 }
 
