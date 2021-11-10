@@ -8,6 +8,7 @@ enum CState
 {
     Idle,
     Detected,
+    Wander,
 
 
 }
@@ -20,7 +21,7 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] Vector3 destination;
 
     public bool atDestination;
-    bool heard;
+    public bool heard;
     CState state;
 
     [Header("Waypoints"), Space]
@@ -91,6 +92,7 @@ public class CharacterAI : MonoBehaviour
         moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
         moveWaypoint.WaypointStart();
+        state = CState.Idle;
     }
 
     // Update is called once per frame
@@ -98,33 +100,29 @@ public class CharacterAI : MonoBehaviour
     {
         if(heard)
         {
-            moveTarget.ToDestination(target.transform);
+            state = CState.Detected;
         }
         if (waypoint_bool)
         {
-            WaypointCheck();
+            state = CState.Wander;
             
         }
-    }
-
-    private void WaypointCheck()
-    {
+        if (!waypoint_bool && !heard) navMeshAgent.isStopped = true;
         switch (state)
         {
-        case (CState.Idle):
+            case CState.Detected:
+                moveTarget.ToDestination(target.transform);
+                state = CState.Idle;
+                break;
+            case CState.Wander:
                 if (atDestination)
                 {
                     moveWaypoint.MovetoWaypoint();
                 }
                 break;
-        case (CState.Detected):
-
-                break;
             default:
                 break;
         }
-            
-        
         if ((destination.x != gameObject.transform.position.x) && (destination.z != gameObject.transform.position.z))
             atDestination = false;
         else atDestination = true;
@@ -133,14 +131,13 @@ public class CharacterAI : MonoBehaviour
             navMeshAgent.SetDestination(destination);
     }
 
+
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "SOUND")
         {
             target = other.transform;
             heard = true;
-            
-
         }
     }
 }
