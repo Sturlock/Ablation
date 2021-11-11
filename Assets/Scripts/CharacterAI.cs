@@ -64,7 +64,13 @@ public class CharacterAI : MonoBehaviour
     }
     public Vector3 GetWaypointPosition(int id)
     {
-        return waypoints[id].position;
+        Waypoint waypoint = waypoints[id];
+
+        Vector3 pos = waypoint.position;
+        if (waypoint.radius == 0) return pos;
+        Vector3 rad = Random.insideUnitSphere * waypoint.radius;
+        rad.y = 0;
+        return pos + rad;
     }
 
     // Start is called before the first frame update
