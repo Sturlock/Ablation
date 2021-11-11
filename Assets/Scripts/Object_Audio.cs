@@ -26,7 +26,6 @@ public class Object_Audio : MonoBehaviour
         if (play)
         {
             StartCoroutine(PlaySound());
-            
         }
 
         if (!play)
@@ -39,7 +38,7 @@ public class Object_Audio : MonoBehaviour
     {
         source.Play();
         sphere.enabled = true;
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(.1f);
         play = false;
     }
 }

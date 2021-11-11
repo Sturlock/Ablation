@@ -12,7 +12,7 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] Vector3 destination;
 
     public bool atDestination;
-    bool heard;
+    public bool heard;
 
     [Header("Waypoints"), Space]
     [SerializeField] bool waypoint_bool;
@@ -73,47 +73,48 @@ public class CharacterAI : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
-        moveWaypoint.WaypointStart();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((destination.x != gameObject.transform.position.x) && (destination.z != gameObject.transform.position.z))
-            atDestination = false;
-        else atDestination = true;
-
-        if (!atDestination)
-            navMeshAgent.SetDestination(destination);
-
         if (heard)
         {
             moveTarget.ToDestination(target);
-        }
-        if (waypoint_bool)
-        {
-            WaypointCheck();
             
         }
-        
+        if (waypoint_bool && !heard)
+        {
+            if (atDestination)
+            {
+                WaypointCheck();
+            }
+            
+        }
+        if ((gameObject.transform.position.x != destination.x) && (gameObject.transform.position.z != destination.z))
+            atDestination = false;
+        else atDestination = true;
+        if (!atDestination)
+            navMeshAgent.SetDestination(destination);
+
+        if (heard) 
+        { 
+            heard = false; 
+        }
     }
 
     private void WaypointCheck()
     {
-            if (atDestination)
-            {
-                moveWaypoint.MovetoWaypoint();
-            }
+        moveWaypoint.MovetoWaypoint();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if(other.tag == "SOUND")
+        if (other.tag == "SOUND")
         {
             target = other.transform.position;
             heard = true;
-            
-
         }
+        else Debug.Log("Not Sound");
     }
 }
