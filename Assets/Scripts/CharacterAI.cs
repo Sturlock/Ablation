@@ -10,7 +10,8 @@ public class CharacterAI : MonoBehaviour
     ToNextWaypoint moveWaypoint;
     MoveToTarget moveTarget;
     [SerializeField] Vector3 destination;
-
+    float destinationThreshold = 0.1f;
+    bool doOnce;
     public bool atDestination = true;
     public bool heard;
 
@@ -21,7 +22,7 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] List<Waypoint> waypoints = new List<Waypoint>();
     int maxWaypoints;
     int currentWaypoint;
-
+    #region Getters and Setters
     public NavMeshAgent NavMeshAgent
     {
         get => navMeshAgent;
@@ -72,13 +73,14 @@ public class CharacterAI : MonoBehaviour
         rad.y = 0;
         return pos + rad;
     }
-
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        moveTarget = GetComponent<MoveToTarget>();
+        moveTarget = GetComponent<MoveToTarget>();  
         moveWaypoint = GetComponent<ToNextWaypoint>();
+        moveWaypoint.WaypointStart();
     }
 
     // Update is called once per frame
@@ -90,14 +92,16 @@ public class CharacterAI : MonoBehaviour
             
         }
         if (waypoint_bool && !heard)
-        {
-            if (atDestination)
+        {            
+            if (atDestination & !doOnce)
             {
                 WaypointCheck();
             }
             
         }
-        if ((gameObject.transform.position.x != destination.x) && (gameObject.transform.position.z != destination.z))
+        Vector2 distance = new Vector2(gameObject.transform.position.x - destination.x, gameObject.transform.position.z - destination.z);
+        Debug.Log(distance.magnitude);
+        if (distance.magnitude > destinationThreshold)
             atDestination = false;
         else atDestination = true;
         if (!atDestination)
