@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    
-
     public CapsuleCollider cap;
     public Vector3 input;
     public float speed  = 20;
@@ -50,20 +48,19 @@ public class Movement : MonoBehaviour
 
             jumpCount++;
         }
-
-        
     }
 
     private void FixedUpdate()
     {
-        if (rb.velocity.magnitude > maxSpeed)
+        Vector2 velocity2D = new Vector2(rb.velocity.x, rb.velocity.z);
+        if (velocity2D.magnitude > maxSpeed)
         {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+            velocity2D = velocity2D.normalized * maxSpeed;
         }
-
+        rb.velocity = new Vector3(velocity2D.x, rb.velocity.y, velocity2D.y);
         if (jumpBool)
         {
-            Jump();
+            //Jump();
         }
 
         if (sprintBool)
@@ -71,9 +68,10 @@ public class Movement : MonoBehaviour
             maxSpeed = sprintMaxSpeed;
         }
         else maxSpeed = runMaxSpeed;
-        
-        rb.velocity = input * speed * Time.fixedDeltaTime;
-        
+        Vector2 inputVelocity = new Vector2(input.x * speed * Time.fixedDeltaTime, 
+            input.z * speed * Time.fixedDeltaTime);
+        rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
+
     }
     void Jump()
     {
