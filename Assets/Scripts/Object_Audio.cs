@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,17 +25,21 @@ public class Object_Audio : MonoBehaviour
     {
         if (play)
         {
-            source.Play();
-            sphere.enabled = true;
-            //play = false;
+            StartCoroutine(PlaySound());
+            
         }
-    }
 
-    void LateUpdate()
-    {
         if (!play)
         {
             sphere.enabled = false;
         }
+    }
+
+    private IEnumerator PlaySound()
+    {
+        source.Play();
+        sphere.enabled = true;
+        yield return new WaitForEndOfFrame();
+        play = false;
     }
 }
