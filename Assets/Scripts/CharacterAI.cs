@@ -11,7 +11,7 @@ public class CharacterAI : MonoBehaviour
     MoveToTarget moveTarget;
     [SerializeField] Vector3 destination;
 
-    public bool atDestination;
+    public bool atDestination = true;
     public bool heard;
 
     [Header("Waypoints"), Space]
