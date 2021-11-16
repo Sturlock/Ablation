@@ -89,18 +89,16 @@ public class CharacterAI : MonoBehaviour
         if (heard)
         {
             moveTarget.ToDestination(target);
-            
         }
         if (waypoint_bool && !heard)
         {            
             if (atDestination & !doOnce)
             {
                 WaypointCheck();
-            }
-            
+            } 
         }
         Vector2 distance = new Vector2(gameObject.transform.position.x - destination.x, gameObject.transform.position.z - destination.z);
-        Debug.Log(distance.magnitude);
+        //Debug.Log(distance.magnitude);
         if (distance.magnitude > destinationThreshold)
             atDestination = false;
         else atDestination = true;
