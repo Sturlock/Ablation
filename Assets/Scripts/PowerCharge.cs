@@ -13,13 +13,18 @@ public class PowerCharge : MonoBehaviour
     float amountToIncrease = 0.5f;
 
     [SerializeField] private bool reduce;
+    public float powerTimer = 60;
+    WaitForSeconds timer;
 
-    WaitForSeconds time = new WaitForSeconds(60);
-    private void Start()
+    void Start()
     {
-
+         timer = new WaitForSeconds(powerTimer);
     }
-
+    public bool GeneratorBool
+    {
+        get => StartingPower;
+        set => StartingPower = value;
+    }
     // Update is called once per frame
     private void Update()
     {
@@ -41,7 +46,7 @@ public class PowerCharge : MonoBehaviour
     private IEnumerator StartPowerDraw()
     {
         Debug.Log("Start Time");
-        yield return time;
+        yield return timer;
         Debug.Log("Time up");
     }
 

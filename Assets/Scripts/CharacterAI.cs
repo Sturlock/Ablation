@@ -22,6 +22,8 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] List<Waypoint> waypoints = new List<Waypoint>();
     int maxWaypoints;
     int currentWaypoint;
+    
+
     #region Getters and Setters
     public NavMeshAgent NavMeshAgent
     {
@@ -86,7 +88,7 @@ public class CharacterAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (heard)
+            if (heard)
         {
             moveTarget.ToDestination(target);
         }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public CapsuleCollider cap;
-    public Vector3 input;
+    public Vector3 controlInput;
     public float speed  = 20;
     public Rigidbody rb;
 
@@ -19,7 +19,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpForce = 20;
     private bool sprintBool;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +30,9 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        input = Vector3.zero;
-        input += Input.GetAxisRaw("Horizontal") * transform.right;
-        input += Input.GetAxisRaw("Vertical") * transform.forward;
+        controlInput = Vector3.zero;
+        controlInput += Input.GetAxisRaw("Horizontal") * transform.right;
+        controlInput += Input.GetAxisRaw("Vertical") * transform.forward;
 
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -68,17 +67,30 @@ public class Movement : MonoBehaviour
             maxSpeed = sprintMaxSpeed;
         }
         else maxSpeed = runMaxSpeed;
-        Vector2 inputVelocity = new Vector2(input.x * speed * Time.fixedDeltaTime, 
-            input.z * speed * Time.fixedDeltaTime);
+        Vector2 inputVelocity = new Vector2(controlInput.x * speed * Time.fixedDeltaTime, 
+            controlInput.z * speed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
 
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 3f))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.red);
+            if (hit.transform.tag == "Generator")
+            {
+                if (Input.GetKey(KeyCode.F))
+                {
+                    PowerCharge powercharge = hit.transform.gameObject.GetComponent<PowerCharge>();
+                    powercharge.GeneratorBool = true;
+                }
+            }
+        }
     }
     void Jump()
     {
-        input.y = jumpForce;
-        rb.velocity = input * speed * Time.fixedDeltaTime; ; 
+        controlInput.y = jumpForce;
+        rb.velocity = controlInput * speed * Time.fixedDeltaTime; ; 
         jumpBool = false;
-        input.y = 0f;
+        controlInput.y = 0f;
         
     }
     
