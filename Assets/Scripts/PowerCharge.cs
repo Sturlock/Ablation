@@ -5,6 +5,7 @@ using UnityEngine;
 public class PowerCharge : MonoBehaviour
 {
     public bool StartingPower;
+    public GameObject[] lights;
     [SerializeField] private float currentBatPercentage = 100.00f;
     [SerializeField] private float currentHUDPercentage = 0f;
     public float warmthTimer = 3.00f;
@@ -13,6 +14,7 @@ public class PowerCharge : MonoBehaviour
     float amountToIncrease = 0.5f;
 
     [SerializeField] private bool reduce;
+    [Range(1f, 5400f)]
     public float powerTimer = 60;
     WaitForSeconds timer;
 
@@ -30,62 +32,39 @@ public class PowerCharge : MonoBehaviour
     {
         if (StartingPower)
         {
-            //IncreaseLight();
+            StartCoroutine(IncreaseLight());
             StartCoroutine(StartPowerDraw());
+            StartingPower = false;
         }
-        else
-        {
-            //DecreaseLights();
-        }
-        currentBatPercentage = Mathf.Clamp(currentBatPercentage, 0f, 100f);
-        currentHUDPercentage = Mathf.Clamp(currentHUDPercentage, 0f, 100f);
-
-        //bar.SetWarmth(currentHUDPercentage);
     }
 
     private IEnumerator StartPowerDraw()
     {
-        Debug.Log("Start Time");
+        var tim = timer.ToString();
+        Debug.Log("Time: " + tim);
         yield return timer;
         Debug.Log("Time up");
+        StartCoroutine(DecreaseLights());
+        yield break;
     }
 
-    private void DecreaseLights()
+    private IEnumerator DecreaseLights()
     {
-        //If we have at least one cycles worth of power left.
-        if (currentBatPercentage >= amountToDrain)
+        for (int i = lights.Length -1; i > 0; i--)
         {
-            //Then remove a percentage of the total battery every time we 'call' this function
-            currentBatPercentage -= amountToDrain;
-            currentHUDPercentage += amountToDrain;
-
+            lights[i].GetComponent<Light>().enabled = false;
+            yield return new WaitForSeconds(.3f);
         }
-        else
-        {
-            //Then we assume we are out of power. Reset the battery percentage to 0, turn off the light and then cancel the repetition of this function
-            currentBatPercentage = 0.00f;
-            CancelInvoke();
-        }
-        //Debug.Log("The remaining Warmth percentage is " + currentWarmthPercentage + "%");
+        yield break;
     }
 
-    private void IncreaseLight()
+    private IEnumerator IncreaseLight()
     {
-        //If we have at least one cycles worth of power left.
-        if (currentBatPercentage >= amountToDrain)
+        for(int i = 0; i < lights.Length; i++)
         {
-            //Then remove a percentage of the total battery every time we 'call' this function
-            if (currentBatPercentage >= amountToDrain)
-            {
-                currentBatPercentage += amountToIncrease;
-                currentHUDPercentage -= amountToIncrease;
-            }
-            else
-            {
-                currentBatPercentage = 0.00f;
-                CancelInvoke();
-            }
-            //Debug.Log("The remaining Warmth percentage is " + currentWarmthPercentage + "%");
+            lights[i].GetComponent<Light>().enabled = true;
+            yield return new WaitForSeconds(.3f);
         }
+        yield break;
     }
 }
