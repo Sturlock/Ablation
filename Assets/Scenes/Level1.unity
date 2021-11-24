@@ -2189,6 +2189,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI_Proto
       objectReference: {fileID: 0}
+    - target: {fileID: 3335964668962284556, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964668962284556, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: m_TagString
+      value: Monster
+      objectReference: {fileID: 0}
     - target: {fileID: 3335964668962284559, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
       propertyPath: m_Speed
       value: 4
@@ -2400,6 +2408,18 @@ PrefabInstance:
     - target: {fileID: 3335964668962284597, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
       propertyPath: waypoints.Array.data[20].position.z
       value: 10.802696
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964670473068524, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964670530793874, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086968505783666790, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
@@ -12330,7 +12350,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3333334, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
     Iso: 200
     ShutterSpeed: 0.005
     Aperture: 16
@@ -13682,6 +13702,9 @@ MonoBehaviour:
   audioS: {fileID: 0}
   idleSnapshot: {fileID: 24500006, guid: 2329b827260f3e14b9dc07b06cbefa38, type: 2}
   auxInSnapshot: {fileID: -8643397380533899908, guid: 2329b827260f3e14b9dc07b06cbefa38, type: 2}
+  monsterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1794704927 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1078210541694900024, guid: 227c01ff255a19842b76d2a051b34a2e, type: 3}
@@ -14758,11 +14781,7 @@ MonoBehaviour:
   - {fileID: 885290539}
   - {fileID: 1572161021}
   - {fileID: 274981135}
-  currentBatPercentage: 100
-  currentHUDPercentage: 0
-  warmthTimer: 3
-  reduce: 0
-  powerTimer: 5400
+  powerTimer: 30
 --- !u!136 &2001168304
 CapsuleCollider:
   m_ObjectHideFlags: 0

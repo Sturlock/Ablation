@@ -6,19 +6,12 @@ public class PowerCharge : MonoBehaviour
 {
     public bool StartingPower;
     public GameObject[] lights;
-    [SerializeField] private float currentBatPercentage = 100.00f;
-    [SerializeField] private float currentHUDPercentage = 0f;
-    public float warmthTimer = 3.00f;
-    float amountToDrain = 0.01f;
 
-    float amountToIncrease = 0.5f;
-
-    [SerializeField] private bool reduce;
     [Range(1f, 5400f)]
     public float powerTimer = 60;
     WaitForSeconds timer;
 
-    void Start()
+    public void Start()
     {
          timer = new WaitForSeconds(powerTimer);
     }

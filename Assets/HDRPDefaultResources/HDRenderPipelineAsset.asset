@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HDRenderPipelineAsset
   m_EditorClassIdentifier: 
   m_RenderPipelineResources: {fileID: 11400000, guid: 3ce144cff5783da45aa5d4fdc2da14b7, type: 2}
-  m_RenderPipelineRayTracingResources: {fileID: 0}
+  m_RenderPipelineRayTracingResources: {fileID: 11400000, guid: ba6e7f30e5cffc249a8bf7ee5756c196, type: 2}
   m_DefaultVolumeProfile: {fileID: 11400000, guid: ca2a8f58232528749b06dbc991e2928e, type: 2}
   m_LensAttenuation: 0
   m_DefaultLookDevProfile: {fileID: 11400000, guid: 71e20f4f3ccc8674d8c0f49b8e4f4fff, type: 2}
@@ -109,7 +109,7 @@ MonoBehaviour:
     supportDitheringCrossFade: 1
     supportTerrainHole: 0
     supportProbeVolume: 0
-    supportRayTracing: 0
+    supportRayTracing: 1
     supportedRayTracingMode: 3
     probeVolumeSettings:
       atlasResolution: 128

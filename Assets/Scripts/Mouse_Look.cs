@@ -10,8 +10,6 @@ public class Mouse_Look : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera vcam;
     
     public Transform playerBody;
-
-    float xRotation = 0f;
     // Start is called before the first frame update
     void Start()
     {
