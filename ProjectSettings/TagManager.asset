@@ -7,8 +7,11 @@ TagManager:
   - Floor
   - SOUND
   - Generator
-  - Jawbreaker
   - Monster
+  - Ambience
+  - WoodFloor
+  - MetalFloor
+  - Stairs
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Tools
   - Monster
   - 
   - 
