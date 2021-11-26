@@ -16,11 +16,11 @@ GameObject:
   - component: {fileID: 3335964668962284597}
   - component: {fileID: 3335964668962284554}
   - component: {fileID: 3335964668962284596}
-  - component: {fileID: 4560005642029010195}
   - component: {fileID: 4400919326724318773}
-  m_Layer: 0
+  - component: {fileID: 8118313248809623056}
+  m_Layer: 10
   m_Name: AI_Proto
-  m_TagString: Player
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +32,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3335964668962284556}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.141, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: c41cd2763c67d4a42a6ca87561ed974d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,11 +116,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -143,10 +143,20 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   atDestination: 0
   heard: 0
-  waypoint_bool: 0
+  waypoint_bool: 1
   loop: 0
-  randomWaypoint: 0
-  waypoints: []
+  randomWaypoint: 1
+  waypoints:
+  - radius: 6.1
+    position: {x: -75.27431, y: 0, z: -4.3885345}
+  - radius: 10.4
+    position: {x: -19.87535, y: -1.9637272, z: -0.08979666}
+  - radius: 13.1
+    position: {x: -67.877304, y: 0, z: -45.59104}
+  - radius: 3.5
+    position: {x: -50.104794, y: 0, z: 4.794422}
+  - radius: 3.6
+    position: {x: -62.786385, y: 1.3287493, z: 22.914516}
 --- !u!114 &3335964668962284554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,20 +182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWaypoint: 0
---- !u!136 &4560005642029010195
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3335964668962284556}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4400919326724318773
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -202,6 +198,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &8118313248809623056
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335964668962284556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3335964670473068524
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3335964670473068527}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CamPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +253,7 @@ GameObject:
   - component: {fileID: 3335964670530793886}
   - component: {fileID: 3335964670530793887}
   - component: {fileID: 3335964670530793884}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +269,7 @@ Transform:
   m_GameObject: {fileID: 3335964670530793874}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.53433335, z: 0.23}
-  m_LocalScale: {x: 0.18469, y: -0.0625, z: 1}
+  m_LocalScale: {x: 0.18469, y: 0.0625, z: 1}
   m_Children: []
   m_Father: {fileID: 3335964668962284555}
   m_RootOrder: 1
@@ -339,7 +348,7 @@ GameObject:
   - component: {fileID: 6765895041470350704}
   - component: {fileID: 5430455476354409870}
   - component: {fileID: 1437370020916336160}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

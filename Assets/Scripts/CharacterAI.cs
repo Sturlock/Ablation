@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class CharacterAI : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    Vector3 target;
+    GameObject target;
     ToNextWaypoint moveWaypoint;
     MoveToTarget moveTarget;
     [SerializeField] Vector3 destination;
@@ -79,8 +79,7 @@ public class CharacterAI : MonoBehaviour
             Debug.Log("Destination: True");
             return hit.position;
         }
-        Vector3 des = pos + rad;
-        return des;
+        return pos + rad;
     }
     #endregion
     // Start is called before the first frame update
@@ -115,7 +114,7 @@ public class CharacterAI : MonoBehaviour
         if (!atDestination)
             navMeshAgent.SetDestination(destination);
 
-        if (heard) 
+        if (heard && atDestination) 
         { 
             heard = false; 
         }
@@ -126,13 +125,13 @@ public class CharacterAI : MonoBehaviour
         moveWaypoint.MovetoWaypoint();
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-        {
-            target = other.transform.position;
+        //if (other.tag == "Player")
+        //{
+            target = other.gameObject;
             heard = true;
-        }
+        //}
         //else Debug.Log("Not Sound");
     }
 }
