@@ -11,7 +11,7 @@ public class CharacterAI : MonoBehaviour
     MoveToTarget moveTarget;
     [SerializeField] Vector3 destination;
     float destinationThreshold = 0.1f;
-    bool doOnce;
+    bool doOnce = false;
     public bool atDestination = true;
     public bool heard;
 
@@ -73,7 +73,14 @@ public class CharacterAI : MonoBehaviour
         if (waypoint.radius == 0) return pos;
         Vector3 rad = Random.insideUnitSphere * waypoint.radius;
         rad.y = 0;
-        return pos + rad;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
+        {
+            Debug.Log("Destination: True");
+            return hit.position;
+        }
+        Vector3 des = pos + rad;
+        return des;
     }
     #endregion
     // Start is called before the first frame update
@@ -82,13 +89,14 @@ public class CharacterAI : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         moveTarget = GetComponent<MoveToTarget>();  
         moveWaypoint = GetComponent<ToNextWaypoint>();
-        moveWaypoint.WaypointStart();
+        atDestination = true;
+        //moveWaypoint.WaypointStart();
     }
 
     // Update is called once per frame
     void Update()
     {
-            if (heard)
+        if (heard)
         {
             moveTarget.ToDestination(target);
         }
@@ -120,11 +128,11 @@ public class CharacterAI : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "SOUND")
+        if (other.tag == "Player")
         {
             target = other.transform.position;
             heard = true;
         }
-        else Debug.Log("Not Sound");
+        //else Debug.Log("Not Sound");
     }
 }

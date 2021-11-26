@@ -3,7 +3,6 @@ using UnityEngine.Audio;
 
 public class PlayerAudio : MonoBehaviour
 {
-    public AudioClip audioClip;
     public AudioSource audioS;
     public AudioMixerSnapshot idleSnapshot;
     public AudioMixerSnapshot auxInSnapshot;

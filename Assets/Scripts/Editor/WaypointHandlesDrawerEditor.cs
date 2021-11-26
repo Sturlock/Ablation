@@ -21,15 +21,14 @@ public class WaypointHandlesDrawerEditor : Editor
     {
         
         if (!drawWaypointsHandles) return;
-        Debug.Log("DRAW");
+        //Debug.Log("DRAW");
         
         var refPoint = Vector3.zero;
         //var aiBase = ;
         if (character != null)
         {
-            
             AblationEditorHelpers.WaypointHandles(character.Waypoints, refPoint, character);
-            Debug.Log("CHARACTER");
+            //Debug.Log("CHARACTER");
         }
         else { Debug.Log("NULL"); }
         

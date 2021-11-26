@@ -15,11 +15,6 @@ public class ToNextWaypoint : MonoBehaviour
     {
         characterAI = GetComponent<CharacterAI>();
     }
-    public void WaypointStart()
-    {
-        characterAI.Destination = characterAI.GetWaypointPosition(currentWaypoint);
-        characterAI.CurrentWaypoint = currentWaypoint;
-    }
 
     // Update is called once per frame
     public void MovetoWaypoint()
