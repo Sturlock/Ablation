@@ -23,5 +23,14 @@ public class MoveToTarget : MonoBehaviour
                 characterAI.Destination = targetpos;
             }
         }
+        else
+        {
+            if (!target.CompareTag(hit.collider.tag))
+            {
+                targetpos = target.transform.position + (4f * Random.insideUnitSphere);
+                targetpos.y = 0f;
+                characterAI.Destination = targetpos;
+            }
+        }
     }
 }
