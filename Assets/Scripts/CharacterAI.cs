@@ -127,11 +127,21 @@ public class CharacterAI : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //if (other.tag == "Player")
-        //{
+        if (other.tag == "Player")
+        {
             target = other.gameObject;
             heard = true;
-        //}
+        }
+        if (other.tag == "SOUND")
+        {
+            target = other.gameObject;
+            heard = true;
+        }
+        if (other.tag == "Door")
+        {
+            target = other.gameObject;
+            heard = true;
+        }
         //else Debug.Log("Not Sound");
     }
 }

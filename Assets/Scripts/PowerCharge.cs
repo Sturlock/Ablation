@@ -5,7 +5,8 @@ using UnityEngine;
 public class PowerCharge : MonoBehaviour
 {
     public bool StartingPower;
-    public GameObject[] lights;
+    public GameObject[] spotLights;
+    public GameObject[] areaLights;
 
     [Range(1f, 5400f)]
     public float powerTimer = 60;
@@ -43,9 +44,9 @@ public class PowerCharge : MonoBehaviour
 
     private IEnumerator DecreaseLights()
     {
-        for (int i = lights.Length -1; i > 0; i--)
+        for (int i = spotLights.Length -1; i > 0; i--)
         {
-            lights[i].GetComponent<Light>().enabled = false;
+            spotLights[i].GetComponent<Light>().enabled = false;
             yield return new WaitForSeconds(.3f);
         }
         yield break;
@@ -53,9 +54,9 @@ public class PowerCharge : MonoBehaviour
 
     private IEnumerator IncreaseLight()
     {
-        for(int i = 0; i < lights.Length; i++)
+        for(int i = 0; i < spotLights.Length; i++)
         {
-            lights[i].GetComponent<Light>().enabled = true;
+            spotLights[i].GetComponent<Light>().enabled = true;
             yield return new WaitForSeconds(.3f);
         }
         yield break;
