@@ -38,7 +38,7 @@ public class BasicSubtitles : MonoBehaviour
         yield return new WaitForSeconds(3);
         textBox.GetComponent<Text>().text = " ";
         yield return new WaitForSeconds(2);
-        Lighting.SetActive(false);
+        //Lighting.SetActive(false);
         LightingSound.SetActive(false);
 
 }
