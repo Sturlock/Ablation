@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
 public class ToNextWaypoint : MonoBehaviour
 {
-    CharacterAI characterAI;
+    private CharacterAI characterAI;
+
     [Header("Info")]
     public int currentWaypoint;
 
     private bool goingUp = true;
 
     // Start is called before the first frame update
-    void OnEnable()
+    private void OnEnable()
     {
         characterAI = GetComponent<CharacterAI>();
     }

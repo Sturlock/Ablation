@@ -35,9 +35,9 @@ public class PlayerAudio : MonoBehaviour
                     monsterNear = false;
                 }
             }
-
         }
     }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Monster"))
@@ -49,6 +49,7 @@ public class PlayerAudio : MonoBehaviour
             ambInSnapshot.TransitionTo(0.5f);
         }
     }
+
     public void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Monster"))
@@ -73,18 +74,19 @@ public class PlayerAudio : MonoBehaviour
                 case "WoodFloor":
                     audioS.PlayOneShot(woodSteps[r]);
                     break;
+
                 case "MetalFloor":
                     audioS.PlayOneShot(metalSteps[r]);
                     break;
+
                 case "Stairs":
                     audioS.PlayOneShot(stairsSteps[r]);
                     break;
+
                 default:
                     audioS.PlayOneShot(metalSteps[r]);
                     break;
             }
         }
-
-
     }
 }

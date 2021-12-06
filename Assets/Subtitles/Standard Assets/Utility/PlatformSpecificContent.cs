@@ -1,7 +1,9 @@
-using System;
 using UnityEngine;
+
 #if UNITY_EDITOR
+
 using UnityEditor;
+
 #endif
 
 namespace UnityStandardAssets.Utility
@@ -9,7 +11,6 @@ namespace UnityStandardAssets.Utility
 #if UNITY_EDITOR
 
     [ExecuteInEditMode]
-#endif
     public class PlatformSpecificContent : MonoBehaviour
 #if UNITY_EDITOR
         , UnityEditor.Build.IActiveBuildTargetChanged
@@ -23,10 +24,13 @@ namespace UnityStandardAssets.Utility
 
         [SerializeField]
         private BuildTargetGroup m_BuildTargetGroup;
+
         [SerializeField]
         private GameObject[] m_Content = new GameObject[0];
+
         [SerializeField]
         private MonoBehaviour[] m_MonoBehaviours = new MonoBehaviour[0];
+
         [SerializeField]
         private bool m_ChildrenOfThisObject;
 
@@ -36,6 +40,7 @@ namespace UnityStandardAssets.Utility
 		CheckEnableContent();
 	}
 #else
+
         public int callbackOrder
         {
             get
@@ -43,6 +48,7 @@ namespace UnityStandardAssets.Utility
                 return 1;
             }
         }
+
 #endif
 
 #if UNITY_EDITOR
@@ -51,7 +57,6 @@ namespace UnityStandardAssets.Utility
         {
             EditorApplication.update += Update;
         }
-
 
         private void OnDisable()
         {
@@ -67,8 +72,8 @@ namespace UnityStandardAssets.Utility
         {
             CheckEnableContent();
         }
-#endif
 
+#endif
 
         private void CheckEnableContent()
         {
@@ -92,7 +97,6 @@ namespace UnityStandardAssets.Utility
             }
 #endif
         }
-
 
         private void EnableContent(bool enabled)
         {

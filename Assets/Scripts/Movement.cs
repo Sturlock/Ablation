@@ -1,39 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Movement : MonoBehaviour
 {
     public CapsuleCollider cap;
     public Vector3 controlInput;
-    public float speed  = 20;
+    public float speed = 20;
     public Rigidbody rb;
 
-    float runMaxSpeed = 7.5f;
-    float sprintMaxSpeed = 12f;
-    [SerializeField]float maxSpeed;
+    private float runMaxSpeed = 7.5f;
+    private float sprintMaxSpeed = 12f;
+    [SerializeField] private float maxSpeed;
     public bool jumpBool;
-    [Range(0,2)]
+
+    [Range(0, 2)]
     public int jumpCount = 0;
+
     [SerializeField] private float jumpForce = 20;
     private bool sprintBool;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
         rb = GetComponent<Rigidbody>();
         cap = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         controlInput = Vector3.zero;
         controlInput += Input.GetAxisRaw("Horizontal") * transform.right;
         controlInput += Input.GetAxisRaw("Vertical") * transform.forward;
-
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -67,7 +64,7 @@ public class Movement : MonoBehaviour
             maxSpeed = sprintMaxSpeed;
         }
         else maxSpeed = runMaxSpeed;
-        Vector2 inputVelocity = new Vector2(controlInput.x * speed * Time.fixedDeltaTime, 
+        Vector2 inputVelocity = new Vector2(controlInput.x * speed * Time.fixedDeltaTime,
             controlInput.z * speed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
 
@@ -85,13 +82,12 @@ public class Movement : MonoBehaviour
             }
         }
     }
-    void Jump()
+
+    private void Jump()
     {
         controlInput.y = jumpForce;
-        rb.velocity = controlInput * speed * Time.fixedDeltaTime; ; 
+        rb.velocity = controlInput * speed * Time.fixedDeltaTime; ;
         jumpBool = false;
         controlInput.y = 0f;
-        
     }
-    
 }

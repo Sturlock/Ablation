@@ -1,16 +1,16 @@
 using System;
 using UnityEngine;
 
-[Serializable] public class Waypoint
+[Serializable]
+public class Waypoint
 {
     public float radius;
     public Vector3 position;
 
     public Waypoint()
     {
-
     }
-  
+
     /// <summary>
     /// Create copy from other wp
     /// </summary>

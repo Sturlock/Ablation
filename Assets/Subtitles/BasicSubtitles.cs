@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +9,12 @@ public class BasicSubtitles : MonoBehaviour
     public GameObject Lighting;
     public GameObject LightingSound;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(TestingSubtitles());
     }
 
-    IEnumerator TestingSubtitles()
+    private IEnumerator TestingSubtitles()
     {
         yield return new WaitForSeconds(0F);
         textBox.GetComponent<Text>().text = "Well . . .  Hello and Welcome to Ellen's Unity Test Box";
@@ -40,8 +39,7 @@ public class BasicSubtitles : MonoBehaviour
         yield return new WaitForSeconds(2);
         //Lighting.SetActive(false);
         LightingSound.SetActive(false);
-
-}
+    }
 
     public void SwitchSubs()
     {
@@ -57,4 +55,3 @@ public class BasicSubtitles : MonoBehaviour
         }
     }
 }
-

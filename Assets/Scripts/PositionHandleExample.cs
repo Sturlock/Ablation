@@ -3,7 +3,9 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class PositionHandleExample : MonoBehaviour
 {
-    public Vector3 targetPosition { get { return m_TargetPosition; } set { m_TargetPosition = value; } }
+    public Vector3 targetPosition
+    { get { return m_TargetPosition; } set { m_TargetPosition = value; } }
+
     [SerializeField]
     private Vector3 m_TargetPosition = new Vector3(1f, 0f, 2f);
 
