@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartingPower: 0
-  lights:
+  lightObjects:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -120,6 +120,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  spotLights:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -128,6 +129,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  areaLights:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -136,6 +138,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  spotLightsUV:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -144,6 +147,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  glassLightsRight:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -152,6 +156,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  glassLightsLeft:
   - {fileID: 0}
   - {fileID: 0}
-  powerTimer: 60
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lightsOut: {fileID: 2100000, guid: c7938e1b47a9e43449e5995ba55ed252, type: 2}
+  lightsUV: {fileID: 2100000, guid: eae7dd7b194ab2a42be3519e31b1d91f, type: 2}
+  lightsOn: {fileID: 2100000, guid: 0a863fd79b1cbd548923cf45e8e47a45, type: 2}
+  powerTimer: 20
