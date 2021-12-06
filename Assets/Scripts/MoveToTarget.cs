@@ -4,11 +4,12 @@ using UnityEngine.AI;
 public class MoveToTarget : MonoBehaviour
 {
     private CharacterAI characterAI;
-    [SerializeField] private NavMeshPath navMeshPath = new();
+    [SerializeField] private NavMeshPath navMeshPath;
 
     private void Start()
     {
         characterAI = GetComponent<CharacterAI>();
+        navMeshPath = new NavMeshPath();
     }
 
     public void ToDestination(GameObject target)
