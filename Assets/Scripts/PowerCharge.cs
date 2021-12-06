@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,34 +5,41 @@ public class PowerCharge : MonoBehaviour
 {
     public bool StartingPower;
     public GameObject[] lightObjects;
+
     [Header("Power On Lights")]
     public GameObject[] spotLights;
+
     public GameObject[] areaLights;
-    
+
     [Header("Power Off Lights")]
     public GameObject[] spotLightsUV;
+
     public GameObject[] glassLightsRight;
     public GameObject[] glassLightsLeft;
 
     [Header("Light Materials")]
     public Material lightsOut;
+
     public Material lightsUV;
     public Material lightsOn;
 
     [Header("Generator Time")]
     [Range(1f, 5400f)]
     public float powerTimer = 60;
-    WaitForSeconds timer;
+
+    private WaitForSeconds timer;
 
     public void Start()
     {
-         timer = new WaitForSeconds(powerTimer);
+        timer = new WaitForSeconds(powerTimer);
     }
+
     public bool GeneratorBool
     {
         get => StartingPower;
         set => StartingPower = value;
     }
+
     // Update is called once per frame
     private void Update()
     {
@@ -75,7 +81,7 @@ public class PowerCharge : MonoBehaviour
 
     private IEnumerator PoweringLight()
     {
-        for(int i = 0; i < spotLights.Length; i++)
+        for (int i = 0; i < spotLights.Length; i++)
         {
             yield return new WaitForSeconds(0.2f);
             spotLightsUV[i].GetComponent<Light>().enabled = false;

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,65 +5,84 @@ using UnityEngine.AI;
 public class CharacterAI : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    GameObject target;
-    ToNextWaypoint moveWaypoint;
-    MoveToTarget moveTarget;
-    [SerializeField] Vector3 destination;
-    float destinationThreshold = 0.1f;
-    bool doOnce = false;
+    private GameObject target;
+    private ToNextWaypoint moveWaypoint;
+    private MoveToTarget moveTarget;
+    [SerializeField] private Vector3 destination;
+    private float destinationThreshold = 0.1f;
+    private bool doOnce = false;
     public bool atDestination = true;
     public bool heard;
 
     [Header("Waypoints"), Space]
-    [SerializeField] bool waypoint_bool;
-    [SerializeField] bool loop;
-    [SerializeField] bool randomWaypoint;
-    [SerializeField] List<Waypoint> waypoints = new List<Waypoint>();
-    int maxWaypoints;
-    int currentWaypoint;
-    
+    [SerializeField] private bool waypoint_bool;
+
+    [SerializeField] private bool loop;
+    [SerializeField] private bool randomWaypoint;
+    [SerializeField] private List<Waypoint> waypoints = new List<Waypoint>();
+    private int maxWaypoints;
+    private int currentWaypoint;
+
+    #region Gizmos
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, destination);
+    }
+
+    #endregion Gizmos
 
     #region Getters and Setters
+
     public NavMeshAgent NavMeshAgent
     {
         get => navMeshAgent;
         set => navMeshAgent = value;
     }
+
     public Vector3 Destination
     {
         get => destination;
         set => destination = value;
     }
+
     public List<Waypoint> Waypoints
     {
         get => waypoints;
         set => waypoints = value;
     }
+
     public int MaxWaypoints
     {
         get => maxWaypoints;
         set => maxWaypoints = waypoints.Count;
     }
+
     public int CurrentWaypoint
     {
         get => currentWaypoint;
         set => currentWaypoint = value;
     }
+
     public bool UsingWaypoint
     {
         get => waypoint_bool;
         set => waypoint_bool = value;
     }
-    public bool SelectRandomWaypoint 
+
+    public bool SelectRandomWaypoint
     {
         get => randomWaypoint;
         set => randomWaypoint = value;
     }
+
     public bool LoopWaypoint
     {
         get => loop;
         set => loop = value;
     }
+
     public Vector3 GetWaypointPosition(int id)
     {
         Waypoint waypoint = waypoints[id];
@@ -81,30 +99,48 @@ public class CharacterAI : MonoBehaviour
         }
         return pos + rad;
     }
-    #endregion
+
+    public Vector3 GetTargetPosition(Vector3 targetPos)
+    {
+        Vector3 pos = targetPos;
+        Vector3 rad = Random.Range(1f, 12f) * Random.insideUnitSphere;
+        rad.y = 0;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
+        {
+            Debug.Log("Destination: True");
+            return hit.position;
+        }
+        return pos + rad;
+    }
+
+    #endregion Getters and Setters
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        moveTarget = GetComponent<MoveToTarget>();  
+        moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
         atDestination = true;
         //moveWaypoint.WaypointStart();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (heard)
         {
             moveTarget.ToDestination(target);
+            heard = false;
+            return;
         }
         if (waypoint_bool && !heard)
-        {            
+        {
             if (atDestination & !doOnce)
             {
                 WaypointCheck();
-            } 
+            }
         }
         Vector2 distance = new Vector2(gameObject.transform.position.x - destination.x, gameObject.transform.position.z - destination.z);
         //Debug.Log(distance.magnitude);
@@ -114,9 +150,9 @@ public class CharacterAI : MonoBehaviour
         if (!atDestination)
             navMeshAgent.SetDestination(destination);
 
-        if (heard && atDestination) 
-        { 
-            heard = false; 
+        if (heard && atDestination)
+        {
+            heard = false;
         }
     }
 
@@ -125,20 +161,23 @@ public class CharacterAI : MonoBehaviour
         moveWaypoint.MovetoWaypoint();
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
+            Debug.Log("PLAYER");
             target = other.gameObject;
             heard = true;
         }
         if (other.tag == "SOUND")
         {
+            Debug.Log("SOUND");
             target = other.gameObject;
             heard = true;
         }
         if (other.tag == "Door")
         {
+            Debug.Log("DOOR");
             target = other.gameObject;
             heard = true;
         }

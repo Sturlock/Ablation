@@ -1,16 +1,14 @@
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
 public class Mouse_Look : MonoBehaviour
 {
     [SerializeField] private CinemachinePOV pOV;
     [SerializeField] private CinemachineVirtualCamera vcam;
-    ShowHideUI_Canvas ShowHideUI;
-    
+    private ShowHideUI_Canvas ShowHideUI;
+
     public Transform playerBody;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -35,8 +33,5 @@ public class Mouse_Look : MonoBehaviour
         {
             pOV.enabled = false;
         }
-
-
-
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
@@ -10,7 +8,7 @@ public class CameraZoom : MonoBehaviour
 
     private bool isZoomed = false;
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
@@ -21,7 +19,6 @@ public class CameraZoom : MonoBehaviour
         {
             GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, zoom, Time.deltaTime * smooth);
         }
-
         else
         {
             GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, normal, Time.deltaTime * smooth);

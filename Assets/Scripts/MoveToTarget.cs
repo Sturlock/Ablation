@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class MoveToTarget : MonoBehaviour
 {
+    private CharacterAI characterAI;
+    [SerializeField] private NavMeshPath navMeshPath = new NavMeshPath();
 
-    CharacterAI characterAI;
-    void Start()
+    private void Start()
     {
         characterAI = GetComponent<CharacterAI>();
     }
@@ -16,21 +15,27 @@ public class MoveToTarget : MonoBehaviour
     {
         Vector3 targetpos = target.transform.position;
         RaycastHit hit;
-        if (Physics.Raycast(characterAI.transform.position, targetpos, out hit, 20f))
+        NavMesh.CalculatePath(characterAI.transform.position, targetpos, NavMesh.AllAreas, navMeshPath);
+
+        if (navMeshPath.corners.Length > 40f)
         {
-            if (target.CompareTag(hit.collider.tag))
+            if (Physics.Raycast(characterAI.transform.position, -targetpos, out hit, 20f))
             {
-                characterAI.Destination = targetpos;
+                Debug.DrawRay(characterAI.transform.position, targetpos);
+                if (target.CompareTag(hit.collider.tag))
+                {
+                    characterAI.Destination = targetpos;
+                    return;
+                }
+                if (!target.CompareTag(hit.collider.tag))
+                {
+                    targetpos = characterAI.GetTargetPosition(targetpos);
+                    characterAI.Destination = targetpos;
+                    return;
+                }
             }
         }
-        else
-        {
-            if (!target.CompareTag(hit.collider.tag))
-            {
-                targetpos = target.transform.position + (4f * Random.insideUnitSphere);
-                targetpos.y = 0f;
-                characterAI.Destination = targetpos;
-            }
-        }
+        navMeshPath.ClearCorners();
+        return;
     }
 }
