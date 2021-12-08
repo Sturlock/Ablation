@@ -4,11 +4,11 @@ public class Movement : MonoBehaviour
 {
     public CapsuleCollider cap;
     public Vector3 controlInput;
-    public float speed = 20;
+    public float speed = 200f;
     public Rigidbody rb;
 
-    private float runMaxSpeed = 7.5f;
-    private float sprintMaxSpeed = 12f;
+    private float runMaxSpeed = 200f;
+    private float sprintMaxSpeed = 400f;
     [SerializeField] private float maxSpeed;
     public bool jumpBool;
 
@@ -64,8 +64,8 @@ public class Movement : MonoBehaviour
             maxSpeed = sprintMaxSpeed;
         }
         else maxSpeed = runMaxSpeed;
-        Vector2 inputVelocity = new Vector2(controlInput.x * speed * Time.fixedDeltaTime,
-            controlInput.z * speed * Time.fixedDeltaTime);
+        Vector2 inputVelocity = new Vector2(controlInput.x * maxSpeed * Time.fixedDeltaTime,
+            controlInput.z * maxSpeed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
 
         RaycastHit hit;
