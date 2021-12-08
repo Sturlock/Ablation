@@ -20,25 +20,25 @@ public class HandyMan : MonoBehaviour
 
     public void Inventory()
     {
-        title.text = "Status";
-        contence.text = "Status Stuff";
+        title.text = "Inventory";
+        contence.text = "Inventory Stuff";
     }
 
     public void Options()
     {
-        title.text = "Status";
-        contence.text = "Status Stuff";
+        title.text = "Options";
+        contence.text = "Options Stuff";
     }
 
     public void AudioLogs()
     {
-        title.text = "Status";
-        contence.text = "Status Stuff";
+        title.text = "AudioLogs";
+        contence.text = "AudioLogs Stuff";
     }
 
     public void MotionDetector()
     {
-        title.text = "Status";
-        contence.text = "Status Stuff";
+        title.text = "Motion Detector";
+        contence.text = "Motion Detector Stuff";
     }
 }
