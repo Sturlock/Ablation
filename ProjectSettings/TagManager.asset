@@ -13,6 +13,7 @@ TagManager:
   - MetalFloor
   - Stairs
   - Hallways
+  - Intractable
   layers:
   - Default
   - TransparentFX

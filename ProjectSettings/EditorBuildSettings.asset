@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HallwayTest.unity
     guid: 497d54a7738fc364cb7e8f393990daa0
+  - enabled: 1
+    path: Assets/Scenes/ProtoLevel1.unity
+    guid: 08e4be553e869db448a90af9571c88b4
   m_configObjects: {}

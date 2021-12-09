@@ -1,84 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInteract : MonoBehaviour
 {
-    public Camera playerCamera;
-    public float pickupLength;
-    
-    GameObject inHands;
-    RaycastHit hit;
-    [SerializeField] bool holdingItem;
- 
-    
+    [SerializeField] private Camera m_CameraTransform = null;
+    public Transform m_HandTransform = null;
+    [SerializeField] private Image m_CursorImage = null;
+    public float m_ThrowForce = 50;
 
-    void Start()
+    private RaycastHit m_RaycastFocus;
+    private bool m_CanInteract = false;
+
+
+    private void Start()
     {
-        holdingItem = false;
+        m_CameraTransform = Camera.main;
     }
 
-    
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (!holdingItem)
+        // Has interact button been pressed whilst interactable object is in front of player?
+        if (Input.GetButtonDown("Fire1") && m_CanInteract)
         {
-            if (Input.GetButtonDown("Fire1"))
+            IInteractable interactComponent = m_RaycastFocus.collider.transform.GetComponent<IInteractable>();
+
+            if (interactComponent != null)
             {
-                if (Physics.Raycast(playerCamera.transform.position,
-                         playerCamera.transform.TransformDirection(Vector3.forward), out hit, pickupLength) && !holdingItem)
-                {
-                    if (hit.transform.tag == "Big Object" || hit.transform.tag == "Small Object")
-                    {
-                        holdingItem = true;
-                        inHands = GameObject.Find(hit.transform.name);
-                        Debug.Log(inHands.name);
-                        inHands.GetComponent<Pickupable>().PickUp();
-                    }
-                }
+                Debug.Log("hit");
+                // Perform object's interaction
+                interactComponent.Interact(this);
+
             }
+        }
+
+        // Has action button been pressed whilst interactable object is in front of player?
+        if (Input.GetButtonDown("Fire2") && m_CanInteract)
+        {
+            IInteractable interactComponent = m_RaycastFocus.collider.transform.GetComponent<IInteractable>();
+
+            if (interactComponent != null)
+            {
+                // Perform object's action
+                interactComponent.Action(this);
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Ray ray = new Ray(m_CameraTransform.transform.position, m_CameraTransform.transform.forward);
+
+        // Is interactable object detected in front of player?
+        if (Physics.Raycast(ray, out m_RaycastFocus, 3) && (m_RaycastFocus.collider.transform.tag == "Intractable" || m_RaycastFocus.collider.transform.tag == "Cup" || m_RaycastFocus.collider.transform.tag == "Simon"))
+        {
+            //m_CursorImage.color = Color.green;
+            m_CanInteract = true;
         }
         else
         {
-            if(inHands.tag == "Big Object")
-            {
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    inHands.GetComponent<Pickupable>().Drop();
-                    holdingItem = false;
-                    inHands = null;
-                }
-            }
-            else if(inHands.tag == "Small Object")
-            {
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    inHands.GetComponent<Pickupable>().Drop();
-                    holdingItem = false;
-                    inHands = null;
-                }
-                if (Input.GetButtonDown("Fire2"))
-                {
-                    inHands.GetComponent<Pickupable>().Throw();
-                    holdingItem = false;
-                    inHands = null;
-                }
-                
-                if (Input.GetButtonDown("Interact"))
-                  //  Debug.Log("Placing Small Object");
-
-                if (Input.GetButtonDown("Fire2"))
-                    Debug.Log("Throw Small Object");
-            }
-
+           //m_CursorImage.color = Color.white;
+            m_CanInteract = false;
         }
     }
-
-    public void OverrideHoldingItem()
-    {
-        holdingItem = false;
-    }
-
 }
