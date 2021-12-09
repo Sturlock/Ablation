@@ -104,7 +104,7 @@ AudioSource:
   Priority: 64
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -205,11 +205,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022323487338763755}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: -0.735, y: 2.975, z: 0.09200096}
+  m_LocalPosition: {x: -0.73500013, y: 2.975, z: 0.09200096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1022323488507334905}
-  m_RootOrder: 1
+  m_Father: {fileID: 1022323487577535766}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 90}
 --- !u!108 &1022323487338763752
 Light:
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 1022323487577535766}
   m_Layer: 0
   m_Name: Lights_01
-  m_TagString: Untagged
+  m_TagString: Hallways
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,7 +425,12 @@ Transform:
   m_Children:
   - {fileID: 701080186048287024}
   - {fileID: 1022323488790254454}
+  - {fileID: 1022323488824968074}
+  - {fileID: 1022323487854803563}
   - {fileID: 1022323488507334905}
+  - {fileID: 1022323488460238704}
+  - {fileID: 1022323487338763754}
+  - {fileID: 1022323489068204354}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -458,8 +463,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.607, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1022323488790254454}
-  m_RootOrder: 1
+  m_Father: {fileID: 1022323487577535766}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
 --- !u!108 &1022323487854803561
 Light:
@@ -675,8 +680,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1022323488507334905}
-  m_RootOrder: 0
+  m_Father: {fileID: 1022323487577535766}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &1022323488460238718
 Light:
@@ -873,7 +878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1022323488507334905}
   m_Layer: 0
-  m_Name: Lights N
+  m_Name: -------------Lights N-----------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -889,12 +894,9 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1022323488460238704}
-  - {fileID: 1022323487338763754}
-  - {fileID: 1022323489068204354}
+  m_Children: []
   m_Father: {fileID: 1022323487577535766}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1022323488790254455
 GameObject:
@@ -906,7 +908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1022323488790254454}
   m_Layer: 0
-  m_Name: Lights D
+  m_Name: -------------Lights D-----------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -922,9 +924,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1022323488824968074}
-  - {fileID: 1022323487854803563}
+  m_Children: []
   m_Father: {fileID: 1022323487577535766}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -957,8 +957,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3.086, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1022323488790254454}
-  m_RootOrder: 0
+  m_Father: {fileID: 1022323487577535766}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &1022323488824968072
 Light:
@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_InnerSpotPercent: 33.3
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
-  m_VolumetricDimmer: 2
+  m_VolumetricDimmer: 0.5
   m_LightUnit: 0
   m_FadeDistance: 10000
   m_VolumetricFadeDistance: 10000
@@ -1171,11 +1171,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022323489068204355}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 0.7149998, y: 2.975, z: 0.09200096}
+  m_LocalPosition: {x: 0.7149997, y: 2.975, z: 0.09200096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1022323488507334905}
-  m_RootOrder: 2
+  m_Father: {fileID: 1022323487577535766}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 90}
 --- !u!108 &1022323489068204352
 Light:

@@ -4,11 +4,11 @@ public class Movement : MonoBehaviour
 {
     public CapsuleCollider cap;
     public Vector3 controlInput;
-    public float speed = 200f;
+    
     public Rigidbody rb;
 
-    private float runMaxSpeed = 200f;
-    private float sprintMaxSpeed = 400f;
+    [SerializeField] private float runMaxSpeed = 200f;
+    [SerializeField] private float sprintMaxSpeed = 400f;
     [SerializeField] private float maxSpeed;
     public bool jumpBool;
 
@@ -86,7 +86,7 @@ public class Movement : MonoBehaviour
     private void Jump()
     {
         controlInput.y = jumpForce;
-        rb.velocity = controlInput * speed * Time.fixedDeltaTime; ;
+        //rb.velocity = controlInput * speed * Time.fixedDeltaTime; ;
         jumpBool = false;
         controlInput.y = 0f;
     }

@@ -1,10 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerCharge : MonoBehaviour
 {
+    bool power = false;
     public bool StartingPower;
-    public GameObject[] lightObjects;
+    public GameObject[] Hallways;
+    [SerializeField] List<GameObject> lightHouse = new List<GameObject>();
+
+    public List<GameObject> lightObjects = new List<GameObject>();
 
     [Header("Audio")]
     [SerializeField] private AudioClip dayOn;
@@ -14,19 +19,19 @@ public class PowerCharge : MonoBehaviour
     [SerializeField] private AudioClip nightOff;
 
     [Header("Power On Lights")]
-    public GameObject[] spotLights;
+    public List<GameObject> spotLights = new List<GameObject>();
 
-    public GameObject[] areaLights;
+    public List<GameObject> areaLights = new List<GameObject>();
 
     [Header("Power Off Lights")]
-    public GameObject[] spotLightsUV;
+    public List<GameObject> spotLightsUV = new List<GameObject>();
 
-    public GameObject[] glassLightsRight;
-    public GameObject[] glassLightsLeft;
+    public List<GameObject> glassLightsRight = new List<GameObject>();
+    public List<GameObject> glassLightsLeft = new List<GameObject>();
 
     [Header("Light Materials")]
+    
     public Material lightsOut;
-
     public Material lightsUV;
     public Material lightsOn;
 
@@ -36,7 +41,28 @@ public class PowerCharge : MonoBehaviour
 
     private WaitForSeconds timer;
 
-    public void Start()
+    void Awake()
+    {
+        for (int i = 0; i < Hallways.Length; i++)
+        {
+            //Gets Light prefab that exists on all corridors
+            lightHouse.Add(Hallways[i].gameObject.transform.GetChild(0).gameObject);
+        }
+
+        for (int i = 0; i < lightHouse.Count; i++)
+        {
+            lightObjects.Add(lightHouse[i].gameObject.transform.Find("Light Material").gameObject);
+            //Finds Day Light
+            spotLights.Add(lightHouse[i].gameObject.transform.Find("SpotLightDay").gameObject);
+            areaLights.Add(lightHouse[i].gameObject.transform.Find("AreaLightDay").gameObject);
+            //Finds Night Light
+            spotLightsUV.Add(lightHouse[i].gameObject.transform.Find("SpotLightNight").gameObject);
+            glassLightsRight.Add(lightHouse[i].gameObject.transform.Find("AreaLightRNight").gameObject);
+            glassLightsLeft.Add(lightHouse[i].gameObject.transform.Find("AreaLightLNight").gameObject);
+        }
+    }
+
+    void Start()
     {
         timer = new WaitForSeconds(powerTimer);
     }
@@ -50,11 +76,12 @@ public class PowerCharge : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (StartingPower)
+        if (StartingPower && !power)
         {
             StartCoroutine(PoweringLight());
             StartCoroutine(StartPowerDraw());
             StartingPower = false;
+            power = true;
         }
     }
 
@@ -65,12 +92,13 @@ public class PowerCharge : MonoBehaviour
         yield return timer;
         Debug.Log("Time up");
         StartCoroutine(UnpoweringLights());
+        
         yield break;
     }
 
     private IEnumerator UnpoweringLights()
     {
-        for (int i = spotLights.Length - 1; i >= 0; i--)
+        for (int i = Hallways.Length - 1; i >= 0; i--)
         {
             yield return new WaitForSeconds(0.2f);
 
@@ -99,12 +127,13 @@ public class PowerCharge : MonoBehaviour
 
             yield return new WaitForSeconds(0.3f);
         }
+        power = false;
         yield break;
     }
 
     private IEnumerator PoweringLight()
     {
-        for (int i = 0; i < spotLights.Length; i++)
+        for (int i = 0; i < Hallways.Length; i++)
         {
             yield return new WaitForSeconds(0.2f);
             //Turns off Night Lights and changes light Material
