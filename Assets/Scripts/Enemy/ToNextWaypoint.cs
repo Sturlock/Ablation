@@ -1,5 +1,6 @@
+using System.Collections;
 using UnityEngine;
-
+[HideInInspector]
 public class ToNextWaypoint : MonoBehaviour
 {
     private CharacterAI characterAI;

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
-
+[HideInInspector]
 public class MoveToTarget : MonoBehaviour
 {
     private CharacterAI characterAI;
