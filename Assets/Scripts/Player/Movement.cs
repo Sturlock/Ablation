@@ -48,7 +48,7 @@ public class Movement : MonoBehaviour
             jumpCount++;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             b_Flashlight = !b_Flashlight;
         }
