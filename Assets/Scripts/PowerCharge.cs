@@ -7,9 +7,9 @@ public class PowerCharge : MonoBehaviour, IInteractable
     bool power = false;
     public bool StartingPower;
     public GameObject[] hallways;
-    [SerializeField] List<GameObject> lightHouse = new List<GameObject>();
+    List<GameObject> lightHouse = new List<GameObject>();
 
-    public List<GameObject> lightObjects = new List<GameObject>();
+    List<GameObject> lightObjects = new List<GameObject>();
 
     [Header("Audio")]
     [SerializeField] private AudioClip dayOn;
@@ -19,15 +19,15 @@ public class PowerCharge : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip nightOff;
 
     [Header("Power On Lights")]
-    public List<GameObject> spotLights = new List<GameObject>();
+    List<GameObject> spotLights = new List<GameObject>();
 
-    public List<GameObject> areaLights = new List<GameObject>();
+    List<GameObject> areaLights = new List<GameObject>();
 
     [Header("Power Off Lights")]
-    public List<GameObject> spotLightsUV = new List<GameObject>();
+    List<GameObject> spotLightsUV = new List<GameObject>();
 
-    public List<GameObject> glassLightsRight = new List<GameObject>();
-    public List<GameObject> glassLightsLeft = new List<GameObject>();
+    List<GameObject> glassLightsRight = new List<GameObject>();
+    List<GameObject> glassLightsLeft = new List<GameObject>();
 
     [Header("Light Materials")]
     
@@ -73,17 +73,6 @@ public class PowerCharge : MonoBehaviour, IInteractable
         set => StartingPower = value;
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (StartingPower && !power)
-        {
-            StartCoroutine(PoweringLight());
-            StartCoroutine(StartPowerDraw());
-            StartingPower = false;
-            power = true;
-        }
-    }
     public void Interact(PlayerInteract script)
     {
         StartCoroutine(PoweringLight());
