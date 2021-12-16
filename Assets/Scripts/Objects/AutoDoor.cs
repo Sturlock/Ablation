@@ -11,14 +11,15 @@ public class AutoDoor : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Monster"))
         {
             ani.SetBool("Open", true);
         }
+        
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Monster"))
         {
             ani.SetBool("Open", false);
         }

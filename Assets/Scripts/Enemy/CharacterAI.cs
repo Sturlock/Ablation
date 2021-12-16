@@ -95,9 +95,9 @@ public class CharacterAI : MonoBehaviour
         if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
         {
             Debug.Log("Destination: True");
-            return hit.position;
+            return pos + rad;
         }
-        return pos + rad;
+        return hit.position;
     }
 
     public Vector3 GetTargetPosition(Vector3 targetPos)
@@ -171,15 +171,15 @@ public class CharacterAI : MonoBehaviour
         }
         if (other.tag == "SOUND")
         {
-            Debug.Log("SOUND");
-            target = other.gameObject;
-            heard = true;
+//             Debug.Log("SOUND");
+//             target = other.gameObject;
+//             heard = true;
         }
         if (other.tag == "Door")
         {
-            Debug.Log("DOOR");
-            target = other.gameObject;
-            heard = true;
+            //Debug.Log("DOOR");
+            //target = other.gameObject;
+            //heard = true;
         }
         //else Debug.Log("Not Sound");
     }

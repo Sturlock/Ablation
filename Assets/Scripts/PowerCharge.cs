@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PowerCharge : MonoBehaviour, IInteractable
 {
-    bool power = false;
-    public bool StartingPower;
+    public bool power;
     public GameObject[] hallways;
     List<GameObject> lightHouse = new List<GameObject>();
 
@@ -69,14 +68,15 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     public bool GeneratorBool
     {
-        get => StartingPower;
-        set => StartingPower = value;
+        get => power;
+        set => power = value;
     }
 
     public void Interact(PlayerInteract script)
     {
         StartCoroutine(PoweringLight());
         StartCoroutine(StartPowerDraw());
+        power = true;
     }
 
     public void Action(PlayerInteract script)
