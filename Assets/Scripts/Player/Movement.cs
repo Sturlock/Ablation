@@ -18,6 +18,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpForce = 20;
     private bool sprintBool;
 
+    public bool b_Flashlight = false;
+    public Light o_Flashlight;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -44,6 +47,11 @@ public class Movement : MonoBehaviour
 
             jumpCount++;
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            b_Flashlight = !b_Flashlight;
+        }
     }
 
     private void FixedUpdate()
@@ -58,7 +66,8 @@ public class Movement : MonoBehaviour
         {
             //Jump();
         }
-
+        if (b_Flashlight) o_Flashlight.enabled = true;
+        else o_Flashlight.enabled = false;
         if (sprintBool)
         {
             maxSpeed = sprintMaxSpeed;
@@ -67,6 +76,8 @@ public class Movement : MonoBehaviour
         Vector2 inputVelocity = new Vector2(controlInput.x * maxSpeed * Time.fixedDeltaTime,
             controlInput.z * maxSpeed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
+
+
 // Code moved to Player Interact as it is more appropriate there
 //         RaycastHit hit;
 //         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 3f))

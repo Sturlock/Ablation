@@ -14,6 +14,7 @@ TagManager:
   - Stairs
   - Hallways
   - Intractable
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -28,8 +29,6 @@ TagManager:
   - 
   - Tools
   - Monster
-  - 
-  - 
   - 
   - 
   - 
