@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerCharge : MonoBehaviour
+public class PowerCharge : MonoBehaviour, IInteractable
 {
     bool power = false;
     public bool StartingPower;
-    public GameObject[] Hallways;
+    public GameObject[] hallways;
     [SerializeField] List<GameObject> lightHouse = new List<GameObject>();
 
     public List<GameObject> lightObjects = new List<GameObject>();
@@ -43,10 +43,10 @@ public class PowerCharge : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 0; i < Hallways.Length; i++)
+        for (int i = 0; i < hallways.Length; i++)
         {
             //Gets Light prefab that exists on all corridors
-            lightHouse.Add(Hallways[i].gameObject.transform.GetChild(0).gameObject);
+            lightHouse.Add(hallways[i].gameObject.transform.GetChild(0).gameObject);
         }
 
         for (int i = 0; i < lightHouse.Count; i++)
@@ -84,7 +84,16 @@ public class PowerCharge : MonoBehaviour
             power = true;
         }
     }
+    public void Interact(PlayerInteract script)
+    {
+        StartCoroutine(PoweringLight());
+        StartCoroutine(StartPowerDraw());
+    }
 
+    public void Action(PlayerInteract script)
+    {
+        throw new System.NotImplementedException();
+    }
     private IEnumerator StartPowerDraw()
     {
         var tim = timer.ToString();
@@ -98,7 +107,7 @@ public class PowerCharge : MonoBehaviour
 
     private IEnumerator UnpoweringLights()
     {
-        for (int i = Hallways.Length - 1; i >= 0; i--)
+        for (int i = hallways.Length - 1; i >= 0; i--)
         {
             yield return new WaitForSeconds(0.2f);
 
@@ -133,7 +142,7 @@ public class PowerCharge : MonoBehaviour
 
     private IEnumerator PoweringLight()
     {
-        for (int i = 0; i < Hallways.Length; i++)
+        for (int i = 0; i < hallways.Length; i++)
         {
             yield return new WaitForSeconds(0.2f);
             //Turns off Night Lights and changes light Material
@@ -167,4 +176,6 @@ public class PowerCharge : MonoBehaviour
         }
         yield break;
     }
+
+    
 }

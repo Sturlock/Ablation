@@ -11,6 +11,7 @@ public class PlayerInteract : MonoBehaviour
     public float m_ThrowForce = 50;
 
     private RaycastHit m_RaycastFocus;
+    [SerializeField]
     private bool m_CanInteract = false;
 
 
@@ -22,7 +23,7 @@ public class PlayerInteract : MonoBehaviour
     private void Update()
     {
         // Has interact button been pressed whilst interactable object is in front of player?
-        if (Input.GetButtonDown("Fire1") && m_CanInteract)
+        if (Input.GetButtonDown("Interact") && m_CanInteract)
         {
             IInteractable interactComponent = m_RaycastFocus.collider.transform.GetComponent<IInteractable>();
 
@@ -43,7 +44,7 @@ public class PlayerInteract : MonoBehaviour
             if (interactComponent != null)
             {
                 // Perform object's action
-                interactComponent.Action(this);
+                //interactComponent.Action(this);
             }
         }
     }
@@ -51,9 +52,9 @@ public class PlayerInteract : MonoBehaviour
     private void FixedUpdate()
     {
         Ray ray = new Ray(m_CameraTransform.transform.position, m_CameraTransform.transform.forward);
-
-        // Is interactable object detected in front of player?
-        if (Physics.Raycast(ray, out m_RaycastFocus, 3) && (m_RaycastFocus.collider.transform.tag == "Intractable" || m_RaycastFocus.collider.transform.tag == "Cup" || m_RaycastFocus.collider.transform.tag == "Simon"))
+        Debug.DrawRay(m_CameraTransform.transform.localPosition, m_CameraTransform.transform.forward, Color.gray);
+        // Is interactable object detected in front of player? 
+        if (Physics.Raycast(ray, out m_RaycastFocus, 3) && (m_RaycastFocus.collider.transform.tag == "Intractable"))
         {
             //m_CursorImage.color = Color.green;
             m_CanInteract = true;
