@@ -9,7 +9,7 @@ public class CharacterAI : MonoBehaviour
     private ToNextWaypoint moveWaypoint;
     private MoveToTarget moveTarget;
     [SerializeField] private Vector3 destination;
-    private float destinationThreshold = 0.1f;
+    private float destinationThreshold = 1f;
     private bool doOnce = false;
     public bool atDestination = true;
     public bool heard;
@@ -106,7 +106,7 @@ public class CharacterAI : MonoBehaviour
         Vector3 rad = Random.Range(1f, 12f) * Random.insideUnitSphere;
         rad.y = 0;
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(pos + rad, out hit, .1f, NavMesh.AllAreas))
         {
             Debug.Log("Destination: True");
             return hit.position;
@@ -123,7 +123,7 @@ public class CharacterAI : MonoBehaviour
         moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
         atDestination = true;
-        //moveWaypoint.WaypointStart();
+        destination = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -166,18 +166,18 @@ public class CharacterAI : MonoBehaviour
         if (other.tag == "Player")
         {
             Debug.Log("PLAYER");
-            target = other.gameObject;
-            heard = true;
+//             target = other.gameObject;
+//             heard = true;
         }
         if (other.tag == "SOUND")
         {
-//             Debug.Log("SOUND");
+            Debug.Log("SOUND");
 //             target = other.gameObject;
 //             heard = true;
         }
         if (other.tag == "Door")
         {
-            //Debug.Log("DOOR");
+            Debug.Log("DOOR");
             //target = other.gameObject;
             //heard = true;
         }
