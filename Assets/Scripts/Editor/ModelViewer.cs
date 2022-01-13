@@ -11,6 +11,15 @@ public class ModelViewer : EditorWindow
     GameObject gameObject;
     [SerializeField]
     GameObject viewableModel;
+
+    string doorButton = "Door";
+    string normalButton = "Normal";
+
+    bool doorBool = false;
+    bool normalBool = false;
+
+    HallType rightHall;
+    HallType leftHall;
     
 
     static ModelViewer window;
@@ -22,7 +31,7 @@ public class ModelViewer : EditorWindow
         {
             window.autoRepaintOnSceneChange = true;
             window.Show();
-            window.InitCam();
+            //window.InitCam();
         }
         else
         {
@@ -51,9 +60,9 @@ public class ModelViewer : EditorWindow
     {
         if (cam != null) 
         {
-            cam.targetTexture = renderTexture;
-            cam.Render();
-            cam.targetTexture = null;
+            //cam.targetTexture = renderTexture;
+            //cam.Render();
+            //cam.targetTexture = null;
         }
         else
         {
@@ -68,6 +77,17 @@ public class ModelViewer : EditorWindow
     {
         GUILayout.Label("Model Viewer", EditorStyles.boldLabel);
         viewableModel = EditorGUILayout.ObjectField("Model", viewableModel, typeof(GameObject), true) as GameObject;
-        GUI.DrawTexture(new Rect(0f, 0f, position.width, position.width), renderTexture);
+        //GUI.DrawTexture(new Rect(0f, 0f, position.width, position.width), renderTexture);
+
+        if (GUILayout.Button(normalButton))
+        {
+
+        }
     }
+}
+
+public enum HallType
+{
+    Door,
+    Normal
 }
