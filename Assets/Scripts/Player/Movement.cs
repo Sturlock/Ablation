@@ -77,22 +77,22 @@ public class Movement : MonoBehaviour
             controlInput.z * maxSpeed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
 
-
-// Code moved to Player Interact as it is more appropriate there
-//         RaycastHit hit;
-//         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 3f))
-//         {
-//             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.red);
-//             if (hit.transform.tag == "Generator")
-//             {
-//                 if (Input.GetKey(KeyCode.F))
-//                 {
-//                     PowerCharge powercharge = hit.transform.gameObject.GetComponent<PowerCharge>();
-//                     powercharge.GeneratorBool = true;
-//                 }
-//             }
-//         }
-   
+        #region removed code
+        // Code moved to Player Interact as it is more appropriate there
+        //         RaycastHit hit;
+        //         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 3f))
+        //         {
+        //             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.red);
+        //             if (hit.transform.tag == "Generator")
+        //             {
+        //                 if (Input.GetKey(KeyCode.F))
+        //                 {
+        //                     PowerCharge powercharge = hit.transform.gameObject.GetComponent<PowerCharge>();
+        //                     powercharge.GeneratorBool = true;
+        //                 }
+        //             }
+        //         }
+        #endregion
     }
 
     private void Jump()

@@ -81,7 +81,8 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     public void Action(PlayerInteract script)
     {
-        throw new System.NotImplementedException();
+        StopAllCoroutines();
+        StartCoroutine(UnpoweringLights());
     }
     private IEnumerator StartPowerDraw()
     {

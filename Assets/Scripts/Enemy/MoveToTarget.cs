@@ -4,39 +4,35 @@ using UnityEngine.AI;
 public class MoveToTarget : MonoBehaviour
 {
     private CharacterAI characterAI;
-    [SerializeField] private NavMeshPath navMeshPath;
-
+    private Vector3 targetpos = Vector3.zero;
+    private void OnDrawGizmos()
+    {
+       Gizmos.DrawLine(characterAI.transform.position, targetpos);
+    }
     private void Start()
     {
         characterAI = GetComponent<CharacterAI>();
-        navMeshPath = new NavMeshPath();
     }
 
     public void ToDestination(GameObject target)
     {
-        Vector3 targetpos = target.transform.position;
+        targetpos = target.transform.position;
         RaycastHit hit;
-        NavMesh.CalculatePath(characterAI.transform.position, targetpos, NavMesh.AllAreas, navMeshPath);
-
-        if (navMeshPath.corners.Length > 40f)
-        {
-            if (Physics.Raycast(characterAI.transform.position, -targetpos, out hit, 20f))
+        if (Physics.Raycast(characterAI.transform.position, -targetpos, out hit))
+        { 
+            Debug.DrawRay(characterAI.transform.position, targetpos, Color.blue);
+            if (target.CompareTag(hit.collider.tag))
             {
-                Debug.DrawRay(characterAI.transform.position, targetpos);
-                if (target.CompareTag(hit.collider.tag))
-                {
-                    characterAI.Destination = targetpos;
-                    return;
-                }
-                if (!target.CompareTag(hit.collider.tag))
-                {
-                    targetpos = characterAI.GetTargetPosition(targetpos);
-                    characterAI.Destination = targetpos;
-                    return;
-                }
+                characterAI.Destination = targetpos;
+                return;
+            }
+            if (!target.CompareTag(hit.collider.tag))
+            {
+                targetpos = characterAI.GetTargetPosition(targetpos);
+                characterAI.Destination = targetpos;
+                return;
             }
         }
-        navMeshPath.ClearCorners();
         return;
     }
 }

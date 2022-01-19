@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Camera m_CameraTransform = null;
-    public Transform m_HandTransform = null;
     [SerializeField] private Image m_CursorImage = null;
-    public float m_ThrowForce = 50;
 
     private RaycastHit m_RaycastFocus;
     [SerializeField]

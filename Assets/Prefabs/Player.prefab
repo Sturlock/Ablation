@@ -32,7 +32,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8113079212316738108}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -46.28, y: 1.071, z: 39.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -135,12 +135,14 @@ MonoBehaviour:
   cap: {fileID: 8113079212316738098}
   controlInput: {x: 0, y: 0, z: 0}
   rb: {fileID: 8113079212316738097}
-  runMaxSpeed: 200
-  sprintMaxSpeed: 400
+  runMaxSpeed: 100
+  sprintMaxSpeed: 200
   maxSpeed: 0
   jumpBool: 0
   jumpCount: 0
   jumpForce: 20
+  b_Flashlight: 0
+  o_Flashlight: {fileID: 0}
 --- !u!114 &8113079212316738111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,9 +171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CameraTransform: {fileID: 0}
-  m_HandTransform: {fileID: 0}
   m_CursorImage: {fileID: 0}
-  m_ThrowForce: 50
+  m_CanInteract: 0
 --- !u!82 &8113079212316738110
 AudioSource:
   m_ObjectHideFlags: 0
@@ -323,8 +324,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8113079214255819608}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.996, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.529, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8113079212316738101}

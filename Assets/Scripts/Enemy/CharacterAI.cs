@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 public class CharacterAI : MonoBehaviour
 {
+    private Vector3 currentPos;
+    [SerializeField]
+    private float killRad = 1f;
     private NavMeshAgent navMeshAgent;
     private GameObject target;
     private ToNextWaypoint moveWaypoint;
@@ -29,6 +32,9 @@ public class CharacterAI : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, destination);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(gameObject.transform.position, killRad);
     }
 
     #endregion Gizmos
@@ -95,9 +101,9 @@ public class CharacterAI : MonoBehaviour
         if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
         {
             Debug.Log("Destination: True");
-            return pos + rad;
+            return hit.position;
         }
-        return hit.position;
+        return pos + rad;
     }
 
     public Vector3 GetTargetPosition(Vector3 targetPos)
@@ -119,6 +125,7 @@ public class CharacterAI : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        
         navMeshAgent = GetComponent<NavMeshAgent>();
         moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
@@ -142,32 +149,56 @@ public class CharacterAI : MonoBehaviour
                 WaypointCheck();
             }
         }
-        Vector2 distance = new Vector2(gameObject.transform.position.x - destination.x, gameObject.transform.position.z - destination.z);
-        //Debug.Log(distance.magnitude);
-        if (distance.magnitude > destinationThreshold)
-            atDestination = false;
-        else atDestination = true;
-        if (!atDestination)
-            navMeshAgent.SetDestination(destination);
-
         if (heard && atDestination)
         {
             heard = false;
         }
+        Vector2 distance = new Vector2(gameObject.transform.position.x - destination.x, gameObject.transform.position.z - destination.z);
+        AtDestination(distance);
+    }
+    private void FixedUpdate()
+    {
+        currentPos = transform.position;
+    }
+
+    private void AtDestination(Vector2 distance)
+    {
+        if (distance.magnitude > destinationThreshold)
+            atDestination = false;
+        else 
+        { 
+            atDestination = true;
+            Kill();
+        }
+        if (!atDestination)
+            navMeshAgent.SetDestination(destination);
     }
 
     private void WaypointCheck()
     {
         moveWaypoint.MovetoWaypoint();
     }
-
+    void Kill()
+    {
+        RaycastHit hit;
+        if(Physics.CheckSphere(currentPos, killRad))
+        {
+            if(Physics.SphereCast(currentPos, killRad, Vector3.forward, out hit))
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    Debug.Log("Kill Player");   
+                }
+            }
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
             Debug.Log("PLAYER");
-//             target = other.gameObject;
-//             heard = true;
+            target = other.gameObject;
+            heard = true;
         }
         if (other.tag == "SOUND")
         {
@@ -183,4 +214,14 @@ public class CharacterAI : MonoBehaviour
         }
         //else Debug.Log("Not Sound");
     }
+    private void OnTriggerStay(Collider other)
+    {
+        //if (other.tag == "Player")
+        //{
+        //    Debug.Log("PLAYER");
+        //    target = other.gameObject;
+        //    heard = true;
+        //}
+    }
+
 }

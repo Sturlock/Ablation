@@ -20,18 +20,18 @@ public class Mouse_Look : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (!ShowHideUI.Retract)
-        {
+        //if (!ShowHideUI.Retract)
+        //{
             transform.rotation = Quaternion.Euler(0f, pOV.m_HorizontalAxis.Value, 0f);
-        }
+        //}
 
-        if (!ShowHideUI.Retract)
-        {
-            pOV.enabled = true;
-        }
-        else
-        {
-            pOV.enabled = false;
-        }
+        //if (!ShowHideUI.Retract)
+        //{
+        //    pOV.enabled = true;
+        //}
+        //else
+        //{
+        //    pOV.enabled = false;
+        //}
     }
 }
