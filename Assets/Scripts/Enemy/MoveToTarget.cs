@@ -4,35 +4,45 @@ using UnityEngine.AI;
 public class MoveToTarget : MonoBehaviour
 {
     private CharacterAI characterAI;
-    private Vector3 targetpos = Vector3.zero;
+    private Vector3 targetPos = Vector3.zero;
+    private NavMeshPath path = null;
+    
     private void OnDrawGizmos()
     {
-       Gizmos.DrawLine(characterAI.transform.position, targetpos);
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(characterAI.transform.position, targetPos);
+        Gizmos.DrawWireSphere(characterAI.transform.position, 30f);
     }
-    private void Start()
+    void Start()
     {
         characterAI = GetComponent<CharacterAI>();
+        path = new NavMeshPath();
     }
 
-    public void ToDestination(GameObject target)
+    public void ToDestination(GameObject target, NavMeshAgent agent)
     {
-        targetpos = target.transform.position;
+        targetPos = target.transform.position;
+        agent.CalculatePath(targetPos, path);
+        float pathLenth = path.Length();
+        Vector3 targetDirection = characterAI.transform.position.Direction(targetPos);
         RaycastHit hit;
-        if (Physics.Raycast(characterAI.transform.position, -targetpos, out hit))
-        { 
-            Debug.DrawRay(characterAI.transform.position, targetpos, Color.blue);
-            if (target.CompareTag(hit.collider.tag))
+        if (Physics.Raycast(characterAI.transform.position, targetDirection, out hit))
+        {
+            if (pathLenth < 30f)
             {
-                characterAI.Destination = targetpos;
-                return;
-            }
-            if (!target.CompareTag(hit.collider.tag))
-            {
-                targetpos = characterAI.GetTargetPosition(targetpos);
-                characterAI.Destination = targetpos;
-                return;
+                Debug.DrawRay(characterAI.transform.position, targetDirection, Color.blue);
+                if (target.CompareTag(hit.collider.tag))
+                {
+                    characterAI.Destination = targetPos;
+                    
+                }
+                else if (!target.CompareTag(hit.collider.tag))
+                {
+                    targetPos = characterAI.GetTargetPosition(targetPos);
+                    characterAI.Destination = targetPos;
+                    
+                }
             }
         }
-        return;
     }
 }

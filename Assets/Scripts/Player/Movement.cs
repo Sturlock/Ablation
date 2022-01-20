@@ -4,7 +4,7 @@ public class Movement : MonoBehaviour
 {
     public CapsuleCollider cap;
     public Vector3 controlInput;
-    
+
     public Rigidbody rb;
 
     [SerializeField] private float runMaxSpeed = 200f;
@@ -17,15 +17,26 @@ public class Movement : MonoBehaviour
 
     [SerializeField] private float jumpForce = 20;
     private bool sprintBool;
+    
 
     public bool b_Flashlight = false;
     public Light o_Flashlight;
 
+    [Header("Detection Settings"), Space]
+    float detectRange = 0;
+    [SerializeField] LayerMask layerMask;
+    [SerializeField] SphereCollider sphere;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(transform.position, detectRange);
+    }
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         cap = GetComponent<CapsuleCollider>();
+        sphere = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
@@ -52,6 +63,17 @@ public class Movement : MonoBehaviour
         {
             b_Flashlight = !b_Flashlight;
         }
+        if(controlInput != Vector3.zero)
+        {
+            sphere.enabled = true;
+            if (sprintBool) detectRange = 5;
+            else detectRange = 2;
+        }
+        else
+        {
+            sphere.enabled = false;
+            detectRange = 0;
+        }
     }
 
     private void FixedUpdate()
@@ -76,6 +98,8 @@ public class Movement : MonoBehaviour
         Vector2 inputVelocity = new Vector2(controlInput.x * maxSpeed * Time.fixedDeltaTime,
             controlInput.z * maxSpeed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
+
+        sphere.radius = detectRange;
 
         #region removed code
         // Code moved to Player Interact as it is more appropriate there

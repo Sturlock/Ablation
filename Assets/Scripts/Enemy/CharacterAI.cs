@@ -35,6 +35,16 @@ public class CharacterAI : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(gameObject.transform.position, killRad);
+
+        Gizmos.color = Color.magenta;
+        if (navMeshAgent != null && navMeshAgent.path != null && navMeshAgent.path.corners != null)
+        {
+            for(int i = 0; i < navMeshAgent.path.corners.Length -1; i++)
+            {
+                Gizmos.DrawLine(navMeshAgent.path.corners[i], navMeshAgent.path.corners[i + 1]);
+            }
+        }
+        
     }
 
     #endregion Gizmos
@@ -103,7 +113,9 @@ public class CharacterAI : MonoBehaviour
             Debug.Log("Destination: True");
             return hit.position;
         }
-        return pos + rad;
+        return GetWaypointPosition(id);
+
+
     }
 
     public Vector3 GetTargetPosition(Vector3 targetPos)
@@ -138,7 +150,7 @@ public class CharacterAI : MonoBehaviour
     {
         if (heard)
         {
-            moveTarget.ToDestination(target);
+            moveTarget.ToDestination(target, navMeshAgent);
             heard = false;
             return;
         }
@@ -171,7 +183,11 @@ public class CharacterAI : MonoBehaviour
             Kill();
         }
         if (!atDestination)
+        {
+            
             navMeshAgent.SetDestination(destination);
+        }
+            
     }
 
     private void WaypointCheck()
@@ -183,11 +199,15 @@ public class CharacterAI : MonoBehaviour
         RaycastHit hit;
         if(Physics.CheckSphere(currentPos, killRad))
         {
-            if(Physics.SphereCast(currentPos, killRad, Vector3.forward, out hit))
+            Vector3 direction = transform.position.Direction(target.transform.position);
+            
+            if(Physics.Raycast(currentPos, direction, out hit, killRad))
             {
-                if (hit.collider.gameObject.CompareTag("Player"))
+                Debug.DrawRay(currentPos, direction, Color.cyan);
+                GameObject hitObj = hit.collider.gameObject;
+                if (hitObj.CompareTag("Player"))
                 {
-                    Debug.Log("Kill Player");   
+                        Debug.Log("Kill Player");
                 }
             }
         }
@@ -196,9 +216,13 @@ public class CharacterAI : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("PLAYER");
-            target = other.gameObject;
-            heard = true;
+            if (other.gameObject.GetComponent<SphereCollider>().enabled == true)
+            {
+                Debug.Log("PLAYER");
+                target = other.gameObject;
+                heard = true;
+            }
+                
         }
         if (other.tag == "SOUND")
         {

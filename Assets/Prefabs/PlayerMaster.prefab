@@ -181,7 +181,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.773057, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
     Iso: 200
     ShutterSpeed: 0.005
     Aperture: 16
@@ -697,6 +697,10 @@ PrefabInstance:
       propertyPath: o_Flashlight
       value: 
       objectReference: {fileID: 1941158915432116969}
+    - target: {fileID: 8113079212316738096, guid: cf47068db7061fb4ca1e949aee5bf7aa, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 4104
+      objectReference: {fileID: 0}
     - target: {fileID: 8113079212316738101, guid: cf47068db7061fb4ca1e949aee5bf7aa, type: 3}
       propertyPath: m_RootOrder
       value: 1
