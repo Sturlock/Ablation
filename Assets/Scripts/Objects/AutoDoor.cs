@@ -1,27 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoDoor : MonoBehaviour
 {
-    Animator ani;
-    void Awake()
+    [SerializeField] private Animator ani;
+    [SerializeField] private bool doorOpen;
+    [SerializeField] private GameObject target;
+
+    private void Awake()
     {
         ani = GetComponentInChildren<Animator>();
     }
-    void OnTriggerEnter(Collider other)
+
+    private void Update()
     {
-        if (other.CompareTag("Player") || other.CompareTag("Monster"))
+        if (doorOpen)
         {
             ani.SetBool("Open", true);
         }
-        
-    }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Monster"))
+        else
         {
             ani.SetBool("Open", false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        target = other.gameObject;
+        if (other.CompareTag("Player") || other.CompareTag("Monster"))
+        {
+            doorOpen = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        target = null;
+        if (other.CompareTag("Player") || other.CompareTag("Monster"))
+        {
+            doorOpen = false;
         }
     }
 }
