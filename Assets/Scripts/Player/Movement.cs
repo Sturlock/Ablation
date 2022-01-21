@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
 
     [SerializeField] private float jumpForce = 20;
     private bool sprintBool;
+    private bool crouchBool;
     
 
     public bool b_Flashlight = false;
@@ -59,15 +60,26 @@ public class Movement : MonoBehaviour
             jumpCount++;
         }
 
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            crouchBool = true;
+        }
+        else crouchBool = false;
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             b_Flashlight = !b_Flashlight;
         }
-        if(controlInput != Vector3.zero)
+        if(controlInput != Vector3.zero && !crouchBool)
         {
             sphere.enabled = true;
             if (sprintBool) detectRange = 5;
             else detectRange = 2;
+        }
+        else if (controlInput != Vector3.zero && crouchBool)
+        {
+            sphere.enabled = false;
+            detectRange = 0;
         }
         else
         {

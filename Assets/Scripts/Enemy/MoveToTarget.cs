@@ -6,13 +6,19 @@ public class MoveToTarget : MonoBehaviour
     private CharacterAI characterAI;
     private Vector3 targetPos = Vector3.zero;
     private NavMeshPath path = null;
-    
-    private void OnDrawGizmos()
+
+private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawLine(characterAI.transform.position, targetPos);
-        Gizmos.DrawWireSphere(characterAI.transform.position, 30f);
+        if (Application.isPlaying)
+        {
+            Gizmos.DrawLine(characterAI.transform.position, targetPos);
+            Gizmos.DrawWireSphere(characterAI.transform.position, 30f);
+        }
+        
     }
+
+
     void Start()
     {
         characterAI = GetComponent<CharacterAI>();
@@ -28,7 +34,7 @@ public class MoveToTarget : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(characterAI.transform.position, targetDirection, out hit))
         {
-            if (pathLenth < 30f)
+            if (pathLenth < characterAI.MaxPathLenght)
             {
                 Debug.DrawRay(characterAI.transform.position, targetDirection, Color.blue);
                 if (target.CompareTag(hit.collider.tag))

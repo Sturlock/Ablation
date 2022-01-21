@@ -5,8 +5,10 @@ using UnityEngine.AI;
 public class CharacterAI : MonoBehaviour
 {
     private Vector3 currentPos;
+
     [SerializeField]
     private float killRad = 1f;
+
     private NavMeshAgent navMeshAgent;
     private GameObject target;
     private ToNextWaypoint moveWaypoint;
@@ -20,6 +22,7 @@ public class CharacterAI : MonoBehaviour
     [Header("Waypoints"), Space]
     [SerializeField] private bool waypoint_bool;
 
+    private float maxPathLenght = 50f;
     [SerializeField] private bool loop;
     [SerializeField] private bool randomWaypoint;
     [SerializeField] private List<Waypoint> waypoints = new List<Waypoint>();
@@ -39,12 +42,11 @@ public class CharacterAI : MonoBehaviour
         Gizmos.color = Color.magenta;
         if (navMeshAgent != null && navMeshAgent.path != null && navMeshAgent.path.corners != null)
         {
-            for(int i = 0; i < navMeshAgent.path.corners.Length -1; i++)
+            for (int i = 0; i < navMeshAgent.path.corners.Length - 1; i++)
             {
                 Gizmos.DrawLine(navMeshAgent.path.corners[i], navMeshAgent.path.corners[i + 1]);
             }
         }
-        
     }
 
     #endregion Gizmos
@@ -99,6 +101,12 @@ public class CharacterAI : MonoBehaviour
         set => loop = value;
     }
 
+    public float MaxPathLenght
+    {
+        get => maxPathLenght;
+        set => maxPathLenght = value;
+    }
+
     public Vector3 GetWaypointPosition(int id)
     {
         Waypoint waypoint = waypoints[id];
@@ -114,8 +122,6 @@ public class CharacterAI : MonoBehaviour
             return hit.position;
         }
         return GetWaypointPosition(id);
-
-
     }
 
     public Vector3 GetTargetPosition(Vector3 targetPos)
@@ -137,7 +143,6 @@ public class CharacterAI : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        
         navMeshAgent = GetComponent<NavMeshAgent>();
         moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
@@ -168,6 +173,7 @@ public class CharacterAI : MonoBehaviour
         Vector2 distance = new Vector2(gameObject.transform.position.x - destination.x, gameObject.transform.position.z - destination.z);
         AtDestination(distance);
     }
+
     private void FixedUpdate()
     {
         currentPos = transform.position;
@@ -177,41 +183,43 @@ public class CharacterAI : MonoBehaviour
     {
         if (distance.magnitude > destinationThreshold)
             atDestination = false;
-        else 
-        { 
+        else
+        {
             atDestination = true;
             Kill();
         }
         if (!atDestination)
         {
-            
             navMeshAgent.SetDestination(destination);
         }
-            
     }
 
     private void WaypointCheck()
     {
         moveWaypoint.MovetoWaypoint();
     }
-    void Kill()
+
+    private void Kill()
     {
         RaycastHit hit;
-        if(Physics.CheckSphere(currentPos, killRad))
+        if (target != null)
         {
             Vector3 direction = transform.position.Direction(target.transform.position);
-            
-            if(Physics.Raycast(currentPos, direction, out hit, killRad))
+            if (Physics.Raycast(currentPos, direction, out hit, killRad))
             {
                 Debug.DrawRay(currentPos, direction, Color.cyan);
                 GameObject hitObj = hit.collider.gameObject;
                 if (hitObj.CompareTag("Player"))
                 {
-                        Debug.Log("Kill Player");
+                    Debug.Log("Kill Player");
                 }
             }
         }
+        
+
+        
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -222,13 +230,12 @@ public class CharacterAI : MonoBehaviour
                 target = other.gameObject;
                 heard = true;
             }
-                
         }
         if (other.tag == "SOUND")
         {
             Debug.Log("SOUND");
-//             target = other.gameObject;
-//             heard = true;
+            //             target = other.gameObject;
+            //             heard = true;
         }
         if (other.tag == "Door")
         {
@@ -238,6 +245,7 @@ public class CharacterAI : MonoBehaviour
         }
         //else Debug.Log("Not Sound");
     }
+
     private void OnTriggerStay(Collider other)
     {
         //if (other.tag == "Player")
@@ -247,5 +255,4 @@ public class CharacterAI : MonoBehaviour
         //    heard = true;
         //}
     }
-
 }
