@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
@@ -20,24 +20,25 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpForce = 20;
     [SerializeField] private bool sprintBool;
     [SerializeField] private bool crouchBool;
-    
 
     public bool b_Flashlight = false;
     public Light o_Flashlight;
 
     [Header("Detection Settings")]
-    [SerializeField] float detectRange = 0;
-    [SerializeField] LayerMask layerMask;
-    [SerializeField] SphereCollider sphere;
+    [SerializeField] private float detectRange = 0;
+
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private SphereCollider sphere;
 
     [Header("Debug")]
-    [SerializeField]TextMeshProUGUI text;
-    
+    [SerializeField] private TextMeshProUGUI text;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(transform.position, detectRange);
     }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -46,12 +47,11 @@ public class Movement : MonoBehaviour
         sphere = GetComponent<SphereCollider>();
     }
 
-    
-
     // Update is called once per frame
     private void Update()
     {
         #region Movement Inputs
+
         controlInput = Vector3.zero;
         controlInput += Input.GetAxisRaw("Horizontal") * transform.right;
         controlInput += Input.GetAxisRaw("Vertical") * transform.forward;
@@ -74,16 +74,18 @@ public class Movement : MonoBehaviour
             crouchBool = true;
         }
         else crouchBool = false;
-#endregion
+
+        #endregion Movement Inputs
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             b_Flashlight = !b_Flashlight;
         }
-       
+
         DetectingPlayer();
 
         #region DEBUG
+
 #if UNITY_EDITOR
         if (sprintBool)
         {
@@ -98,7 +100,8 @@ public class Movement : MonoBehaviour
             text.text = "RUNNING";
         }
 #endif
-#endregion
+
+        #endregion DEBUG
     }
 
     private void FixedUpdate()
@@ -113,11 +116,10 @@ public class Movement : MonoBehaviour
         {
             //Jump();
         }
-        
-        
+
         if (b_Flashlight) o_Flashlight.enabled = true;
         else o_Flashlight.enabled = false;
-        
+
         if (sprintBool)
         {
             maxSpeed = sprintMaxSpeed;
@@ -127,8 +129,7 @@ public class Movement : MonoBehaviour
             maxSpeed = crouchingSpeed;
         }
         else maxSpeed = runMaxSpeed;
-        
-        
+
         Vector2 inputVelocity = new Vector2(controlInput.x * maxSpeed * Time.fixedDeltaTime,
             controlInput.z * maxSpeed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
@@ -136,6 +137,7 @@ public class Movement : MonoBehaviour
         sphere.radius = detectRange;
 
         #region removed code
+
         // Code moved to Player Interact as it is more appropriate there
         //         RaycastHit hit;
         //         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 3f))
@@ -150,7 +152,8 @@ public class Movement : MonoBehaviour
         //                 }
         //             }
         //         }
-        #endregion
+
+        #endregion removed code
     }
 
     private void Jump()
@@ -160,13 +163,14 @@ public class Movement : MonoBehaviour
         jumpBool = false;
         controlInput.y = 0f;
     }
+
     private void DetectingPlayer()
     {
         if (controlInput != Vector3.zero && !crouchBool)
         {
             sphere.enabled = true;
-            if (sprintBool) detectRange = 5;
-            else detectRange = 2;
+            if (sprintBool) detectRange = 10;
+            else detectRange = 4;
         }
         else if (controlInput != Vector3.zero && crouchBool)
         {

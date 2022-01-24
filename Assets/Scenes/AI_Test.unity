@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2736.1465, g: 2733.6523, b: 3842.586, a: 1}
+  m_IndirectSpecularColor: {r: 2738.043, g: 2735.379, b: 3821.8828, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -804,7 +804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3335964668962284555, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.9
+      value: 17.04
       objectReference: {fileID: 0}
     - target: {fileID: 3335964668962284555, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -863,6 +863,30 @@ PrefabInstance:
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3335964668962284597, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: heardRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964668962284597, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: destination.x
+      value: -38.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964668962284597, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: destination.y
+      value: 1.141
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964668962284597, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: destination.z
+      value: 17.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964668962284597, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: maxPathLenght
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964668962284597, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: heardThreshold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335964668962284597, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
       propertyPath: waypoints.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -917,6 +941,10 @@ PrefabInstance:
     - target: {fileID: 7086968505783666790, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8118313248809623056, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}
+      propertyPath: m_Radius
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 718b56d26cdf74947804834c80e5e84e, type: 3}

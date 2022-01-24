@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+
 [HideInInspector]
 public class MoveToTarget : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class MoveToTarget : MonoBehaviour
     private Vector3 targetPos = Vector3.zero;
     private NavMeshPath path = null;
 
-private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         if (Application.isPlaying)
@@ -15,11 +16,9 @@ private void OnDrawGizmos()
             Gizmos.DrawLine(characterAI.transform.position, targetPos);
             Gizmos.DrawWireSphere(characterAI.transform.position, 30f);
         }
-        
     }
 
-
-    void Start()
+    private void Start()
     {
         characterAI = GetComponent<CharacterAI>();
         path = new NavMeshPath();
@@ -31,22 +30,25 @@ private void OnDrawGizmos()
         agent.CalculatePath(targetPos, path);
         float pathLenth = path.Length();
         Vector3 targetDirection = characterAI.transform.position.Direction(targetPos);
-        RaycastHit hit;
-        if (Physics.Raycast(characterAI.transform.position, targetDirection, out hit))
+        if (!characterAI.WasKnown)
         {
-            if (pathLenth < characterAI.MaxPathLenght)
+            RaycastHit hit;
+            if (Physics.Raycast(characterAI.transform.position, targetDirection, out hit))
             {
-                Debug.DrawRay(characterAI.transform.position, targetDirection, Color.blue);
-                if (target.CompareTag(hit.collider.tag))
+                if (pathLenth < characterAI.MaxPathLenght)
                 {
-                    characterAI.Destination = targetPos;
-                    
-                }
-                else if (!target.CompareTag(hit.collider.tag))
-                {
-                    targetPos = characterAI.GetTargetPosition(targetPos);
-                    characterAI.Destination = targetPos;
-                    
+                    Debug.DrawRay(characterAI.transform.position, targetDirection, Color.blue);
+                    if (target.CompareTag(hit.collider.tag))
+                    {
+                        characterAI.Destination = targetPos;
+                        characterAI.WasKnown = true;
+                    }
+                    else if (!target.CompareTag(hit.collider.tag))
+                    {
+                        targetPos = characterAI.GetTargetPosition(targetPos);
+                        characterAI.Destination = targetPos;
+                        characterAI.WasKnown = true;
+                    }
                 }
             }
         }

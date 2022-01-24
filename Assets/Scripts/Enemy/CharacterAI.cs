@@ -17,12 +17,21 @@ public class CharacterAI : MonoBehaviour
     private float destinationThreshold = 1f;
     private bool doOnce = false;
     public bool atDestination = true;
-    public bool heard;
 
+
+    
+    private SphereCollider sphereCollider;
+    [Header("Detection Settings"), Space]
+    public bool heard;
+    [Range(0f, 100f)] 
+    public float heardRange;
+    public Vector3 lastKnownPos;
+    public bool wasKnown;
+    
     [Header("Waypoints"), Space]
     [SerializeField] private bool waypoint_bool;
 
-    private float maxPathLenght = 50f;
+    [SerializeField] private float maxPathLenght = 50f;
     [SerializeField] private bool loop;
     [SerializeField] private bool randomWaypoint;
     [SerializeField] private List<Waypoint> waypoints = new List<Waypoint>();
@@ -39,6 +48,9 @@ public class CharacterAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(gameObject.transform.position, killRad);
 
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(gameObject.transform.position, heardRange);
+
         Gizmos.color = Color.magenta;
         if (navMeshAgent != null && navMeshAgent.path != null && navMeshAgent.path.corners != null)
         {
@@ -47,6 +59,8 @@ public class CharacterAI : MonoBehaviour
                 Gizmos.DrawLine(navMeshAgent.path.corners[i], navMeshAgent.path.corners[i + 1]);
             }
         }
+
+
     }
 
     #endregion Gizmos
@@ -100,6 +114,11 @@ public class CharacterAI : MonoBehaviour
         get => loop;
         set => loop = value;
     }
+    public bool WasKnown
+    {
+        get => wasKnown;
+        set => wasKnown = value;
+    }
 
     public float MaxPathLenght
     {
@@ -127,7 +146,7 @@ public class CharacterAI : MonoBehaviour
     public Vector3 GetTargetPosition(Vector3 targetPos)
     {
         Vector3 pos = targetPos;
-        Vector3 rad = Random.Range(1f, 12f) * Random.insideUnitSphere;
+        Vector3 rad = Random.Range(5f, 20f) * Random.insideUnitSphere;
         rad.y = 0;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(pos + rad, out hit, .1f, NavMesh.AllAreas))
@@ -138,22 +157,33 @@ public class CharacterAI : MonoBehaviour
         return pos + rad;
     }
 
+    public Vector3 LastKnownPosition
+    {
+        get => lastKnownPos;
+        set => lastKnownPos = value;
+    }
+
     #endregion Getters and Setters
 
     // Start is called before the first frame update
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        //Task Set Up
         moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
+        
         atDestination = true;
         destination = gameObject.transform.position;
+
+        sphereCollider = GetComponent<SphereCollider>();
+        sphereCollider.radius = heardRange;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (heard)
+        if (heard && !wasKnown)
         {
             moveTarget.ToDestination(target, navMeshAgent);
             heard = false;
@@ -161,7 +191,7 @@ public class CharacterAI : MonoBehaviour
         }
         if (waypoint_bool && !heard)
         {
-            if (atDestination & !doOnce)
+            if (atDestination && !doOnce)
             {
                 WaypointCheck();
             }
@@ -172,6 +202,15 @@ public class CharacterAI : MonoBehaviour
         }
         Vector2 distance = new Vector2(gameObject.transform.position.x - destination.x, gameObject.transform.position.z - destination.z);
         AtDestination(distance);
+
+        #region DEBUG
+        #if UNITY_EDITOR
+        if(sphereCollider.radius != heardRange)
+        {
+            sphereCollider.radius = heardRange;
+        }
+        #endif
+        #endregion
     }
 
     private void FixedUpdate()
