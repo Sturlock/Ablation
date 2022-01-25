@@ -151,16 +151,21 @@ MonoBehaviour:
   rb: {fileID: 8113079212316738097}
   runMaxSpeed: 100
   sprintMaxSpeed: 200
+  crouchingSpeed: 100
   maxSpeed: 0
   jumpBool: 0
   jumpCount: 0
   jumpForce: 20
+  sprintBool: 0
+  crouchBool: 0
   b_Flashlight: 0
   o_Flashlight: {fileID: 0}
+  detectRange: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0
   sphere: {fileID: 0}
+  text: {fileID: 0}
 --- !u!114 &8113079212316738111
 MonoBehaviour:
   m_ObjectHideFlags: 0
