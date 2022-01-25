@@ -13,11 +13,12 @@ GameObject:
   - component: {fileID: 8113079212316738099}
   - component: {fileID: 8113079212316738098}
   - component: {fileID: 5608358450859358565}
+  - component: {fileID: 5085746869387310938}
   - component: {fileID: 8113079212316738097}
+  - component: {fileID: 8113079212316738110}
   - component: {fileID: 8113079212316738096}
   - component: {fileID: 8113079212316738111}
   - component: {fileID: 3003428825642835673}
-  - component: {fileID: 8113079212316738110}
   - component: {fileID: 8113079212316738109}
   m_Layer: 0
   m_Name: Player
@@ -118,6 +119,25 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: -1, z: 0}
+--- !u!95 &5085746869387310938
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113079212316738108}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2abf8b11a649bb74798d52e20ae73314, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &8113079212316738097
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -134,68 +154,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &8113079212316738096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8113079212316738108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35028a6ef6e01d2469340d8bfcc96259, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cap: {fileID: 8113079212316738098}
-  controlInput: {x: 0, y: 0, z: 0}
-  rb: {fileID: 8113079212316738097}
-  runMaxSpeed: 100
-  sprintMaxSpeed: 200
-  crouchingSpeed: 100
-  maxSpeed: 0
-  jumpBool: 0
-  jumpCount: 0
-  jumpForce: 20
-  sprintBool: 0
-  crouchBool: 0
-  b_Flashlight: 0
-  o_Flashlight: {fileID: 0}
-  detectRange: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  sphere: {fileID: 0}
-  text: {fileID: 0}
---- !u!114 &8113079212316738111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8113079212316738108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bd25c70056068941bba23e7c622eced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pOV: {fileID: 0}
-  vcam: {fileID: 0}
-  playerBody: {fileID: 8113079212316738101}
---- !u!114 &3003428825642835673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8113079212316738108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2232bcbfd2814d44964829e1d217be4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CameraTransform: {fileID: 0}
-  m_CursorImage: {fileID: 0}
-  m_CanInteract: 0
 --- !u!82 &8113079212316738110
 AudioSource:
   m_ObjectHideFlags: 0
@@ -292,6 +250,68 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8113079212316738096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113079212316738108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35028a6ef6e01d2469340d8bfcc96259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cap: {fileID: 8113079212316738098}
+  animator: {fileID: 5085746869387310938}
+  rb: {fileID: 8113079212316738097}
+  controlInput: {x: 0, y: 0, z: 0}
+  runMaxSpeed: 200
+  sprintMaxSpeed: 400
+  crouchingSpeed: 100
+  maxSpeed: 0
+  jumpBool: 0
+  jumpCount: 0
+  jumpForce: 20
+  sprintBool: 0
+  crouchBool: 0
+  b_Flashlight: 0
+  o_Flashlight: {fileID: 0}
+  detectRange: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  sphere: {fileID: 0}
+  text: {fileID: 0}
+--- !u!114 &8113079212316738111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113079212316738108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd25c70056068941bba23e7c622eced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pOV: {fileID: 0}
+  vcam: {fileID: 0}
+--- !u!114 &3003428825642835673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113079212316738108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2232bcbfd2814d44964829e1d217be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraTransform: {fileID: 0}
+  m_CursorImage: {fileID: 0}
+  m_CanInteract: 0
 --- !u!114 &8113079212316738109
 MonoBehaviour:
   m_ObjectHideFlags: 0

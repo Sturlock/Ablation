@@ -4,14 +4,17 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public CapsuleCollider cap;
+    public Animator animator;
+    public Rigidbody rb;
     public Vector3 controlInput;
 
-    public Rigidbody rb;
+    
 
     [SerializeField] private float runMaxSpeed = 200f;
     [SerializeField] private float sprintMaxSpeed = 400f;
     [SerializeField] private float crouchingSpeed = 100f;
     [SerializeField] private float maxSpeed;
+    public float accel = 0.05f;
     public bool jumpBool;
 
     [Range(0, 2)]
@@ -26,7 +29,6 @@ public class Movement : MonoBehaviour
 
     [Header("Detection Settings")]
     [SerializeField] private float detectRange = 0;
-
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private SphereCollider sphere;
 
@@ -45,6 +47,7 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cap = GetComponent<CapsuleCollider>();
         sphere = GetComponent<SphereCollider>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -56,7 +59,7 @@ public class Movement : MonoBehaviour
         controlInput += Input.GetAxisRaw("Horizontal") * transform.right;
         controlInput += Input.GetAxisRaw("Vertical") * transform.forward;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && !crouchBool)
         {
             sprintBool = true;
         }
@@ -69,7 +72,7 @@ public class Movement : MonoBehaviour
             jumpCount++;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) && !sprintBool)
         {
             crouchBool = true;
         }
@@ -83,6 +86,26 @@ public class Movement : MonoBehaviour
         }
 
         DetectingPlayer();
+        #region Animation
+        float speed = 0f;
+        float crouch = 0f;
+        float aniSpeed = animator.GetFloat("Speed");
+        float aniCrouch = animator.GetFloat("Crouching");
+        if (Input.GetAxis("Vertical") != 0f)
+        speed = sprintBool ? 1f : 0.5f;
+        else speed = 0f;
+        crouch = crouchBool ? 1f : 0f;
+
+        aniSpeed = Mathf.SmoothStep(speed, aniSpeed, accel);
+        aniCrouch = Mathf.SmoothStep(crouch, aniCrouch, accel);
+
+
+        animator.SetFloat("Crouching", aniCrouch);
+        animator.SetFloat("Speed", aniSpeed);
+        
+        
+        #endregion
+
 
         #region DEBUG
 
