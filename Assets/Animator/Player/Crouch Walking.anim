@@ -28728,14 +28728,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.3
-    functionName: 
+    functionName: FootSteps
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 8113079212316738108, guid: cf47068db7061fb4ca1e949aee5bf7aa, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.76666665
-    functionName: 
+    functionName: FootSteps
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

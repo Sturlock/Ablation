@@ -88,20 +88,25 @@ public class Movement : MonoBehaviour
         DetectingPlayer();
         #region Animation
         float speed = 0f;
+        float strafe = 0f;
         float crouch = 0f;
         float aniSpeed = animator.GetFloat("Speed");
+        float aniStrafe = animator.GetFloat("Strafe");
         float aniCrouch = animator.GetFloat("Crouching");
         if (Input.GetAxis("Vertical") != 0f)
         speed = sprintBool ? 1f : 0.5f;
         else speed = 0f;
+        strafe += Input.GetAxis("Horizontal");
         crouch = crouchBool ? 1f : 0f;
 
+        
         aniSpeed = Mathf.SmoothStep(speed, aniSpeed, accel);
+        aniStrafe = Mathf.SmoothStep(speed, aniStrafe, accel);
         aniCrouch = Mathf.SmoothStep(crouch, aniCrouch, accel);
-
-
+        animator.SetBool("Crouch", crouchBool);
         animator.SetFloat("Crouching", aniCrouch);
         animator.SetFloat("Speed", aniSpeed);
+        animator.SetFloat("Strafe", aniStrafe);
         
         
         #endregion
