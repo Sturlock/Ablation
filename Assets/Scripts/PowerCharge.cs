@@ -6,30 +6,15 @@ public class PowerCharge : MonoBehaviour, IInteractable
 {
     public bool power;
     public GameObject[] hallways;
-    List<GameObject> lightHouse = new List<GameObject>();
-
-    List<GameObject> lightObjects = new List<GameObject>();
+    List<LightBlock> lightBlocks = new List<LightBlock>();
 
     [Header("Audio")]
     [SerializeField] private AudioClip dayOn;
-
     [SerializeField] private AudioClip dayOff;
     [SerializeField] private AudioClip nightOn;
     [SerializeField] private AudioClip nightOff;
 
-    [Header("Power On Lights")]
-    List<GameObject> spotLights = new List<GameObject>();
-
-    List<GameObject> areaLights = new List<GameObject>();
-
-    [Header("Power Off Lights")]
-    List<GameObject> spotLightsUV = new List<GameObject>();
-
-    List<GameObject> glassLightsRight = new List<GameObject>();
-    List<GameObject> glassLightsLeft = new List<GameObject>();
-
     [Header("Light Materials")]
-    
     public Material lightsOut;
     public Material lightsUV;
     public Material lightsOn;
@@ -45,20 +30,9 @@ public class PowerCharge : MonoBehaviour, IInteractable
         for (int i = 0; i < hallways.Length; i++)
         {
             //Gets Light prefab that exists on all corridors
-            lightHouse.Add(hallways[i].gameObject.transform.GetChild(0).gameObject);
+            lightBlocks.Add(hallways[i].GetComponentInChildren<LightBlock>());
         }
 
-        for (int i = 0; i < lightHouse.Count; i++)
-        {
-            lightObjects.Add(lightHouse[i].gameObject.transform.Find("Light Material").gameObject);
-            //Finds Day Light
-            spotLights.Add(lightHouse[i].gameObject.transform.Find("SpotLightDay").gameObject);
-            areaLights.Add(lightHouse[i].gameObject.transform.Find("AreaLightDay").gameObject);
-            //Finds Night Light
-            spotLightsUV.Add(lightHouse[i].gameObject.transform.Find("SpotLightNight").gameObject);
-            glassLightsRight.Add(lightHouse[i].gameObject.transform.Find("AreaLightRNight").gameObject);
-            glassLightsLeft.Add(lightHouse[i].gameObject.transform.Find("AreaLightLNight").gameObject);
-        }
     }
 
     void Start()
@@ -101,28 +75,11 @@ public class PowerCharge : MonoBehaviour, IInteractable
         {
             yield return new WaitForSeconds(0.2f);
 
-            #region Lights Powering OFF
-
-            lightObjects[i].GetComponent<AudioSource>().clip = dayOff;
-            lightObjects[i].GetComponent<AudioSource>().Play();
-            spotLights[i].GetComponent<Light>().enabled = false;
-            areaLights[i].GetComponent<Light>().enabled = false;
-            lightObjects[i].GetComponent<MeshRenderer>().material = lightsOut;
-
-            #endregion Lights Powering OFF
+            lightBlocks[i].DaySetActive(dayOff, false, lightsOut);
 
             yield return new WaitForSeconds(0.4f);
 
-            #region UV Powering ON
-
-            lightObjects[i].GetComponent<AudioSource>().clip = nightOn;
-            lightObjects[i].GetComponent<AudioSource>().Play();
-            spotLightsUV[i].GetComponent<Light>().enabled = true;
-            lightObjects[i].GetComponent<MeshRenderer>().material = lightsUV;
-            glassLightsRight[i].GetComponent<Light>().enabled = true;
-            glassLightsLeft[i].GetComponent<Light>().enabled = true;
-
-            #endregion UV Powering ON
+            lightBlocks[i].NightSetActive(nightOn, true, lightsUV);
 
             yield return new WaitForSeconds(0.3f);
         }
@@ -136,31 +93,12 @@ public class PowerCharge : MonoBehaviour, IInteractable
         {
             yield return new WaitForSeconds(0.2f);
             //Turns off Night Lights and changes light Material
-
-            #region UV Powering OFF
-
-            lightObjects[i].GetComponent<AudioSource>().clip = nightOff;
-            lightObjects[i].GetComponent<AudioSource>().Play();
-            spotLightsUV[i].GetComponent<Light>().enabled = false;
-            lightObjects[i].GetComponent<MeshRenderer>().material = lightsOut;
-            glassLightsRight[i].GetComponent<Light>().enabled = false;
-            glassLightsLeft[i].GetComponent<Light>().enabled = false;
-
-            #endregion UV Powering OFF
+            lightBlocks[i].NightSetActive(nightOff, false, lightsOut);
 
             //Waits a second
             yield return new WaitForSeconds(0.2f);
-            //Turns on Day Lights and changes light Material
 
-            #region Lights Powering ON
-
-            lightObjects[i].GetComponent<AudioSource>().clip = dayOn;
-            lightObjects[i].GetComponent<AudioSource>().Play();
-            spotLights[i].GetComponent<Light>().enabled = true;
-            areaLights[i].GetComponent<Light>().enabled = true;
-            lightObjects[i].GetComponent<MeshRenderer>().material = lightsOn;
-
-            #endregion Lights Powering ON
+            lightBlocks[i].DaySetActive(dayOn, true, lightsOn);
 
             yield return new WaitForSeconds(.3f);
         }

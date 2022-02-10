@@ -1333,6 +1333,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2140484384573268858}
+  - component: {fileID: 6093761406221588902}
   m_Layer: 0
   m_Name: LightsTall_01
   m_TagString: Hallways
@@ -1362,3 +1363,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6093761406221588902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140484384573268859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995c6a2c0b1a4c24c80c495090572a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 1258174339056347505}
+  spotLightUV: {fileID: 2140484383308113531}
+  glassLightRight: {fileID: 2140484383379428809}
+  glassLightLeft: {fileID: 2140484383454867607}
+  spotLight: {fileID: 2140484383299545687}
+  areaLight: {fileID: 2140484383297917616}
+  renderer: {fileID: 753528943920318631}

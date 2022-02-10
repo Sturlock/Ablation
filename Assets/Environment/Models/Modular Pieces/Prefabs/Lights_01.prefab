@@ -405,6 +405,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1022323487577535766}
+  - component: {fileID: 10516589632580907}
   m_Layer: 0
   m_Name: Lights_01
   m_TagString: Hallways
@@ -434,6 +435,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &10516589632580907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022323487577535767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995c6a2c0b1a4c24c80c495090572a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 212069518045432713}
+  spotLightUV: {fileID: 1022323488460238718}
+  glassLightRight: {fileID: 1022323487338763752}
+  glassLightLeft: {fileID: 1022323489068204352}
+  spotLight: {fileID: 1022323488824968072}
+  areaLight: {fileID: 1022323487854803561}
+  renderer: {fileID: 1869434106692430431}
 --- !u!1 &1022323487854803564
 GameObject:
   m_ObjectHideFlags: 0
