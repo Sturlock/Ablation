@@ -10,29 +10,21 @@ using UnityEngine.SceneManagement;
 /// Keeps track of the current game state
 /// Generates persistent systems and keeps them online.
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    //public static GameManager instance;
-    
+    public GameObject[] SystemPrefabs;
     private string _currentLevelName = string.Empty;
+    
     List<AsyncOperation> _loadOperations;
-
-    //private void Awake()
-    //{
-    //    if (instance == null)
-    //        instance = this;
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //        Debug.LogError("[Game Manager] Mulitple instances of this");
-    //    }
-    //}
+    List<GameObject> _instancedSystemPrefrabs;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
         _loadOperations = new List<AsyncOperation>();
         LoadLevel("AI_Test");
+
+        InstantiateSystemPrefabs();
     }
 
     private void OnLoadOperationComplete(AsyncOperation ao)
@@ -48,6 +40,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Unload Complete");
     }
 
+    void InstantiateSystemPrefabs()
+    {
+        GameObject prefabInstance;
+        for(int i = 0; i <SystemPrefabs.Length; ++i)
+        {
+            prefabInstance = Instantiate(SystemPrefabs[i]);
+            _instancedSystemPrefrabs.Add(prefabInstance);
+            Debug.Log("[GameManager] Instantiated " + prefabInstance.name);
+        }
+    }
+    
     public void LoadLevel(string levelName) 
     {
         AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
@@ -62,8 +65,16 @@ public class GameManager : MonoBehaviour
         AsyncOperation ao = SceneManager.UnloadSceneAsync(levelName);
         if (ao == null) {Debug.LogError("[Game Manager] Unable to unload level"); return; }
         ao.completed += OnUnloadOperationComplete;
-
     }
 
-    
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        for(int i =0; i<_instancedSystemPrefrabs.Count; ++i)
+        {
+            Destroy(_instancedSystemPrefrabs[i]);
+        }
+        _instancedSystemPrefrabs.Clear();
+    }
+
 }
