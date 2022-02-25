@@ -12532,6 +12532,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sky and Fog Volume_01
       objectReference: {fileID: 0}
+    - target: {fileID: 590405899209190579, guid: 2168a57d114b0f3468d7843f0240f270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2168a57d114b0f3468d7843f0240f270, type: 3}
 --- !u!1 &1850860743
