@@ -3492,7 +3492,7 @@ MonoBehaviour:
     mode: 0
     realtimeMode: 1
     lighting:
-      multiplier: 2
+      multiplier: 3
       weight: 1
       lightLayer: 1
       fadeDistance: 10000
@@ -4594,7 +4594,7 @@ MonoBehaviour:
     mode: 0
     realtimeMode: 1
     lighting:
-      multiplier: 2
+      multiplier: 3
       weight: 1
       lightLayer: 1
       fadeDistance: 10000
@@ -5806,7 +5806,7 @@ MonoBehaviour:
     mode: 0
     realtimeMode: 1
     lighting:
-      multiplier: 2
+      multiplier: 3
       weight: 1
       lightLayer: 1
       fadeDistance: 10000
@@ -6399,7 +6399,7 @@ MonoBehaviour:
     mode: 0
     realtimeMode: 1
     lighting:
-      multiplier: 2
+      multiplier: 3
       weight: 1
       lightLayer: 1
       fadeDistance: 10000
@@ -9799,7 +9799,7 @@ MonoBehaviour:
     mode: 0
     realtimeMode: 1
     lighting:
-      multiplier: 2
+      multiplier: 3
       weight: 1
       lightLayer: 1
       fadeDistance: 10000
