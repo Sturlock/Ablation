@@ -18,6 +18,11 @@ public class GameManager : Singleton<GameManager>
     List<AsyncOperation> _loadOperations;
     List<GameObject> _instancedSystemPrefrabs;
 
+    public string CurrentLevelName
+    {
+        get => _currentLevelName;
+    }
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
