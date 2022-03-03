@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Planet SSS
   m_EditorClassIdentifier: 
   profile:
-    scatteringDistance: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
-    transmissionTint: {r: 830.56335, g: 17.393997, b: 0, a: 1}
+    scatteringDistance: {r: 5.992157, g: 5.992157, b: 5.992157, a: 1}
+    transmissionTint: {r: 0.7490196, g: 0.019607844, b: 0, a: 1}
     texturingMode: 0
     transmissionMode: 0
-    thicknessRemap: {x: 3.278972, y: 39.325497}
-    worldScale: 0.005
-    ior: 1.2
+    thicknessRemap: {x: 0, y: 50}
+    worldScale: 1
+    ior: 1
     hash: 1076614879
   m_Version: 1
