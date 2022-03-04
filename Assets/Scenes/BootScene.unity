@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SystemPrefabs:
   - {fileID: 3422584802091835896, guid: 536c15eb88d329a4586fe0d4101c91b0, type: 3}
+  - {fileID: 4813153716055142357, guid: abff3b9ea6820f7468d7e86fbdd63576, type: 3}
 --- !u!4 &1145617990
 Transform:
   m_ObjectHideFlags: 0

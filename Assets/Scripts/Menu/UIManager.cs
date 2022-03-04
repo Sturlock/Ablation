@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.CurrentLevelName == "MainMenu")
         {
-            _mainMenu.gameObject.set
+            _mainMenu.gameObject.SetActive(true);
         }
         if(GameManager.Instance.CurrentLevelName != string.Empty)
         {

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 391455512}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &6501436
 Transform:
   m_ObjectHideFlags: 19
@@ -4368,7 +4369,7 @@ MonoBehaviour:
   m_AffectsTransparency: 0
   m_DecalLayerMask: 1
   m_Offset: {x: 0, y: 0, z: 0}
-  m_Size: {x: 8, y: 8, z: 2.97}
+  m_Size: {x: 8, y: 8, z: 0.04}
   m_FadeFactor: 1
   m_Version: 2
 --- !u!4 &591002149
@@ -4379,7 +4380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591002147}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 26.97, y: -2.85, z: -9.93}
+  m_LocalPosition: {x: 24.89, y: -2.962, z: -6.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
