@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour
 {
@@ -13,6 +14,24 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] AnimationClip _fadeOutAnimation;
     [SerializeField] AnimationClip _fadeInAnimation;
 
+    [SerializeField] private Button _button1, _button2;
+
+    public Button PlayButton
+    {
+        get { return _button1; }
+    }
+
+    public Button QuitButton
+    {
+        get { return _button2; }
+    }
+    private void Start()
+    {
+        PlayButton.onClick.RemoveAllListeners();
+        PlayButton.onClick.AddListener(PlayGame);
+        QuitButton.onClick.RemoveAllListeners();
+        QuitButton.onClick.AddListener(QuitGame);
+    }
     public void OnFadeOutComplete()
     {
         Debug.LogWarning("[UI Manager] FadeOut Complete");
@@ -34,5 +53,22 @@ public class MainMenuScript : MonoBehaviour
         _mainMenuAnimator.Stop();
         _mainMenuAnimator.clip = _fadeOutAnimation;
         _mainMenuAnimator.Play();
+    }
+
+    public void PlayGame()
+    {
+        GameManager.Instance.LoadLevel("AI_Test");
+        GameManager.Instance.UnloadLevel("MainMenu");
+        Debug.Log("[MainMenu] Play Game");
+    }
+    public void QuitGame()
+    {
+        Debug.Log("[MainMenu] Quit Game");
+        GameManager.Instance.Quit();
+    }
+
+    public void LoadLevel(string sceneName)
+    {
+        GameManager.Instance.LoadLevel(sceneName);
     }
 }

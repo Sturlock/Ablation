@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// The 'GameManager' tracks:
 /// What level the game is currently in
-/// Loads and Unloads game levels when approperate
+/// Loads and Unloads game levels when appropriate
 /// Keeps track of the current game state
 /// Generates persistent systems and keeps them online.
 /// </summary>
 public class GameManager : Singleton<GameManager>
 {
     public GameObject[] SystemPrefabs;
-    private string _currentLevelName = string.Empty;
+    [SerializeField] private string _currentLevelName = string.Empty;
     
     List<AsyncOperation> _loadOperations;
     List<GameObject> _instancedSystemPrefrabs;
@@ -64,6 +64,11 @@ public class GameManager : Singleton<GameManager>
         ao.completed += OnLoadOperationComplete;
         _loadOperations.Add(ao);
         _currentLevelName = levelName;
+    }
+
+    internal void Quit()
+    {
+        Application.Quit();
     }
 
     public void UnloadLevel(string levelName)
