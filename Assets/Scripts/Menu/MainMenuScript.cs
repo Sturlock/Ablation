@@ -70,5 +70,6 @@ public class MainMenuScript : MonoBehaviour
     public void LoadLevel(string sceneName)
     {
         GameManager.Instance.LoadLevel(sceneName);
+        GameManager.Instance.UnloadLevel("MainMenu");
     }
 }
