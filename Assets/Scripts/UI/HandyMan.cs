@@ -3,42 +3,58 @@ using UnityEngine;
 
 public class HandyMan : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI title;
-    [SerializeField] private GameObject[] contences;
+    
+    [SerializeField] private TextMeshProUGUI _title;
+    [SerializeField] private GameObject[] _contences;
+    [SerializeField] private CanvasGroup _canvasGroup;
 
     private void Start()
     {
-        title.text = "HandyMan";
-        contences[0].SetActive(true);
+        _canvasGroup.alpha = 0f;
+        CloseAll();
+        _title.text = "HandyMan";
     }
 
     public void Status()
     {
-        title.text = "Status";
-        contences[1].SetActive(true); 
+        CloseAll();
+        _title.text = "Status";
+        _contences[0].SetActive(true);
     }
 
     public void Inventory()
     {
-        title.text = "Inventory";
-        contences[2].SetActive(true);
-    }
-
-    public void Options()
-    {
-        title.text = "Options";
-        contences[3].SetActive(true);
+        CloseAll();
+        _title.text = "Inventory";
+        _contences[1].SetActive(true);
     }
 
     public void AudioLogs()
     {
-        title.text = "AudioLogs";
-        contences[4].SetActive(true);
+        CloseAll();
+        _title.text = "AudioLogs";
+        _contences[2].SetActive(true);
+    }
+
+    public void Options()
+    {
+        CloseAll();
+        _title.text = "Options";
+        _contences[3].SetActive(true);
     }
 
     public void MotionDetector()
     {
-        title.text = "Motion Detector";
-        contences[5].SetActive(true);
+        CloseAll();
+        _title.text = "Motion Detector";
+        //contences[].SetActive(true);
+    }
+
+    private void CloseAll()
+    {
+        foreach(GameObject go in _contences)
+        {
+            go.SetActive(false);
+        }
     }
 }
