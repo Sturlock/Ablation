@@ -4,41 +4,41 @@ using UnityEngine;
 public class HandyMan : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI title;
-    [SerializeField] private TextMeshProUGUI contence;
+    [SerializeField] private GameObject[] contences;
 
     private void Start()
     {
         title.text = "HandyMan";
-        contence.text = "HandyMan: Home";
+        contences[0].SetActive(true);
     }
 
     public void Status()
     {
         title.text = "Status";
-        contence.text = "Status Stuff";
+        contences[1].SetActive(true); 
     }
 
     public void Inventory()
     {
         title.text = "Inventory";
-        contence.text = "Inventory Stuff";
+        contences[2].SetActive(true);
     }
 
     public void Options()
     {
         title.text = "Options";
-        contence.text = "Options Stuff";
+        contences[3].SetActive(true);
     }
 
     public void AudioLogs()
     {
         title.text = "AudioLogs";
-        contence.text = "AudioLogs Stuff";
+        contences[4].SetActive(true);
     }
 
     public void MotionDetector()
     {
         title.text = "Motion Detector";
-        contence.text = "Motion Detector Stuff";
+        contences[5].SetActive(true);
     }
 }
