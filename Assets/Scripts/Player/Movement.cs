@@ -4,10 +4,11 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public CapsuleCollider cap;
+    public GameObject Hm;
     public Animator animator;
     public Rigidbody rb;
     public Vector3 controlInput;
-
+    public Vector3 rawInput;
     
 
     [SerializeField] private float runMaxSpeed = 200f;
@@ -58,6 +59,9 @@ public class Movement : MonoBehaviour
         controlInput = Vector3.zero;
         controlInput += Input.GetAxisRaw("Horizontal") * transform.right;
         controlInput += Input.GetAxisRaw("Vertical") * transform.forward;
+        rawInput.x = Input.GetAxisRaw("Horizontal");
+        rawInput.z = Input.GetAxisRaw("Vertical");
+
 
         if (Input.GetKey(KeyCode.LeftShift) && !crouchBool)
         {
@@ -93,15 +97,15 @@ public class Movement : MonoBehaviour
         float aniSpeed = animator.GetFloat("Speed");
         float aniStrafe = animator.GetFloat("Strafe");
         float aniCrouch = animator.GetFloat("Crouching");
-        if (Input.GetAxis("Vertical") != 0f)
+        if (rawInput.z != 0f)
         speed = sprintBool ? 1f : 0.5f;
         else speed = 0f;
-        strafe += Input.GetAxis("Horizontal");
+        strafe = rawInput.x;
         crouch = crouchBool ? 1f : 0f;
 
         
         aniSpeed = Mathf.SmoothStep(speed, aniSpeed, accel);
-        aniStrafe = Mathf.SmoothStep(speed, aniStrafe, accel);
+        aniStrafe = Mathf.SmoothStep(strafe, aniStrafe, accel);
         aniCrouch = Mathf.SmoothStep(crouch, aniCrouch, accel);
         animator.SetBool("Crouch", crouchBool);
         animator.SetFloat("Crouching", aniCrouch);
