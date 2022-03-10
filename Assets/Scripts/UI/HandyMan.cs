@@ -1,10 +1,10 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandyMan : MonoBehaviour
 {
     
-    [SerializeField] private TextMeshProUGUI _title;
+    [SerializeField] private Text _title;
     [SerializeField] private GameObject[] _contences;
     [SerializeField] private CanvasGroup _canvasGroup;
 

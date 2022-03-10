@@ -39,6 +39,7 @@ public class ShowHideUI_Canvas : MonoBehaviour
     public void Toggle()
     {
         retract = !retract;
+        FindObjectOfType<Mouse_Look>().AddCineComp(retract);
         uiContainer.GetComponent<Animator>().SetBool("retract", retract);
     }
 }

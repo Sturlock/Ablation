@@ -4,34 +4,33 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public CapsuleCollider cap;
-    public GameObject Hm;
     public Animator animator;
     public Rigidbody rb;
-    public Vector3 controlInput;
-    public Vector3 rawInput;
+    private Vector3 controlInput;
+    private Vector3 rawInput;
     
 
-    [SerializeField] private float runMaxSpeed = 200f;
-    [SerializeField] private float sprintMaxSpeed = 400f;
-    [SerializeField] private float crouchingSpeed = 100f;
-    [SerializeField] private float maxSpeed;
+    private float runMaxSpeed = 200f;
+    private float sprintMaxSpeed = 400f;
+    private float crouchingSpeed = 100f;
+    private float maxSpeed;
     public float accel = 0.05f;
     public bool jumpBool;
 
     [Range(0, 2)]
     public int jumpCount = 0;
 
-    [SerializeField] private float jumpForce = 20;
-    [SerializeField] private bool sprintBool;
-    [SerializeField] private bool crouchBool;
+    private float jumpForce = 20;
+    private bool sprintBool;
+    private bool crouchBool;
 
     public bool b_Flashlight = false;
     public Light o_Flashlight;
 
     [Header("Detection Settings")]
-    [SerializeField] private float detectRange = 0;
-    [SerializeField] private LayerMask layerMask;
-    [SerializeField] private SphereCollider sphere;
+    private float detectRange = 0;
+    public LayerMask layerMask;
+    private SphereCollider sphere;
 
     [Header("Debug")]
     [SerializeField] private TextMeshProUGUI text;
