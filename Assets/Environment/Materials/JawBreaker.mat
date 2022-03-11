@@ -56,8 +56,8 @@ Material:
     m_Ints: []
     m_Floats:
     - Normal_Strength: 0.03
-    - Scroll_Speed: 0.0045
-    - Scroll_Speed_2: 0.0015
+    - Scroll_Speed: 0.008
+    - Scroll_Speed_2: 0.001
     - Smoothness: 0
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
