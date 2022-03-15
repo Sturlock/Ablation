@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/EllenTestBox/SplashScreen.unity
+    path: Assets/Scenes/_EllenTestBox/SplashScreen.unity
     guid: 4950818f33d5da94680438bdd4aaf0c5
   - enabled: 1
     path: Assets/Scenes/BootScene.unity
@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: ee582d6e6d378854d95d6582841bbabf
   - enabled: 1
-    path: Assets/Scenes/AI_Test.unity
+    path: Assets/Scenes/_UnusedScenes/AI_Test.unity
     guid: d223de65acd2b8b4993fd97ea83bd0b6
   - enabled: 1
     path: Assets/Scenes/Art Asset Showcase.unity
