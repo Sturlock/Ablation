@@ -125,7 +125,12 @@ public class CharacterAI : MonoBehaviour
         get => maxPathLenght;
         set => maxPathLenght = value;
     }
-
+    public Vector3 LastKnownPosition
+    {
+        get => lastKnownPos;
+        set => lastKnownPos = value;
+    }
+    #endregion Getters and Setters
     public Vector3 GetWaypointPosition(int id)
     {
         Waypoint waypoint = waypoints[id];
@@ -155,15 +160,7 @@ public class CharacterAI : MonoBehaviour
             return hit.position;
         }
         return pos + rad;
-    }
-
-    public Vector3 LastKnownPosition
-    {
-        get => lastKnownPos;
-        set => lastKnownPos = value;
-    }
-
-    #endregion Getters and Setters
+    }   
 
     // Start is called before the first frame update
     private void Start()
@@ -189,13 +186,8 @@ public class CharacterAI : MonoBehaviour
             heard = false;
             return;
         }
-        if (waypoint_bool && !heard)
-        {
-            if (atDestination && !doOnce)
-            {
-                WaypointCheck();
-            }
-        }
+        WaypointCheck();
+        
         if (heard && atDestination)
         {
             heard = false;
@@ -235,7 +227,14 @@ public class CharacterAI : MonoBehaviour
 
     private void WaypointCheck()
     {
-        moveWaypoint.MovetoWaypoint();
+        if (waypoint_bool && !heard)
+        {
+            if (atDestination && !doOnce)
+            {
+                moveWaypoint.MovetoWaypoint();
+            }
+        }
+        
     }
 
     private void Kill()
