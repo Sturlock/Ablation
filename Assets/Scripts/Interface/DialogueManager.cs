@@ -131,6 +131,8 @@ public class DialogueManager : MonoBehaviour
     void OnGUI()
     {
         //using dialogueAudio File?
+        Debug.Log(GetComponent<AudioSource>().clip.name);
+        Debug.Log(dialogueAudio.name);
         if (dialogueAudio != null && GetComponent<AudioSource>().clip.name == dialogueAudio.name)
         {
             //check for breaks and negatives
