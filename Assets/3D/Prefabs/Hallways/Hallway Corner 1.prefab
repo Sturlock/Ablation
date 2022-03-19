@@ -133,12 +133,12 @@ ReflectionProbe:
   m_Enabled: 1
   serializedVersion: 2
   m_Type: 0
-  m_Mode: 1
+  m_Mode: 2
   m_RefreshMode: 2
   m_TimeSlicingMode: 0
   m_Resolution: 128
   m_UpdateFrequency: 0
-  m_BoxSize: {x: 7, y: 7, z: 10}
+  m_BoxSize: {x: 7, y: 7, z: 7}
   m_BoxOffset: {x: 0, y: 0, z: 0}
   m_NearClip: 0.3
   m_FarClip: 1000
@@ -932,6 +932,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2a762a09fd4370d4385ea617ef52833a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 85abb177681c265488013819689e7106, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 691c1fa0908c929499e6cc74ea6d802e, type: 2}
     - target: {fileID: 919132149155446097, guid: 85abb177681c265488013819689e7106, type: 3}
       propertyPath: m_Name
       value: Wall_Inner_Detail
