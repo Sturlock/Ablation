@@ -452,8 +452,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeTemplate: {fileID: 289356242}
-  gridX: 200
-  gridY: 200
+  gridX: 1000
+  gridY: 1000
 --- !u!4 &782444109
 Transform:
   m_ObjectHideFlags: 0

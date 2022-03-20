@@ -4,20 +4,20 @@ using UnityEngine.AI;
 
 public class AI_Director : Singleton<AI_Director>
 {
-    [Range(0f, 100f), SerializeField]
-    private float tension;
-    private bool protectedArea;
+    [Range(0f, 100f)]
+    public float tension;
+    public bool protectedArea;
     private Coroutine tensionHandle;
     private NavMeshPath AIPath;
     private float distanceFromPlayer;
 
 
-    [Space, SerializeField, Header("Characters")]
-    private GameObject AI;
-    [SerializeField]
-    private GameObject Player;
+    [Space, Header("Characters")]
+    public GameObject AI;
+    
+    public GameObject Player;
 
-    private CharacterAI characterAI;
+    public CharacterAI characterAI;
 
     [Space,SerializeField]
     private float stationDownTimer;
@@ -26,12 +26,12 @@ public class AI_Director : Singleton<AI_Director>
 
     private void Start()
     {
-        characterAI = GetComponent<CharacterAI>();
+        characterAI = AI.GetComponent<CharacterAI>();
         AIPath = new NavMeshPath();
     }
     private void Update()
     {
-        FindPlayer();
+        //FindPlayer();
 
         tension = Mathf.Clamp(tension, 0f, 100f);
         if (tension < 20)
@@ -78,7 +78,7 @@ public class AI_Director : Singleton<AI_Director>
         tensionHandle = null;
     }
 
-    private void WaveOff()
+    public void WaveOff()
     {
         Interupt();
         tensionHandle = StartCoroutine(ReduceTension());
@@ -92,7 +92,7 @@ public class AI_Director : Singleton<AI_Director>
             tensionHandle = null;
         }
     }
-    private Vector3 HintPlayerLocation(Vector3 position, bool procArea)
+    public Vector3 HintPlayerLocation(Vector3 position, bool procArea)
     {
         Vector3 pos = position;
         Vector3 rad = Random.Range(10f, 30f) * Random.insideUnitSphere;
@@ -109,9 +109,14 @@ public class AI_Director : Singleton<AI_Director>
         }
         else 
         {
-            CharacterAI characterAI = AI.GetComponent<CharacterAI>();
             return characterAI.Destination;
         }
         
+    }
+
+    public void GiveDestination(Vector3 position)
+    {
+        Debug.Log(position.ToString());
+        characterAI.Destination = position;
     }
 }
