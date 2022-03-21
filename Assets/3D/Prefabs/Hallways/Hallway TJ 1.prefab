@@ -160,6 +160,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2a762a09fd4370d4385ea617ef52833a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 152a56ec19382144fbac10cc96386443, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 691c1fa0908c929499e6cc74ea6d802e, type: 2}
     - target: {fileID: 919132149155446097, guid: 152a56ec19382144fbac10cc96386443, type: 3}
       propertyPath: m_Name
       value: Wall_Straight_Detail
@@ -450,6 +454,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2a762a09fd4370d4385ea617ef52833a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 85abb177681c265488013819689e7106, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 691c1fa0908c929499e6cc74ea6d802e, type: 2}
     - target: {fileID: 919132149155446097, guid: 85abb177681c265488013819689e7106, type: 3}
       propertyPath: m_Name
       value: Wall_Inner_Detail
@@ -546,7 +554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7980941541893661574, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.10744974
+      value: 0.1074498
       objectReference: {fileID: 0}
     - target: {fileID: 7980941543288675531, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -614,6 +622,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2a762a09fd4370d4385ea617ef52833a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 85abb177681c265488013819689e7106, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 691c1fa0908c929499e6cc74ea6d802e, type: 2}
     - target: {fileID: 919132149155446097, guid: 85abb177681c265488013819689e7106, type: 3}
       propertyPath: m_Name
       value: Wall_Inner_Detail_01
