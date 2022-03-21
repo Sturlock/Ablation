@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Alien
   m_EditorClassIdentifier: 
   profile:
-    scatteringDistance: {r: 1, g: 1, b: 1, a: 1}
-    transmissionTint: {r: 0.3301887, g: 0, b: 0, a: 1}
+    scatteringDistance: {r: 9.082411, g: 9.082411, b: 9.082411, a: 1}
+    transmissionTint: {r: 1, g: 0, b: 0, a: 1}
     texturingMode: 0
     transmissionMode: 0
-    thicknessRemap: {x: 0, y: 10}
+    thicknessRemap: {x: 0, y: 50}
     worldScale: 0.5
-    ior: 1.4
+    ior: 1
     hash: 1080777402
   m_Version: 1

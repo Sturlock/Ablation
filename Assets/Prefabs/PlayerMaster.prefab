@@ -923,6 +923,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3942129795927074611}
     m_Modifications:
+    - target: {fileID: 1856993075663662504, guid: cf47068db7061fb4ca1e949aee5bf7aa, type: 3}
+      propertyPath: retract
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3003428825642835673, guid: cf47068db7061fb4ca1e949aee5bf7aa, type: 3}
       propertyPath: m_CameraTransform
       value: 
