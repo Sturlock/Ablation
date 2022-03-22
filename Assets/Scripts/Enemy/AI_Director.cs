@@ -43,7 +43,7 @@ public class AI_Director : Singleton<AI_Director>
             stationDownTimer += Time.deltaTime;
             if (stationDownTimer >= requiredHoldTime)
             {
-                WaveOff();
+                //WaveOff();
                 stationDownTimer = 0;
             }
         }
@@ -59,29 +59,29 @@ public class AI_Director : Singleton<AI_Director>
         distanceFromPlayer = AIPath.Length();
     }
 
-    public IEnumerator IncreaseTension()
+    public IEnumerator IncreaseTension(float inc)
     {
         while (tension < 100f)
         {
-            tension++;
+            tension += inc;
             yield return new WaitForSeconds(1f);
         }
         tensionHandle = null;
     }
-    public IEnumerator ReduceTension()
+    public IEnumerator ReduceTension(float dec)
     {
        while(tension > 20f)
         {
-            tension--;
+            tension -= dec;
             yield return new WaitForSeconds(1f);
         }
         tensionHandle = null;
     }
 
-    public void WaveOff()
+    public void WaveOff(int i)
     {
         Interupt();
-        tensionHandle = StartCoroutine(ReduceTension());
+        tensionHandle = StartCoroutine(ReduceTension(i));
 
     }
     public void Interupt()
@@ -118,5 +118,23 @@ public class AI_Director : Singleton<AI_Director>
     {
         Debug.Log(position.ToString());
         characterAI.Destination = position;
+    }
+
+    public bool IsPlayerNearAlienT1()
+    {
+        if(AIPath.Length() <= 20)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsPlayerNearAlienT2()
+    {
+        if (AIPath.Length() <= 10)
+        {
+            return true;
+        }
+        return false;
     }
 }
