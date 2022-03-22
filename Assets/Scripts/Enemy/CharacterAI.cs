@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +14,7 @@ public class CharacterAI : MonoBehaviour
     private GameObject target;
     private ToNextWaypoint moveWaypoint;
     private MoveToTarget moveTarget;
-    [SerializeField] private Vector3 destination;
+    [SerializeField, ReadOnly] private Vector3 destination;
     private float destinationThreshold = 1f;
     private bool doOnce = false;
     public bool atDestination = true;
@@ -21,9 +22,16 @@ public class CharacterAI : MonoBehaviour
     [SerializeField, Space]
     private float killRad = 1f;
 
-    private SphereCollider sphereCollider;
+    [Header("Animation Settings"), Space]
+    [ReadOnly] public string isMoving = "IsMoving";
+    [ReadOnly] public string roar1 = "Roar1";
+    [ReadOnly] public string roar2 = "Roar2";
+    [SerializeField] private bool setRoar;
+    Coroutine roarHandler = null;
+
     [Header("Detection Settings"), Space]
     public bool heard;
+    private SphereCollider sphereCollider;
     [Range(0f, 100f)] 
     public float heardRange;
     public Vector3 lastKnownPos;
@@ -38,6 +46,7 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] private List<Waypoint> waypoints = new List<Waypoint>();
     private int maxWaypoints;
     private int currentWaypoint;
+    
 
     #region Gizmos
 
@@ -181,6 +190,7 @@ public class CharacterAI : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        AnimationUpdate();
         if (heard && !wasKnown)
         {
             moveTarget.ToDestination(target, navMeshAgent);
@@ -294,6 +304,40 @@ public class CharacterAI : MonoBehaviour
 
     private void AnimationUpdate()
     {
+        animator.SetBool(isMoving, navMeshAgent.velocity.magnitude > 0.01f);
+        string roar;
+        float seconds;
+        float i;
+        
+        if (setRoar)
+        {
+            i = Random.Range(0, 1);
+            switch (i)
+            {
+                case 0: roar = roar1;
+                    seconds = 2.567f;
+                    break;
+                case 1: roar = roar2;
+                    seconds = 2.033f;
+                    break;
+                default: roar = roar1;
+                    seconds = 2.567f;
+                    break;
+            }
+            roarHandler = StartCoroutine(PlayRoar(roar, seconds));
+            setRoar = false;
+        }
 
+        if(roarHandler == null)
+            navMeshAgent.isStopped = false;
+    }
+
+    private IEnumerator PlayRoar(string roar, float seconds)
+    {
+        animator.SetTrigger(roar);
+        navMeshAgent.isStopped = true;
+        
+        yield return new WaitForSeconds(seconds);
+        roarHandler = null;
     }
 }
