@@ -185,6 +185,8 @@ public class CharacterAI : MonoBehaviour
 
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = heardRange;
+
+        Destination = transform.position; 
     }
 
     // Update is called once per frame
@@ -197,13 +199,15 @@ public class CharacterAI : MonoBehaviour
             heard = false;
             return;
         }
+        if (waypoint_bool)
         WaypointCheck();
         
         if (heard && atDestination)
         {
+            SurvayArea(destination);
             heard = false;
         }
-        Vector2 distance = new Vector2(gameObject.transform.position.x - destination.x, gameObject.transform.position.z - destination.z);
+        Vector2 distance = new Vector2(gameObject.transform.position.x - Destination.x, gameObject.transform.position.z - Destination.z);
         AtDestination(distance);
 
         #region DEBUG
@@ -228,12 +232,25 @@ public class CharacterAI : MonoBehaviour
         else
         {
             atDestination = true;
-            Kill();
         }
-        if (!atDestination)
+        if (!heard)
         {
-            navMeshAgent.SetDestination(destination);
+	        if (!atDestination)
+	        {
+	            navMeshAgent.SetDestination(Destination);
+	        }
         }
+        else
+        {
+            if (!atDestination)
+            {
+                SurvayArea(Destination);
+            }
+        }
+
+
+
+
     }
 
     private void WaypointCheck()
@@ -264,6 +281,26 @@ public class CharacterAI : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator SurvayArea(Vector3 poition)
+    {
+        Vector3 targetPos = poition;
+        for(int i = 0; i < 3; i++)
+        {
+            Vector3 pos = poition;
+            Vector3 rad = Random.Range(2f, 5f) * Random.insideUnitSphere;
+            rad.y = 0;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(pos + rad, out hit, .1f, NavMesh.AllAreas))
+            {
+                Debug.Log("Destination: True");
+                targetPos = hit.position;
+            }
+            targetPos = pos + rad;
+            yield return new WaitForSeconds(1f);
+        }
+        Destination = targetPos;
     }
 
     private void OnTriggerEnter(Collider other)
