@@ -6,9 +6,9 @@ public class CharacterAI : MonoBehaviour
 {
     private Vector3 currentPos;
 
+    
     [SerializeField]
-    private float killRad = 1f;
-
+    private Animator animator; 
     private NavMeshAgent navMeshAgent;
     private GameObject target;
     private ToNextWaypoint moveWaypoint;
@@ -18,8 +18,9 @@ public class CharacterAI : MonoBehaviour
     private bool doOnce = false;
     public bool atDestination = true;
 
+    [SerializeField, Space]
+    private float killRad = 1f;
 
-    
     private SphereCollider sphereCollider;
     [Header("Detection Settings"), Space]
     public bool heard;
@@ -289,5 +290,10 @@ public class CharacterAI : MonoBehaviour
         //    target = other.gameObject;
         //    heard = true;
         //}
+    }
+
+    private void AnimationUpdate()
+    {
+
     }
 }
