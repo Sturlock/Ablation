@@ -57,7 +57,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void PlayGame()
     {
-        GameManager.Instance.LoadLevel("AI_Test");
+        GameManager.Instance.LoadLevel("Level_Assets");
         GameManager.Instance.UnloadLevel("MainMenu");
         Debug.Log("[MainMenu] Play Game");
     }

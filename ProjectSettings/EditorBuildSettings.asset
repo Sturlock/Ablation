@@ -5,19 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/_EllenTestBox/SplashScreen.unity
     guid: 4950818f33d5da94680438bdd4aaf0c5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BootScene.unity
     guid: e95bebec247c2384983cb19366806562
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: ee582d6e6d378854d95d6582841bbabf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/_UnusedScenes/AI_Test.unity
     guid: d223de65acd2b8b4993fd97ea83bd0b6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Art Asset Showcase.unity
     guid: e021fb7443a6abc4b8cbd34968605ece
+  - enabled: 1
+    path: Assets/Scenes/Level_Assets.unity
+    guid: d958c0a72d03f784c936cdeda004b26d
   m_configObjects: {}
