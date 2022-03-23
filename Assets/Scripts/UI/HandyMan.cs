@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class HandyMan : MonoBehaviour
@@ -7,10 +8,31 @@ public class HandyMan : MonoBehaviour
     [SerializeField] private Text _title;
     [SerializeField] private GameObject[] _contences;
     [SerializeField] private CanvasGroup _canvasGroup;
+    private ShowHideUI_Canvas showHide;
+    
 
     private void Start()
     {
+        showHide = GetComponent<ShowHideUI_Canvas>();
         _canvasGroup.alpha = 0f;
+        
+        Handy();
+    }
+
+    private void Update()
+    {
+        if (showHide.Show)
+        {
+            Handy();
+        }
+        else
+        {
+            Debug.Log("[HandyMan] Show Event Null");
+        }
+    }
+
+    public void Handy()
+    {
         CloseAll();
         _title.text = "HandyMan";
     }

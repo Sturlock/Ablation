@@ -1,20 +1,37 @@
 using UnityEngine;
+using System.Collections;
 
 public class ShowHideUI_Canvas : MonoBehaviour
 {
     [SerializeField] private KeyCode toggleKey = KeyCode.Tab;
     [SerializeField] private GameObject uiContainer = null;
-    [SerializeField] public bool retract = false;
+    [SerializeField] private bool show;
+    private bool aniShow = false;
 
-    public bool Retract
+    public bool Show
     {
-        get => retract;
+        get => show;
     }
 
     // Start is called before the first frame update
     private void Start()
     {
+        aniShow = false;
         uiContainer = this.gameObject;
+    }
+
+    private void CursorState(bool bShow)
+    {
+        if (bShow)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = bShow;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = bShow;
+        }
     }
 
     // Update is called once per frame
@@ -22,24 +39,21 @@ public class ShowHideUI_Canvas : MonoBehaviour
     {
         if (Input.GetKeyDown(toggleKey))
         {
-            Toggle();
-        }
-        if (retract)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            StartCoroutine(Toggle());
         }
     }
 
-    public void Toggle()
+    public IEnumerator Toggle()
     {
-        retract = !retract;
-        FindObjectOfType<Mouse_Look>().AddCineComp(retract);
-        uiContainer.GetComponent<Animator>().SetBool("retract", retract);
+        aniShow = !aniShow;
+
+        show = !show;
+        //FindObjectOfType<Mouse_Look>().AddCineComp(retract);
+        uiContainer.GetComponent<Animator>().SetBool("retract", aniShow);
+        CursorState(aniShow);
+        yield return new WaitForSeconds(.1f);
+        show = !show;
+
+
     }
 }

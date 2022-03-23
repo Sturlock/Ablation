@@ -22,7 +22,7 @@ public class Mouse_Look : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (!_showHideUI.Retract)
+        if (!_showHideUI.Show)
         {
             transform.rotation = Quaternion.Euler(0f, pOV.m_HorizontalAxis.Value, 0f);
             
