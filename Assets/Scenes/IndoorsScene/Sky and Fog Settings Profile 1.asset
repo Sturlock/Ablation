@@ -330,10 +330,6 @@ MonoBehaviour:
   includeSunInBaking:
     m_OverrideState: 0
     m_Value: 0
-  m_SkyVersion: 1
-  m_ObsoleteEarthPreset:
-    m_OverrideState: 0
-    m_Value: 1
   type:
     m_OverrideState: 0
     m_Value: 1
@@ -461,6 +457,10 @@ MonoBehaviour:
     m_Value: 0
     min: -1
     max: 1
+  m_SkyVersion: 1
+  m_ObsoleteEarthPreset:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!114 &6757522598637823965
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -569,17 +569,14 @@ MonoBehaviour:
     max: 512
   m_VolumetricFogBudget:
     m_OverrideState: 0
-    m_Value: 0.25
+    m_Value: 0.33
     min: 0
     max: 1
   m_ResolutionDepthRatio:
     m_OverrideState: 0
-    m_Value: 0.5
+    m_Value: 0.666
     min: 0
     max: 1
   directionalLightsOnly:
-    m_OverrideState: 0
-    m_Value: 0
-  filter:
     m_OverrideState: 0
     m_Value: 0

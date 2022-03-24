@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private MainMenuScript _mainMenu;
-    [SerializeField] private HandyMan _handyMan;
+    
     
 
     private void Start()
@@ -18,12 +18,12 @@ public class UIManager : MonoBehaviour
         if (GameManager.Instance.CurrentLevelName == "MainMenu")
         {
             _mainMenu.gameObject.SetActive(true);
-            _handyMan.gameObject.SetActive(false);
+           
         }
         if (GameManager.Instance.CurrentLevelName != "MainMenu")
         {
             _mainMenu.gameObject.SetActive(false);
-            _handyMan.gameObject.SetActive(true);
+            
         }
     }
     

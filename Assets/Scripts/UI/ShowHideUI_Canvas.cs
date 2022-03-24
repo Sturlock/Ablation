@@ -5,7 +5,7 @@ public class ShowHideUI_Canvas : MonoBehaviour
 {
     [SerializeField] private KeyCode toggleKey = KeyCode.Tab;
     [SerializeField] private GameObject uiContainer = null;
-    [SerializeField] private bool show;
+    [SerializeField] private bool show = false;
     private bool aniShow = false;
 
     public bool Show
@@ -16,6 +16,7 @@ public class ShowHideUI_Canvas : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        show = false;
         aniShow = false;
         uiContainer = this.gameObject;
     }
@@ -48,7 +49,7 @@ public class ShowHideUI_Canvas : MonoBehaviour
         aniShow = !aniShow;
 
         show = !show;
-        //FindObjectOfType<Mouse_Look>().AddCineComp(retract);
+        FindObjectOfType<Mouse_Look>().AddCineComp(aniShow);
         uiContainer.GetComponent<Animator>().SetBool("retract", aniShow);
         CursorState(aniShow);
         yield return new WaitForSeconds(.1f);

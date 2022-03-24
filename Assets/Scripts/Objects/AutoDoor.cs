@@ -25,18 +25,18 @@ public class AutoDoor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        target = other.gameObject;
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.CompareTag("Monster"))
         {
+            target = other.gameObject;
             doorOpen = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        target = null;
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.CompareTag("Monster"))
         {
+            target = null;
             doorOpen = false;
         }
     }
