@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7400669804536340379}
   - component: {fileID: 5844456734438330430}
   - component: {fileID: 8574670238019675380}
+  - component: {fileID: 99489932179193580}
+  - component: {fileID: 6421917788695071320}
   m_Layer: 0
   m_Name: Double Divider
   m_TagString: Untagged
@@ -83,3 +85,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &99489932179193580
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926235660496225569}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8901525, y: 5.8660274, z: 0.59123874}
+  m_Center: {x: 3.7089384, y: 0.2523923, z: 0}
+--- !u!65 &6421917788695071320
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926235660496225569}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8363166, y: 5.8660274, z: 0.59123874}
+  m_Center: {x: -3.7358553, y: 0.2523923, z: 0}

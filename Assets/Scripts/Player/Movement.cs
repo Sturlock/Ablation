@@ -10,9 +10,9 @@ public class Movement : MonoBehaviour
     private Vector3 rawInput;
     
 
-    private float runMaxSpeed = 200f;
-    private float sprintMaxSpeed = 400f;
-    private float crouchingSpeed = 100f;
+    private float runMaxSpeed = 100f;
+    private float sprintMaxSpeed = 300f;
+    private float crouchingSpeed = 40f;
     private float maxSpeed;
     public float accel = 0.05f;
     public bool jumpBool;
