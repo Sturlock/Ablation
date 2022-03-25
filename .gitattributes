@@ -2,8 +2,8 @@
 
 # Unity files
 *.meta -text -merge=unityamlmerge
-*.unity -text -merge=unityamlmerge
-*.asset -text -merge=unityamlmerge
+*.unity -text -merge=lfs
+*.asset -text -merge=lfs
 *.prefab -text -merge=unityamlmerge
 
 # Image formats
