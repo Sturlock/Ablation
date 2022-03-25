@@ -55,9 +55,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Fast_Normal_Strength: 3
     - Normal_Strength: 0.03
-    - Scroll_Speed: 0.008
+    - Scroll_Speed: 0.006
     - Scroll_Speed_2: 0.001
+    - Slow_Normal_Strength: 6
     - Smoothness: 0
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
