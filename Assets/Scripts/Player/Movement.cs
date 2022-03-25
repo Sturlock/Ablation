@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
     public Animator animator;
     public Rigidbody rb;
     private Vector3 controlInput;
-    private Vector3 rawInput;
+    [SerializeField] private Vector3 rawInput;
     
 
     private float runMaxSpeed = 100f;
@@ -96,8 +96,10 @@ public class Movement : MonoBehaviour
         float aniSpeed = animator.GetFloat("Speed");
         float aniStrafe = animator.GetFloat("Strafe");
         float aniCrouch = animator.GetFloat("Crouching");
-        if (rawInput.z != 0f)
+        if (rawInput.z > 0.1f)
         speed = sprintBool ? 1f : 0.5f;
+        else if (rawInput.z < -0.1f)
+            speed = -0.5f;
         else speed = 0f;
         strafe = rawInput.x;
         crouch = crouchBool ? 1f : 0f;
