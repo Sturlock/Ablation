@@ -322,7 +322,7 @@ MonoBehaviour:
   vcam: {fileID: 0}
   pOV: {fileID: 0}
   lookAt: {fileID: 0}
-  _showHideUI: {fileID: 0}
+  _showHideUI: {fileID: 1856993075663662504}
 --- !u!114 &3003428825642835673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1187,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4074344365560352269, guid: f080955b1171aaf47ac85582410cbf76, type: 3}
   m_PrefabInstance: {fileID: 2400321571459165839}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1856993075663662504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4074344366818001703, guid: f080955b1171aaf47ac85582410cbf76, type: 3}
+  m_PrefabInstance: {fileID: 2400321571459165839}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c922157ea52eb48913f6eec75ab515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4892156457249182283
 PrefabInstance:
   m_ObjectHideFlags: 0
