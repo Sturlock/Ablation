@@ -30,7 +30,7 @@ public class Movement : MonoBehaviour
     [Header("Detection Settings")]
     private float detectRange = 0;
     public LayerMask layerMask;
-    private SphereCollider sphere;
+   //private SphereCollider sphere;
 
     [Header("Debug")]
     [SerializeField] private TextMeshProUGUI text;
@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cap = GetComponent<CapsuleCollider>();
-        sphere = GetComponent<SphereCollider>();
+       //sphere = GetComponent<SphereCollider>();
         animator = GetComponent<Animator>();
     }
 
@@ -167,7 +167,7 @@ public class Movement : MonoBehaviour
             controlInput.z * maxSpeed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
 
-        sphere.radius = detectRange;
+        //sphere.radius = detectRange;
 
         #region removed code
 
@@ -201,18 +201,18 @@ public class Movement : MonoBehaviour
     {
         if (controlInput != Vector3.zero && !crouchBool)
         {
-            sphere.enabled = true;
+            //sphere.enabled = true;
             if (sprintBool) detectRange = 10;
             else detectRange = 4;
         }
         else if (controlInput != Vector3.zero && crouchBool)
         {
-            sphere.enabled = false;
+            //sphere.enabled = false;
             detectRange = 0;
         }
         else
         {
-            sphere.enabled = false;
+            //sphere.enabled = false;
             detectRange = 0;
         }
     }

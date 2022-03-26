@@ -7,7 +7,7 @@ public class Mouse_Look : MonoBehaviour
     [SerializeField] private CinemachinePOV pOV;
     [SerializeField] private CinemachineHardLookAt lookAt;
     [SerializeField] private ShowHideUI_Canvas _showHideUI;
-    HandyMan _handyMan;
+    private HandyMan _handyMan;
 
     // Start is called before the first frame update
     public void Start()
@@ -24,16 +24,14 @@ public class Mouse_Look : MonoBehaviour
     {
         if (!_showHideUI.Show)
         {
-            if(pOV == null)
+            if (pOV == null)
                 pOV = vcam.GetCinemachineComponent<CinemachinePOV>();
-            if(pOV != null)
-            transform.rotation = Quaternion.Euler(0f, pOV.m_HorizontalAxis.Value, 0f);
-            
+            if (pOV != null)
+                transform.rotation = Quaternion.Euler(0f, pOV.m_HorizontalAxis.Value, 0f);
         }
         else
         {
             vcam.LookAt = _handyMan.transform.parent.transform;
-            
         }
     }
 
@@ -47,5 +45,10 @@ public class Mouse_Look : MonoBehaviour
         {
             pOV = vcam.AddCinemachineComponent<CinemachinePOV>();
         }
+    }
+
+    public void FOVChange(float fov)
+    {
+        vcam.m_Lens.FieldOfView = fov;
     }
 }

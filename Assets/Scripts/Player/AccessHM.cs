@@ -4,17 +4,38 @@ using UnityEngine;
 
 public class AccessHM : MonoBehaviour
 {
-    public GameObject _handyMan;
-    public GameObject _wrist;
+    public ShowHideUI_Canvas _showHideUI;
+    public Animator _ani;
+    private Mouse_Look _look;
+    [Header("FOV"), Space]
+    public float _handyFOV;
+    public float _normalFOV;
 
-    
+    private void Start()
+    {
+        _ani = GetComponent<Animator>();
+        _look = GetComponent<Mouse_Look>();
+    }
 
     // Update is called once per frame
-    void Update()
+    public void AccessHandy(bool show)
     {
+        if (_showHideUI != null)
+        {
+            if (show)
+            {
+                _ani.ResetTrigger("WalkyHam");
+                _ani.SetTrigger("HandyHam");
+                _look.FOVChange(_handyFOV);
 
-        _handyMan.transform.position = _wrist.transform.position;
-        _handyMan.transform.rotation = _wrist.transform.rotation;
-        
+            }
+            if (!show)
+            {
+                _ani.ResetTrigger("HandyHam");
+                _ani.SetTrigger("WalkyHam");
+                _look.FOVChange(_normalFOV);
+
+            }
+        }
     }
 }
