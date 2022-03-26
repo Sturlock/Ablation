@@ -49,7 +49,7 @@ public class ShowHideUI_Canvas : MonoBehaviour
         aniShow = !aniShow;
 
         show = !show;
-        FindObjectOfType<Mouse_Look>().AddCineComp(aniShow);
+        //FindObjectOfType<Mouse_Look>().AddCineComp(aniShow);
         uiContainer.GetComponent<Animator>().SetBool("retract", aniShow);
         CursorState(aniShow);
         yield return new WaitForSeconds(.1f);
