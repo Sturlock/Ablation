@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 8113079212316738111}
   - component: {fileID: 3003428825642835673}
   - component: {fileID: 8113079212316738109}
+  - component: {fileID: 4508569815634570347}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -369,6 +370,22 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &4508569815634570347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113079212316738108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e59f07bbe8e444459de4521371c834a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showHideUI: {fileID: 1856993075663662504}
+  _ani: {fileID: 5085746869387310938}
+  _handyFOV: 15
+  _normalFOV: 72
 --- !u!1001 &2400321571459165839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -924,6 +941,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4074344366818001703, guid: f080955b1171aaf47ac85582410cbf76, type: 3}
+      propertyPath: _hm
+      value: 
+      objectReference: {fileID: 4508569815634570347}
+    - target: {fileID: 4074344366818001703, guid: f080955b1171aaf47ac85582410cbf76, type: 3}
+      propertyPath: _look
+      value: 
+      objectReference: {fileID: 8113079212316738111}
     - target: {fileID: 4074344366868370675, guid: f080955b1171aaf47ac85582410cbf76, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
