@@ -7,19 +7,21 @@ public class testTrigger : MonoBehaviour
     public bool grab = false;
     public float timer = 0.0f;
 
-    private Vector2 ogScale;
-    private Vector2 newScale;
+    private Vector3 ogScale;
+    private Vector3 newScale;
     void Update()
     {
         if (grab)
         {
             timer += Time.deltaTime;
-            transform.localScale = Vector2.Lerp(ogScale, newScale, timer);
+            transform.localScale = Vector3.Lerp(ogScale, newScale, timer);
+     
         }
 
         if(timer >= 1)
         {
             grab = false;
+            gameObject.GetComponent<BoxCollider>().enabled = true;
         }
         
     }
@@ -28,8 +30,14 @@ public class testTrigger : MonoBehaviour
     {
         grab = true;
         ogScale = transform.localScale;
-        newScale = ogScale + new Vector2(1, 1);
+        newScale = ogScale + new Vector3(1, 1, 1);
     }
+
+    public void Poof()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void OnClick()
     {
         gameObject.SetActive(false);
