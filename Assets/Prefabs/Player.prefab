@@ -384,7 +384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showHideUI: {fileID: 1856993075663662504}
   _ani: {fileID: 5085746869387310938}
-  _handyFOV: 15
+  _handyFOV: 11.5
   _normalFOV: 72
 --- !u!1001 &2400321571459165839
 PrefabInstance:

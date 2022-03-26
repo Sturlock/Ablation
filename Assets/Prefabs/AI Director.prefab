@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tension: 0
-  protectedArea: 0
+  protectedArea: 1
   AI: {fileID: 0}
   Player: {fileID: 0}
   characterAI: {fileID: 0}
