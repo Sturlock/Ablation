@@ -5,9 +5,18 @@ using UnityEngine;
 public class TestDialogue : MonoBehaviour
 {
     public AudioClip dialogueClip;
-
+    public bool played = false;
     public void OnClick()
     {
         DialogueManager.Instance.BeginDialogue(dialogueClip);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !played)
+        {
+            DialogueManager.Instance.BeginDialogue(dialogueClip);
+            played = true;
+        }
     }
 }
