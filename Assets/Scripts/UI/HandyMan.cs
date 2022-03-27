@@ -8,12 +8,12 @@ public class HandyMan : MonoBehaviour
     [SerializeField] private Text _title;
     [SerializeField] private GameObject[] _contences;
     [SerializeField] private CanvasGroup _canvasGroup;
-    private ShowHideUI_Canvas showHide;
+    private ShowHideHandy showHide;
     
 
     private void Start()
     {
-        showHide = GetComponent<ShowHideUI_Canvas>();
+        showHide = GetComponent<ShowHideHandy>();
         _canvasGroup.alpha = 0f;
         
         Handy();

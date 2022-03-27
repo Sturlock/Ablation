@@ -6,7 +6,7 @@ public class Mouse_Look : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera vcam;
     [SerializeField] private CinemachinePOV pOV;
     [SerializeField] private CinemachineHardLookAt lookAt;
-    [SerializeField] private ShowHideUI_Canvas _showHideUI;
+    [SerializeField] private ShowHideHandy _showHideUI;
     private HandyMan _handyMan;
 
     // Start is called before the first frame update
