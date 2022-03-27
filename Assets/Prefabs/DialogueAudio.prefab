@@ -1,65 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &2849447874185997384
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3119354548598541581}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1.2000003, y: 1.0643145, z: 0.96483505}
-  m_Center: {x: 0, y: 0, z: 0.000000029802322}
---- !u!95 &2849447874185997386
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3119354548598541581}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6a2dde0026c0cfb498e257dca6b9a430, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2849447874185997387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3119354548598541581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feaac683f6b23ec40a098c410b721596, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grab: 0
-  timer: 0
---- !u!114 &2849447874185997388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3119354548598541581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3daa29cb50a68c14e9079433c9d21d3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueClip: {fileID: 8300000, guid: fc77a4375d17d714ea17b33b718462b8, type: 3}
-  played: 0
 --- !u!1 &2849447874188154105
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3daa29cb50a68c14e9079433c9d21d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueClip: {fileID: 8300000, guid: 4c471ccaa3e165c46b458138f3d6eef1, type: 3}
+  dialogueClip: {fileID: 8300000, guid: 72bf76b341f13b5428ca48067d0caffc, type: 3}
   played: 0
 --- !u!65 &2849447874404803035
 BoxCollider:
@@ -390,6 +330,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueClip: {fileID: 8300000, guid: 9291c2833c2ba1d4a898b18d1102c72e, type: 3}
+  played: 0
+--- !u!65 &2849447874185997384
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119354548598541581}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2000003, y: 1.0643145, z: 0.96483505}
+  m_Center: {x: 0, y: 0, z: 0.000000029802322}
+--- !u!95 &2849447874185997386
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119354548598541581}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6a2dde0026c0cfb498e257dca6b9a430, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2849447874185997387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119354548598541581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feaac683f6b23ec40a098c410b721596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grab: 0
+  timer: 0
+--- !u!114 &2849447874185997388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119354548598541581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3daa29cb50a68c14e9079433c9d21d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueClip: {fileID: 8300000, guid: 256e41ff001e0e849883118749c6e802, type: 3}
   played: 0
 --- !u!1001 &2849447874569842780
 PrefabInstance:

@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _mainMenu.FadeIn();
+        //_mainMenu.FadeIn();
     }
     private void Update()
     {
