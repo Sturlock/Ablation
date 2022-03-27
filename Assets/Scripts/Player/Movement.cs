@@ -50,16 +50,22 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void Inputs()
     {
-        #region Movement Inputs
-
         controlInput = Vector3.zero;
         controlInput += Input.GetAxisRaw("Horizontal") * transform.right;
         controlInput += Input.GetAxisRaw("Vertical") * transform.forward;
         rawInput.x = Input.GetAxisRaw("Horizontal");
         rawInput.z = Input.GetAxisRaw("Vertical");
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        #region Movement Inputs
+
+        Inputs();
+
 
 
         if (Input.GetKey(KeyCode.LeftShift) && !crouchBool)

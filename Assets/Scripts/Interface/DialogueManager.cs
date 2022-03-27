@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 public class DialogueManager : MonoBehaviour
 {
     private AudioClip dialogueAudio;
+    private AudioSource dialogueSource;
     private const float _RATE = 44100.0f;
 
     private string[] fileLines;
@@ -45,7 +46,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         Instance = this;
-        gameObject.AddComponent<AudioSource>();
+        dialogueSource = gameObject.AddComponent<AudioSource>();
+
         
     }
 
@@ -117,8 +119,8 @@ public class DialogueManager : MonoBehaviour
 
 
         //set and play
-        GetComponent<AudioSource>().clip = dialogueAudio;
-        GetComponent<AudioSource>().Play();
+        dialogueSource.clip = dialogueAudio;
+        dialogueSource.Play();
     }
 
     
