@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ShowHideUI_Canvas : MonoBehaviour
+public class ShowHideHandy : MonoBehaviour
 {
     public Mouse_Look _look;
     public AccessHM _hm;

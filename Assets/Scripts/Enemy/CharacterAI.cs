@@ -7,9 +7,9 @@ public class CharacterAI : MonoBehaviour
 {
     private Vector3 currentPos;
 
-    
     [SerializeField]
-    private Animator animator; 
+    private Animator animator;
+
     private NavMeshAgent navMeshAgent;
     private GameObject target;
     private ToNextWaypoint moveWaypoint;
@@ -24,19 +24,23 @@ public class CharacterAI : MonoBehaviour
 
     [Header("Animation Settings"), Space]
     [ReadOnly] public string isMoving = "IsMoving";
+
     [ReadOnly] public string roar1 = "Roar1";
     [ReadOnly] public string roar2 = "Roar2";
     [SerializeField] private bool setRoar;
-    Coroutine roarHandler = null;
+    private Coroutine roarHandler = null;
 
     [Header("Detection Settings"), Space]
     public bool heard;
+
     private SphereCollider sphereCollider;
-    [Range(0f, 100f)] 
+
+    [Range(0f, 100f)]
     public float heardRange;
+
     public Vector3 lastKnownPos;
     public bool wasKnown;
-    
+
     [Header("Waypoints"), Space]
     [SerializeField] private bool waypoint_bool;
 
@@ -46,7 +50,6 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] private List<Waypoint> waypoints = new List<Waypoint>();
     private int maxWaypoints;
     private int currentWaypoint;
-    
 
     #region Gizmos
 
@@ -69,8 +72,6 @@ public class CharacterAI : MonoBehaviour
                 Gizmos.DrawLine(navMeshAgent.path.corners[i], navMeshAgent.path.corners[i + 1]);
             }
         }
-
-
     }
 
     #endregion Gizmos
@@ -124,6 +125,7 @@ public class CharacterAI : MonoBehaviour
         get => loop;
         set => loop = value;
     }
+
     public bool WasKnown
     {
         get => wasKnown;
@@ -135,12 +137,15 @@ public class CharacterAI : MonoBehaviour
         get => maxPathLenght;
         set => maxPathLenght = value;
     }
+
     public Vector3 LastKnownPosition
     {
         get => lastKnownPos;
         set => lastKnownPos = value;
     }
+
     #endregion Getters and Setters
+
     public Vector3 GetWaypointPosition(int id)
     {
         Waypoint waypoint = waypoints[id];
@@ -170,7 +175,7 @@ public class CharacterAI : MonoBehaviour
             return hit.position;
         }
         return pos + rad;
-    }   
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -179,14 +184,14 @@ public class CharacterAI : MonoBehaviour
         //Task Set Up
         moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
-        
+
         atDestination = true;
         destination = gameObject.transform.position;
 
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = heardRange;
 
-        Destination = transform.position; 
+        Destination = transform.position;
     }
 
     // Update is called once per frame
@@ -200,8 +205,8 @@ public class CharacterAI : MonoBehaviour
             return;
         }
         if (waypoint_bool)
-        WaypointCheck();
-        
+            WaypointCheck();
+
         if (heard && atDestination)
         {
             SurvayArea(destination);
@@ -211,13 +216,15 @@ public class CharacterAI : MonoBehaviour
         AtDestination(distance);
 
         #region DEBUG
-        #if UNITY_EDITOR
-        if(sphereCollider.radius != heardRange)
+
+#if UNITY_EDITOR
+        if (sphereCollider.radius != heardRange)
         {
             sphereCollider.radius = heardRange;
         }
-        #endif
-        #endregion
+#endif
+
+        #endregion DEBUG
     }
 
     private void FixedUpdate()
@@ -235,10 +242,10 @@ public class CharacterAI : MonoBehaviour
         }
         if (!heard)
         {
-	        if (!atDestination)
-	        {
-	            navMeshAgent.SetDestination(Destination);
-	        }
+            if (!atDestination)
+            {
+                navMeshAgent.SetDestination(Destination);
+            }
         }
         else
         {
@@ -247,10 +254,6 @@ public class CharacterAI : MonoBehaviour
                 SurvayArea(Destination);
             }
         }
-
-
-
-
     }
 
     private void WaypointCheck()
@@ -262,7 +265,6 @@ public class CharacterAI : MonoBehaviour
                 moveWaypoint.MovetoWaypoint();
             }
         }
-        
     }
 
     private void Kill()
@@ -286,7 +288,7 @@ public class CharacterAI : MonoBehaviour
     private IEnumerator SurvayArea(Vector3 poition)
     {
         Vector3 targetPos = poition;
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             Vector3 pos = poition;
             Vector3 rad = Random.Range(2f, 5f) * Random.insideUnitSphere;
@@ -317,14 +319,10 @@ public class CharacterAI : MonoBehaviour
         if (other.tag == "SOUND")
         {
             Debug.Log("SOUND");
-            //             target = other.gameObject;
-            //             heard = true;
         }
         if (other.tag == "Door")
         {
             Debug.Log("DOOR");
-            //target = other.gameObject;
-            //heard = true;
         }
         //else Debug.Log("Not Sound");
     }
@@ -345,19 +343,24 @@ public class CharacterAI : MonoBehaviour
         string roar;
         float seconds;
         float i;
-        
+
         if (setRoar)
         {
             i = Random.Range(0, 1);
             switch (i)
             {
-                case 0: roar = roar1;
+                case 0:
+                    roar = roar1;
                     seconds = 2.567f;
                     break;
-                case 1: roar = roar2;
+
+                case 1:
+                    roar = roar2;
                     seconds = 2.033f;
                     break;
-                default: roar = roar1;
+
+                default:
+                    roar = roar1;
                     seconds = 2.567f;
                     break;
             }
@@ -365,7 +368,7 @@ public class CharacterAI : MonoBehaviour
             setRoar = false;
         }
 
-        if(roarHandler == null)
+        if (roarHandler == null)
             navMeshAgent.isStopped = false;
     }
 
@@ -373,7 +376,7 @@ public class CharacterAI : MonoBehaviour
     {
         animator.SetTrigger(roar);
         navMeshAgent.isStopped = true;
-        
+
         yield return new WaitForSeconds(seconds);
         roarHandler = null;
     }

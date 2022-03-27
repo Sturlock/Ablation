@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AccessHM : MonoBehaviour
 {
-    public ShowHideUI_Canvas _showHideUI;
+    public ShowHideHandy _showHideUI;
     public Animator _ani;
     private Mouse_Look _look;
     [Header("FOV"), Space]
