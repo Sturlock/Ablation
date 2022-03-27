@@ -7,8 +7,6 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private MainMenuScript _mainMenu;
     
-    
-
     private void Start()
     {
         _mainMenu.FadeIn();

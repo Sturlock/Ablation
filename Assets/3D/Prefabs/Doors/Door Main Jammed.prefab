@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 566240821313826726}
   - component: {fileID: 7228493448441558741}
   - component: {fileID: 6868318904886938375}
+  - component: {fileID: 2840739567910756323}
   m_Layer: 0
   m_Name: Door Main Jammed
   m_TagString: Untagged
@@ -261,6 +262,22 @@ MonoBehaviour:
   ani: {fileID: 566240821313826727}
   doorOpen: 0
   target: {fileID: 0}
+--- !u!208 &2840739567910756323
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566240821313826725}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.75, y: 1.75, z: 0.545}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &845969850289692750
 GameObject:
   m_ObjectHideFlags: 0

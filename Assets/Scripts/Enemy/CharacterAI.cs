@@ -30,14 +30,13 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] private bool setRoar;
     private Coroutine roarHandler = null;
 
+    [SerializeField] bool survaying;
+
     [Header("Detection Settings"), Space]
     public bool heard;
-
     private SphereCollider sphereCollider;
-
     [Range(0f, 100f)]
     public float heardRange;
-
     public Vector3 lastKnownPos;
     public bool wasKnown;
 
@@ -158,7 +157,9 @@ public class CharacterAI : MonoBehaviour
         if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
         {
             Debug.Log("Destination: True");
-            return hit.position;
+            Vector3 finalPos = hit.position;
+            finalPos.y = 0;
+            return finalPos;
         }
         return GetWaypointPosition(id);
     }
@@ -169,12 +170,29 @@ public class CharacterAI : MonoBehaviour
         Vector3 rad = Random.Range(5f, 20f) * Random.insideUnitSphere;
         rad.y = 0;
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(pos + rad, out hit, .1f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(pos + rad, out hit, 2f, NavMesh.AllAreas))
         {
             Debug.Log("Destination: True");
-            return hit.position;
+            Vector3 finalPos = hit.position;
+            finalPos.y = 0;
+            return finalPos;
         }
         return pos + rad;
+    }
+    private Vector3 AreaToSurvay(Vector3 position)
+    {
+        Vector3 pos = position;
+        Vector3 rad = Random.Range(5f, 10f) * Random.insideUnitSphere;
+        rad.y = 0;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(pos + rad, out hit, 1.5f, NavMesh.AllAreas))
+        {
+            Debug.Log("Destination: True");
+            Vector3 finalPos = hit.position;
+            finalPos.y = 0;
+            return finalPos;
+        }
+        return AreaToSurvay(position);
     }
 
     // Start is called before the first frame update
@@ -198,22 +216,21 @@ public class CharacterAI : MonoBehaviour
     private void Update()
     {
         AnimationUpdate();
-        if (heard && !wasKnown)
-        {
-            moveTarget.ToDestination(target, navMeshAgent);
-            heard = false;
-            return;
-        }
-        if (waypoint_bool)
-            WaypointCheck();
+        //if (heard && !wasKnown)
+        //{
+        //    moveTarget.ToDestination(target, navMeshAgent);
+        //    heard = false;
+        //    return;
+        //}
+        //if (waypoint_bool)
+        //    WaypointCheck();
 
-        if (heard && atDestination)
-        {
-            SurvayArea(destination);
-            heard = false;
-        }
-        Vector2 distance = new Vector2(gameObject.transform.position.x - Destination.x, gameObject.transform.position.z - Destination.z);
-        AtDestination(distance);
+        //if (heard && atDestination)
+        //{
+        //    //SurvayArea(destination);
+        //    heard = false;
+        //}
+        
 
         #region DEBUG
 
@@ -230,6 +247,9 @@ public class CharacterAI : MonoBehaviour
     private void FixedUpdate()
     {
         currentPos = transform.position;
+
+        Vector2 distance = new Vector2(gameObject.transform.position.x - Destination.x, gameObject.transform.position.z - Destination.z);
+        AtDestination(distance);
     }
 
     private void AtDestination(Vector2 distance)
@@ -237,21 +257,16 @@ public class CharacterAI : MonoBehaviour
         if (distance.magnitude > destinationThreshold)
             atDestination = false;
         else
-        {
             atDestination = true;
-        }
+        
         if (!heard)
         {
+            if (atDestination)
+                if(!survaying)
+                    StartCoroutine(SurvayArea(Destination)); 
             if (!atDestination)
             {
                 navMeshAgent.SetDestination(Destination);
-            }
-        }
-        else
-        {
-            if (!atDestination)
-            {
-                SurvayArea(Destination);
             }
         }
     }
@@ -285,24 +300,37 @@ public class CharacterAI : MonoBehaviour
         }
     }
 
-    private IEnumerator SurvayArea(Vector3 poition)
+    
+
+    private IEnumerator SurvayArea(Vector3 position)
     {
-        Vector3 targetPos = poition;
+        List<Vector3> finalPos = new List<Vector3>();
+        survaying = true;
         for (int i = 0; i < 3; i++)
         {
-            Vector3 pos = poition;
-            Vector3 rad = Random.Range(2f, 5f) * Random.insideUnitSphere;
-            rad.y = 0;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(pos + rad, out hit, .1f, NavMesh.AllAreas))
-            {
-                Debug.Log("Destination: True");
-                targetPos = hit.position;
-            }
-            targetPos = pos + rad;
-            yield return new WaitForSeconds(1f);
+            finalPos.Add(AreaToSurvay(position));
         }
-        Destination = targetPos;
+        for(int i = 0; i < 3; ++i)
+        {
+            if (atDestination)
+            {
+                navMeshAgent.isStopped = true;
+                yield return new WaitForSeconds(1f);
+                navMeshAgent.isStopped = false;
+                Destination = finalPos[i];
+            }
+        }
+        
+        survaying = false;
+        if (heard)
+        {
+            moveTarget.ToDestination(target, navMeshAgent);
+            heard = false;
+        }
+        else if (waypoint_bool)
+        {
+            WaypointCheck();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

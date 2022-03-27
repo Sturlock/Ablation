@@ -25,10 +25,6 @@ public class HandyMan : MonoBehaviour
         {
             Handy();
         }
-        else
-        {
-            Debug.Log("[HandyMan] Show Event Null");
-        }
     }
 
     public void Handy()
