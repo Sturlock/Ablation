@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(gameObject);
         _loadOperations = new List<AsyncOperation>();
         _instancedSystemPrefrabs = new List<GameObject>();
-        LoadLevel("MainMenu");
+        LoadLevel("SplashScreen");
 
         InstantiateSystemPrefabs();
     }

@@ -30,13 +30,16 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] private bool setRoar;
     private Coroutine roarHandler = null;
 
-    [SerializeField] bool survaying;
+    [SerializeField] private bool survaying;
 
     [Header("Detection Settings"), Space]
     public bool heard;
+
     private SphereCollider sphereCollider;
+
     [Range(0f, 100f)]
     public float heardRange;
+
     public Vector3 lastKnownPos;
     public bool wasKnown;
 
@@ -179,6 +182,7 @@ public class CharacterAI : MonoBehaviour
         }
         return pos + rad;
     }
+
     private Vector3 AreaToSurvay(Vector3 position)
     {
         Vector3 pos = position;
@@ -230,7 +234,6 @@ public class CharacterAI : MonoBehaviour
         //    //SurvayArea(destination);
         //    heard = false;
         //}
-        
 
         #region DEBUG
 
@@ -258,12 +261,12 @@ public class CharacterAI : MonoBehaviour
             atDestination = false;
         else
             atDestination = true;
-        
+
         if (!heard)
         {
             if (atDestination)
-                if(!survaying)
-                    StartCoroutine(SurvayArea(Destination)); 
+                if (!survaying)
+                    StartCoroutine(SurvayArea(Destination));
             if (!atDestination)
             {
                 navMeshAgent.SetDestination(Destination);
@@ -300,8 +303,6 @@ public class CharacterAI : MonoBehaviour
         }
     }
 
-    
-
     private IEnumerator SurvayArea(Vector3 position)
     {
         List<Vector3> finalPos = new List<Vector3>();
@@ -310,7 +311,7 @@ public class CharacterAI : MonoBehaviour
         {
             finalPos.Add(AreaToSurvay(position));
         }
-        for(int i = 0; i < 3; ++i)
+        for (int i = 0; i < 3; ++i)
         {
             if (atDestination)
             {
@@ -320,7 +321,7 @@ public class CharacterAI : MonoBehaviour
                 Destination = finalPos[i];
             }
         }
-        
+
         survaying = false;
         if (heard)
         {

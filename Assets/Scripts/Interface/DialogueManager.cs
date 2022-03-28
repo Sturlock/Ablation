@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : Singleton<DialogueManager>
 {
-    private AudioClip dialogueAudio;
-    private AudioSource dialogueSource;
+    [ReadOnly] private AudioClip dialogueAudio;
+    [ReadOnly] private AudioSource dialogueSource;
     private const float _RATE = 44100.0f;
 
     private string[] fileLines;
 
     //Subtitles Variables
+    [Header("Subtitle Variables"),Space]
     private List<string> subtitleLines = new List<string>();
 
     private List<string> subtitleTimingStrings = new List<string>();
@@ -22,7 +23,8 @@ public class DialogueManager : MonoBehaviour
 
     private string displaySubtitle;
 
-    //Ttigger Variables
+    //Trigger Variables
+    [Header("Trigger Variables"), Space]
     private List<string> triggerLines = new List<string>();
 
     private List<string> triggerTimingStrings = new List<string>();
@@ -36,38 +38,26 @@ public class DialogueManager : MonoBehaviour
 
     //GUI
     private GUIStyle subtitleStyle = new GUIStyle();
-
-    public static DialogueManager Instance { get; private set; }
-    void Awake()
+    //BAD WE HAVE SINGLETON FOR THIS
+    //public static DialogueManager Instance { get; private set; }
+    void Start()
     {
-        if(Instance != null && Instance != this) 
-        {
-            Destroy(gameObject);
-        }
-
-        Instance = this;
+        //if(Instance != null && Instance != this) 
+        //{
+        //    Destroy(gameObject);
+        //}
+        //Instance = this;
         dialogueSource = gameObject.AddComponent<AudioSource>();
-
-        
     }
+
+    
 
     public void BeginDialogue (AudioClip passedClip)
     {
         dialogueAudio = passedClip;
 
         //reset variables
-        subtitleLines = new List<string>();
-        subtitleTimingStrings = new List<string>();
-        subtitleTimings = new List<float>();
-        subtitleText = new List<string>();
-
-        triggerLines = new List<string>();
-        triggerTimingStrings = new List<string>();
-        triggerTimings = new List<float>();
-        triggers = new List<string>();
-        triggerObjectNames = new List<string>();
-        triggerMethodNames = new List<string>();
-
+        ResetVars();
         nextSubtitle = 0;
         nextTrigger = 0;
 
@@ -135,7 +125,7 @@ public class DialogueManager : MonoBehaviour
         //using dialogueAudio File?
         //Debug.Log(GetComponent<AudioSource>().clip.name);
         //Debug.Log(dialogueAudio.name);
-        if (dialogueAudio != null && GetComponent<AudioSource>().clip.name == dialogueAudio.name)
+        if (dialogueAudio != null && dialogueSource.clip.name == dialogueAudio.name)
         {
             //check for breaks and negatives
             if (nextSubtitle > 0 && !subtitleText[nextSubtitle - 1].Contains("<break/>"))
@@ -175,5 +165,19 @@ public class DialogueManager : MonoBehaviour
 
             }
         }
+    }
+    private void ResetVars()
+    {
+        subtitleLines = new List<string>();
+        subtitleTimingStrings = new List<string>();
+        subtitleTimings = new List<float>();
+        subtitleText = new List<string>();
+
+        triggerLines = new List<string>();
+        triggerTimingStrings = new List<string>();
+        triggerTimings = new List<float>();
+        triggers = new List<string>();
+        triggerObjectNames = new List<string>();
+        triggerMethodNames = new List<string>();
     }
 }
