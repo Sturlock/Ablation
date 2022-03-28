@@ -31,11 +31,11 @@ Material:
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
-  - TransparentDepthPrepass
+  - MOTIONVECTORS
   - TransparentDepthPostpass
   - TransparentBackface
   - RayTracingPrepass
-  - MOTIONVECTORS
+  - TransparentDepthPrepass
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -204,8 +204,8 @@ Material:
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 2
     - _Smoothness: 0.862
-    - _SmoothnessRemapMax: 1
-    - _SmoothnessRemapMin: 0.40121982
+    - _SmoothnessRemapMax: 0.99999994
+    - _SmoothnessRemapMin: 0.6041645
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2
     - _SpecularOcclusionMode: 1
