@@ -5,10 +5,14 @@ public class AutoDoor : MonoBehaviour
     [SerializeField] private Animator ani;
     [SerializeField] private bool doorOpen;
     [SerializeField] private GameObject target;
+    [SerializeField] private AudioSource aud;
+    public AudioClip Open;
+    public AudioClip Close;
 
     private void Awake()
     {
         ani = GetComponentInChildren<Animator>();
+        aud = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -16,10 +20,12 @@ public class AutoDoor : MonoBehaviour
         if (doorOpen)
         {
             ani.SetBool("Open", true);
+            //aud.PlayOneShot(Open);
         }
         else
         {
             ani.SetBool("Open", false);
+            //aud.PlayOneShot(Close);
         }
     }
 
@@ -28,6 +34,10 @@ public class AutoDoor : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("Monster"))
         {
             target = other.gameObject;
+            if (!doorOpen)
+            {
+                aud.PlayOneShot(Open);
+            }
             doorOpen = true;
         }
     }
@@ -37,6 +47,10 @@ public class AutoDoor : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("Monster"))
         {
             target = null;
+            if (doorOpen)
+            {
+                aud.PlayOneShot(Close);
+            }
             doorOpen = false;
         }
     }

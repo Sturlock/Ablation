@@ -93,8 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b373a0c379af91342a41e8d95fe3656a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 929058082258897265}
-  contence: {fileID: 4183278674362653054}
+  _title: {fileID: 0}
+  _contences: []
+  _canvasGroup: {fileID: 0}
 --- !u!95 &8553321016540003043
 Animator:
   serializedVersion: 3
@@ -126,9 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c922157ea52eb48913f6eec75ab515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _look: {fileID: 0}
+  _hm: {fileID: 0}
   toggleKey: 9
   uiContainer: {fileID: 435714511056902209}
-  retract: 0
+  show: 0
 --- !u!1 &1218951362537603840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,7 +2277,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7607923903688351853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4715500004347422283}
