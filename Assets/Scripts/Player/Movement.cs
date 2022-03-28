@@ -8,7 +8,6 @@ public class Movement : MonoBehaviour
     public Rigidbody rb;
     private Vector3 controlInput;
     [SerializeField] private Vector3 rawInput;
-    
 
     private float runMaxSpeed = 100f;
     private float sprintMaxSpeed = 240f;
@@ -29,8 +28,10 @@ public class Movement : MonoBehaviour
 
     [Header("Detection Settings")]
     private float detectRange = 0;
+
     public LayerMask layerMask;
-   //private SphereCollider sphere;
+    [SerializeField]
+    private SphereCollider sphere;
 
     [Header("Debug")]
     [SerializeField] private TextMeshProUGUI text;
@@ -46,7 +47,6 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cap = GetComponent<CapsuleCollider>();
-       //sphere = GetComponent<SphereCollider>();
         animator = GetComponent<Animator>();
     }
 
@@ -65,8 +65,6 @@ public class Movement : MonoBehaviour
         #region Movement Inputs
 
         Inputs();
-
-
 
         if (Input.GetKey(KeyCode.LeftShift) && !crouchBool)
         {
@@ -95,7 +93,9 @@ public class Movement : MonoBehaviour
         }
 
         DetectingPlayer();
+
         #region Animation
+
         float speed = 0f;
         float strafe = 0f;
         float crouch = 0f;
@@ -103,14 +103,13 @@ public class Movement : MonoBehaviour
         float aniStrafe = animator.GetFloat("Strafe");
         float aniCrouch = animator.GetFloat("Crouching");
         if (rawInput.z > 0.1f)
-        speed = sprintBool ? 1f : 0.5f;
+            speed = sprintBool ? 1f : 0.5f;
         else if (rawInput.z < -0.1f)
             speed = -0.5f;
         else speed = 0f;
         strafe = rawInput.x;
         crouch = crouchBool ? 1f : 0f;
 
-        
         aniSpeed = Mathf.SmoothStep(speed, aniSpeed, accel);
         aniStrafe = Mathf.SmoothStep(strafe, aniStrafe, accel);
         aniCrouch = Mathf.SmoothStep(crouch, aniCrouch, accel);
@@ -118,25 +117,26 @@ public class Movement : MonoBehaviour
         animator.SetFloat("Crouching", aniCrouch);
         animator.SetFloat("Speed", aniSpeed);
         animator.SetFloat("Strafe", aniStrafe);
-        
-        
-        #endregion
 
+        #endregion Animation
 
         #region DEBUG
 
 #if UNITY_EDITOR
-        if (sprintBool)
+        if (text != null)
         {
-            text.text = "SPRINTING";
-        }
-        else if (crouchBool)
-        {
-            text.text = "CROUCHING";
-        }
-        else
-        {
-            text.text = "RUNNING";
+            if (sprintBool)
+            {
+                text.text = "SPRINTING";
+            }
+            else if (crouchBool)
+            {
+                text.text = "CROUCHING";
+            }
+            else
+            {
+                text.text = "RUNNING";
+            }
         }
 #endif
 
@@ -173,7 +173,7 @@ public class Movement : MonoBehaviour
             controlInput.z * maxSpeed * Time.fixedDeltaTime);
         rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
 
-        //sphere.radius = detectRange;
+        sphere.radius = detectRange;
 
         #region removed code
 
@@ -207,18 +207,18 @@ public class Movement : MonoBehaviour
     {
         if (controlInput != Vector3.zero && !crouchBool)
         {
-            //sphere.enabled = true;
+            sphere.enabled = true;
             if (sprintBool) detectRange = 10;
             else detectRange = 4;
         }
         else if (controlInput != Vector3.zero && crouchBool)
         {
-            //sphere.enabled = false;
+            sphere.enabled = false;
             detectRange = 0;
         }
         else
         {
-            //sphere.enabled = false;
+            sphere.enabled = false;
             detectRange = 0;
         }
     }

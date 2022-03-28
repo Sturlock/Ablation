@@ -24,7 +24,6 @@ public class CharacterAI : MonoBehaviour
 
     [Header("Animation Settings"), Space]
     [ReadOnly] public string isMoving = "IsMoving";
-
     [ReadOnly] public string roar1 = "Roar1";
     [ReadOnly] public string roar2 = "Roar2";
     [SerializeField] private bool setRoar;
@@ -34,7 +33,7 @@ public class CharacterAI : MonoBehaviour
 
     [Header("Detection Settings"), Space]
     public bool heard;
-
+    [SerializeField]
     private SphereCollider sphereCollider;
 
     [Range(0f, 100f)]
@@ -159,11 +158,14 @@ public class CharacterAI : MonoBehaviour
         NavMeshHit hit;
         if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
         {
-            Debug.Log("Destination: True");
+            
             Vector3 finalPos = hit.position;
             finalPos.y = 0;
+            Debug.Log("[GetWaypointPosition] Destination: " + finalPos);
             return finalPos;
         }
+        Vector3 errorPos = pos + rad;
+        Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
         return GetWaypointPosition(id);
     }
 
@@ -175,27 +177,33 @@ public class CharacterAI : MonoBehaviour
         NavMeshHit hit;
         if (NavMesh.SamplePosition(pos + rad, out hit, 2f, NavMesh.AllAreas))
         {
-            Debug.Log("Destination: True");
+            
             Vector3 finalPos = hit.position;
             finalPos.y = 0;
+            Debug.Log("[GetTargetPosition] Destination: " + finalPos);
             return finalPos;
         }
+        Vector3 errorPos = pos + rad;
+        Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
         return pos + rad;
     }
 
     private Vector3 AreaToSurvay(Vector3 position)
     {
         Vector3 pos = position;
-        Vector3 rad = Random.Range(5f, 10f) * Random.insideUnitSphere;
+        Vector3 rad = Random.Range(3f, 8f) * Random.insideUnitSphere;
         rad.y = 0;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(pos + rad, out hit, 1.5f, NavMesh.AllAreas))
         {
-            Debug.Log("Destination: True");
+            
             Vector3 finalPos = hit.position;
             finalPos.y = 0;
+            Debug.Log("[AreaToSurvay] Destination: " + finalPos);
             return finalPos;
         }
+        Vector3 errorPos =pos + rad;
+        Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
         return AreaToSurvay(position);
     }
 
@@ -210,7 +218,7 @@ public class CharacterAI : MonoBehaviour
         atDestination = true;
         destination = gameObject.transform.position;
 
-        sphereCollider = GetComponent<SphereCollider>();
+        
         sphereCollider.radius = heardRange;
 
         Destination = transform.position;
