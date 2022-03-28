@@ -6,6 +6,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
 {
     public bool power;
     public GameObject[] hallways;
+    public GameObject[] bespokeRooms;
     List<LightBlock> lightBlocks = new List<LightBlock>();
 
     [Header("Audio")]
@@ -27,12 +28,19 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     void Awake()
     {
+        if (bespokeRooms != null)
+        {
+            for (int i = 0; i < bespokeRooms.Length; i++)
+            {
+                lightBlocks.Add(hallways[i].GetComponentInChildren<LightBlock>());
+            }  
+        }
         for (int i = 0; i < hallways.Length; i++)
         {
             //Gets Light prefab that exists on all corridors
             lightBlocks.Add(hallways[i].GetComponentInChildren<LightBlock>());
         }
-
+        
     }
 
     void Start()
@@ -48,6 +56,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract script)
     {
+        StopAllCoroutines();
         StartCoroutine(PoweringLight());
         StartCoroutine(StartPowerDraw());
         power = true;
@@ -64,6 +73,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
         Debug.Log("Time: " + tim);
         yield return timer;
         Debug.Log("Time up");
+        power = true;
         StartCoroutine(UnpoweringLights());
         
         yield break;
