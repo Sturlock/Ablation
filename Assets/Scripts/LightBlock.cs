@@ -2,47 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum LightType
+{
+    Hallway, Bespoke
+}
+
 public class LightBlock : MonoBehaviour
 {
-    public AudioSource source;
-    public Light spotLightUV;
-    public Light glassLightRight;
-    public Light glassLightLeft;
-
-    public Light spotLight;
-    public Light areaLight;
-    public MeshRenderer renderer;
+    public AudioSource _source;
+    public LightType _type;
+    [Header("Night")]
+    public Light _spotLightUV;
+    public Light _areaLightUV;
+    [Header("Day")]
+    public Light _spotLight;
+    public Light _areaLight;
+    public ReflectionProbe _reflectionProbe;
+    public MeshRenderer _renderer;
 
     public void DaySetActive(AudioClip clip, bool active, Material material)
     {
-        if (source != null)
+        if (_source != null)
         { 
-            source.clip = clip;
-            source.Play();
+            _source.clip = clip;
+            _source.Play();
         }
-        if (spotLight != null)
-            spotLight.enabled = active;
-        if (areaLight != null)
-            areaLight.enabled = active;
-        if (renderer != null)
-            renderer.material = material;
+        if (_spotLight != null)
+            _spotLight.enabled = active;
+        if (_areaLight != null)
+            _areaLight.enabled = active;
+        if (_renderer != null)
+            _renderer.material = material;
+        if(_reflectionProbe != null)
+            _reflectionProbe.enabled = active;
     }
 
     public void NightSetActive(AudioClip clip, bool active, Material material)
     {
-        if (source != null)
+        if (_source != null)
         {
-            source.clip = clip;
-            source.Play();
+            _source.clip = clip;
+            _source.Play();
         }
-        if (spotLightUV != null)
-            spotLightUV.enabled = active;
-        if (glassLightRight != null)
-            glassLightRight.enabled = active;
-        if (glassLightLeft != null)
-            glassLightLeft.enabled = active;
-        if (renderer != null)
-            renderer.material = material;
+        if (_spotLightUV != null)
+            _spotLightUV.enabled = active;
+        if (_areaLightUV != null)
+            _areaLightUV.enabled = active;
+        if (_renderer != null)
+            _renderer.material = material;
     }
 }
 

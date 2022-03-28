@@ -27,7 +27,7 @@ public class Mouse_Look : MonoBehaviour
             if (pOV == null)
                 pOV = vcam.GetCinemachineComponent<CinemachinePOV>();
             if (pOV != null)
-                transform.rotation = Quaternion.Euler(0f, pOV.m_HorizontalAxis.Value +120f, 0f);
+                transform.rotation = Quaternion.Euler(0f, pOV.m_HorizontalAxis.Value, 0f);
         }
         else
         {
