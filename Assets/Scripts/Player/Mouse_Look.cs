@@ -17,6 +17,7 @@ public class Mouse_Look : MonoBehaviour
         _handyMan = FindObjectOfType<HandyMan>();
         //_showHideUI = FindObjectOfType<ShowHideUI_Canvas>();
         Cursor.lockState = CursorLockMode.Locked;
+        pOV.m_HorizontalAxis.Value = transform.rotation.y;
     }
 
     // Update is called once per frame

@@ -15,7 +15,7 @@ public class PlayerInteract : MonoBehaviour
 
     private void Start()
     {
-        m_CameraTransform = Camera.main;
+        //m_CameraTransform = Camera.main;
     }
 
     private void Update()

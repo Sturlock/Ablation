@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AI_Director : Singleton<AI_Director>
+public class AIDirector : Singleton<AIDirector>
 {
     [Range(0f, 100f)]
     public float tension;
