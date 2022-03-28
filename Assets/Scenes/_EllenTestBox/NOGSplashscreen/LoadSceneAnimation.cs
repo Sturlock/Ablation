@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneAnimation : MonoBehaviour
 {
-    public string SceneName;
+    public string SceneNow;
+    public string SceneNext;
 
     public void LoadNewScene()
     {
-        SceneManager.LoadScene(SceneName);
+        GameManager.Instance.LoadLevel(SceneNext);
+        GameManager.Instance.UnloadLevel(SceneNow);
+        Debug.Log(SceneNow + "going to" + SceneNext);
     }
 
 }

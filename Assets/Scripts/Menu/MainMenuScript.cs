@@ -57,7 +57,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void PlayGame()
     {
-        GameManager.Instance.LoadLevel("Level_Assets");
+        GameManager.Instance.LoadLevel("TempCut");
         GameManager.Instance.UnloadLevel("MainMenu");
         Debug.Log("[MainMenu] Play Game");
     }
