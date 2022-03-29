@@ -32,10 +32,13 @@ public class CharacterAI : MonoBehaviour
     [ReadOnly] public string roar1 = "Roar1";
     [ReadOnly] public string roar2 = "Roar2";
     [SerializeField] private bool setRoar;
-    private Coroutine roarHandler = null;
+    private Coroutine _roarHandler = null;
 
-    [SerializeField, Space] private bool surveying;
-    public int surveyTimes = 0;
+    [Header("Behavioral Settings"), Space]
+    [SerializeField] private bool _surveying;
+
+    public int _surveyTimes = 0;
+    private Coroutine _survayHandeler = null;
 
     [Header("Detection Settings"), Space]
     public bool heard;
@@ -162,6 +165,7 @@ public class CharacterAI : MonoBehaviour
     #endregion Getters and Setters
 
     #region Public Functions
+
     public Vector3 GetWaypointPosition(int id)
     {
         Waypoint waypoint = waypoints[id];
@@ -242,7 +246,7 @@ public class CharacterAI : MonoBehaviour
         }
     }
 
-    #endregion
+    #endregion Public Functions
 
     // Start is called before the first frame update
     private void Start()
@@ -263,13 +267,30 @@ public class CharacterAI : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        vel = navMeshAgent.velocity;
-        AnimationUpdate();
+        if (!AIDirector.Instance.protectedArea)
+        {
+            vel = navMeshAgent.velocity;
+            AnimationUpdate();
 
-        if (stopAI)
-            navMeshAgent.isStopped = true;
-        else if (!stopAI)
-            navMeshAgent.isStopped = false;
+            if (stopAI)
+                navMeshAgent.isStopped = true;
+            else if (!stopAI)
+                navMeshAgent.isStopped = false;
+
+            if (heard)
+            {
+                StopCoroutine(_survayHandeler);
+                _survayHandeler = null;
+                setRoar = true;
+                moveTarget.ToDestination(target, navMeshAgent);
+            }
+        }
+        else
+        {
+            StopAllCoroutines();
+            _survayHandeler = null;
+            _roarHandler = null;
+        }
 
         #region DEBUG
 
@@ -290,8 +311,11 @@ public class CharacterAI : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector2 distance = new Vector2(gameObject.transform.position.x - Destination.x, gameObject.transform.position.z - Destination.z);
-        AtDestination(distance);
+        if (!AIDirector.Instance.protectedArea)
+        {
+            Vector2 distance = new Vector2(gameObject.transform.position.x - Destination.x, gameObject.transform.position.z - Destination.z);
+            AtDestination(distance);
+        }
     }
 
     private void AtDestination(Vector2 distance)
@@ -304,8 +328,8 @@ public class CharacterAI : MonoBehaviour
         if (!heard)
         {
             if (atDestination)
-                if (!surveying)
-                    StartCoroutine(SurveyArea(Destination));
+                if (!_surveying)
+                    _survayHandeler = StartCoroutine(SurveyArea(Destination));
             if (!atDestination)
             {
                 navMeshAgent.SetDestination(Destination);
@@ -341,8 +365,8 @@ public class CharacterAI : MonoBehaviour
 
     private IEnumerator SurveyArea(Vector3 position)
     {
-        surveying = true;
-        surveyTimes = 0;
+        _surveying = true;
+        _surveyTimes = 0;
         List<Vector3> finalPos = new List<Vector3>();
         for (int i = 0; i < 3; i++)
         {
@@ -359,7 +383,7 @@ public class CharacterAI : MonoBehaviour
                 Debug.Log("[Survey Area] NavMesh Agent is Stopped");
                 stopAI = false;
                 Destination = finalPos[i];
-                surveyTimes++;
+                _surveyTimes++;
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -373,7 +397,8 @@ public class CharacterAI : MonoBehaviour
             WaypointCheck();
         }
         finalPos.Clear();
-        surveying = false;
+        _surveying = false;
+        _survayHandeler = null;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -407,7 +432,7 @@ public class CharacterAI : MonoBehaviour
 
     private void AnimationUpdate()
     {
-        if(navMeshAgent.velocity.magnitude > 0.1f)
+        if (navMeshAgent.velocity.magnitude > 0.1f)
         {
             animator.SetFloat("Speed", .5f);
         }
@@ -435,24 +460,28 @@ public class CharacterAI : MonoBehaviour
                     break;
 
                 default:
-                    roar = roar1;
-                    seconds = 2.567f;
+                    roar = null;
+                    seconds = 0;
                     break;
             }
-            roarHandler = StartCoroutine(PlayRoar(roar, seconds));
+            if (roar != null)
+            {
+                _roarHandler = StartCoroutine(PlayRoar(roar, seconds));
+            }
             setRoar = false;
         }
 
-        if (roarHandler == null)
-            navMeshAgent.isStopped = false;
+        if (_roarHandler == null)
+            stopAI = false;
     }
 
     private IEnumerator PlayRoar(string roar, float seconds)
     {
         animator.SetTrigger(roar);
-        navMeshAgent.isStopped = true;
+        stopAI = true;
 
         yield return new WaitForSeconds(seconds);
-        roarHandler = null;
+
+        _roarHandler = null;
     }
 }
