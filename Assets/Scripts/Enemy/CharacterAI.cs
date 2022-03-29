@@ -1,7 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.AI;
+
+public struct AreaSurvayJob : IJob
+{
+    public void Execute()
+    {
+    }
+}
 
 public class CharacterAI : MonoBehaviour
 {
@@ -24,6 +32,7 @@ public class CharacterAI : MonoBehaviour
 
     [Header("Animation Settings"), Space]
     [ReadOnly] public string isMoving = "IsMoving";
+
     [ReadOnly] public string roar1 = "Roar1";
     [ReadOnly] public string roar2 = "Roar2";
     [SerializeField] private bool setRoar;
@@ -33,8 +42,11 @@ public class CharacterAI : MonoBehaviour
 
     [Header("Detection Settings"), Space]
     public bool heard;
+
     [SerializeField]
     private SphereCollider sphereCollider;
+
+    private Vector3 samplePosition;
 
     [Range(0f, 100f)]
     public float heardRange;
@@ -56,6 +68,9 @@ public class CharacterAI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawSphere(samplePosition, .5f);
+
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, destination);
 
@@ -155,10 +170,10 @@ public class CharacterAI : MonoBehaviour
         if (waypoint.radius == 0) return pos;
         Vector3 rad = Random.insideUnitSphere * waypoint.radius;
         rad.y = 0;
+        samplePosition = pos + rad;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
         {
-            
             Vector3 finalPos = hit.position;
             finalPos.y = 0;
             Debug.Log("[GetWaypointPosition] Destination: " + finalPos);
@@ -174,18 +189,28 @@ public class CharacterAI : MonoBehaviour
         Vector3 pos = targetPos;
         Vector3 rad = Random.Range(5f, 20f) * Random.insideUnitSphere;
         rad.y = 0;
+        samplePosition = pos + rad;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(pos + rad, out hit, 2f, NavMesh.AllAreas))
         {
-            
             Vector3 finalPos = hit.position;
             finalPos.y = 0;
             Debug.Log("[GetTargetPosition] Destination: " + finalPos);
             return finalPos;
         }
-        Vector3 errorPos = pos + rad;
-        Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
-        return pos + rad;
+        else if (NavMesh.SamplePosition(pos + rad, out hit, 5f, NavMesh.AllAreas))
+        {
+            Vector3 finalPos = hit.position;
+            finalPos.y = 0;
+            Debug.Log("[AreaToSurvay] Destination: " + finalPos);
+            return finalPos;
+        }
+        else
+        {
+            Vector3 errorPos = pos + rad;
+            Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
+            return pos + rad;
+        }
     }
 
     private Vector3 AreaToSurvay(Vector3 position)
@@ -193,18 +218,28 @@ public class CharacterAI : MonoBehaviour
         Vector3 pos = position;
         Vector3 rad = Random.Range(3f, 8f) * Random.insideUnitSphere;
         rad.y = 0;
+        samplePosition = pos + rad;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(pos + rad, out hit, 1.5f, NavMesh.AllAreas))
         {
-            
             Vector3 finalPos = hit.position;
             finalPos.y = 0;
             Debug.Log("[AreaToSurvay] Destination: " + finalPos);
             return finalPos;
         }
-        Vector3 errorPos =pos + rad;
-        Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
-        return AreaToSurvay(position);
+        else if (NavMesh.SamplePosition(pos + rad, out hit, 5f, NavMesh.AllAreas))
+        {
+            Vector3 finalPos = hit.position;
+            finalPos.y = 0;
+            Debug.Log("[AreaToSurvay] Destination: " + finalPos);
+            return finalPos;
+        }
+        else
+        {
+            Vector3 errorPos = pos + rad;
+            Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
+            return AreaToSurvay(position);
+        }
     }
 
     // Start is called before the first frame update
@@ -218,7 +253,6 @@ public class CharacterAI : MonoBehaviour
         atDestination = true;
         destination = gameObject.transform.position;
 
-        
         sphereCollider.radius = heardRange;
 
         Destination = transform.position;
@@ -258,7 +292,10 @@ public class CharacterAI : MonoBehaviour
     private void FixedUpdate()
     {
         currentPos = transform.position;
+    }
 
+    private void LateUpdate()
+    {
         Vector2 distance = new Vector2(gameObject.transform.position.x - Destination.x, gameObject.transform.position.z - Destination.z);
         AtDestination(distance);
     }
@@ -313,8 +350,8 @@ public class CharacterAI : MonoBehaviour
 
     private IEnumerator SurvayArea(Vector3 position)
     {
-        List<Vector3> finalPos = new List<Vector3>();
         survaying = true;
+        List<Vector3> finalPos = new List<Vector3>();
         for (int i = 0; i < 3; i++)
         {
             finalPos.Add(AreaToSurvay(position));
@@ -329,8 +366,6 @@ public class CharacterAI : MonoBehaviour
                 Destination = finalPos[i];
             }
         }
-
-        survaying = false;
         if (heard)
         {
             moveTarget.ToDestination(target, navMeshAgent);
@@ -340,18 +375,16 @@ public class CharacterAI : MonoBehaviour
         {
             WaypointCheck();
         }
+        survaying = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            if (other.gameObject.GetComponent<SphereCollider>().enabled == true)
-            {
-                Debug.Log("PLAYER");
-                target = other.gameObject;
-                heard = true;
-            }
+            Debug.Log("PLAYER");
+            target = other.gameObject;
+            heard = true;
         }
         if (other.tag == "SOUND")
         {
