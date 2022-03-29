@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 3335964668962284554}
   - component: {fileID: 3335964668962284596}
   - component: {fileID: 5005090369365214313}
+  - component: {fileID: 7969677910696340365}
   m_Layer: 12
   m_Name: AI_Proto
   m_TagString: Monster
@@ -169,13 +170,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   destination: {x: -38.1, y: 1.141, z: 17.04}
+  vel: {x: 0, y: 0, z: 0}
   atDestination: 0
   killRad: 2.5
   isMoving: IsMoving
   roar1: Roar1
   roar2: Roar2
   setRoar: 0
-  survaying: 0
+  surveying: 0
+  surveyTimes: 0
   heard: 0
   sphereCollider: {fileID: 6609661839415030744}
   heardRange: 30
@@ -231,8 +234,22 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
+--- !u!136 &7969677910696340365
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335964668962284556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.68
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.33, z: 0}
 --- !u!1001 &6279480546305250804
 PrefabInstance:
   m_ObjectHideFlags: 0

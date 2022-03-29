@@ -1,16 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Jobs;
+using Unity.Burst;
 using UnityEngine;
 using UnityEngine.AI;
 
-public struct AreaSurvayJob : IJob
-{
-    public void Execute()
-    {
-    }
-}
-
+[BurstCompile]
 public class CharacterAI : MonoBehaviour
 {
     private Vector3 currentPos;
@@ -23,8 +17,10 @@ public class CharacterAI : MonoBehaviour
     private ToNextWaypoint moveWaypoint;
     private MoveToTarget moveTarget;
     [SerializeField, ReadOnly] private Vector3 destination;
+    [SerializeField, ReadOnly] private Vector3 vel;
     private float destinationThreshold = 1f;
     private bool doOnce = false;
+    private bool stopAI = false;
     public bool atDestination = true;
 
     [SerializeField, Space]
@@ -38,7 +34,8 @@ public class CharacterAI : MonoBehaviour
     [SerializeField] private bool setRoar;
     private Coroutine roarHandler = null;
 
-    [SerializeField] private bool survaying;
+    [SerializeField, Space] private bool surveying;
+    public int surveyTimes = 0;
 
     [Header("Detection Settings"), Space]
     public bool heard;
@@ -48,10 +45,12 @@ public class CharacterAI : MonoBehaviour
 
     private Vector3 samplePosition;
 
-    [Range(0f, 100f)]
+    [Range(0f, 100f), Space]
     public float heardRange;
 
+    [Space]
     public Vector3 lastKnownPos;
+
     public bool wasKnown;
 
     [Header("Waypoints"), Space]
@@ -162,6 +161,7 @@ public class CharacterAI : MonoBehaviour
 
     #endregion Getters and Setters
 
+    #region Public Functions
     public Vector3 GetWaypointPosition(int id)
     {
         Waypoint waypoint = waypoints[id];
@@ -213,7 +213,7 @@ public class CharacterAI : MonoBehaviour
         }
     }
 
-    private Vector3 AreaToSurvay(Vector3 position)
+    private Vector3 AreaToSurvey(Vector3 position)
     {
         Vector3 pos = position;
         Vector3 rad = Random.Range(3f, 8f) * Random.insideUnitSphere;
@@ -238,9 +238,11 @@ public class CharacterAI : MonoBehaviour
         {
             Vector3 errorPos = pos + rad;
             Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
-            return AreaToSurvay(position);
+            return AreaToSurvey(position);
         }
     }
+
+    #endregion
 
     // Start is called before the first frame update
     private void Start()
@@ -261,21 +263,13 @@ public class CharacterAI : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        vel = navMeshAgent.velocity;
         AnimationUpdate();
-        //if (heard && !wasKnown)
-        //{
-        //    moveTarget.ToDestination(target, navMeshAgent);
-        //    heard = false;
-        //    return;
-        //}
-        //if (waypoint_bool)
-        //    WaypointCheck();
 
-        //if (heard && atDestination)
-        //{
-        //    //SurvayArea(destination);
-        //    heard = false;
-        //}
+        if (stopAI)
+            navMeshAgent.isStopped = true;
+        else if (!stopAI)
+            navMeshAgent.isStopped = false;
 
         #region DEBUG
 
@@ -310,8 +304,8 @@ public class CharacterAI : MonoBehaviour
         if (!heard)
         {
             if (atDestination)
-                if (!survaying)
-                    StartCoroutine(SurvayArea(Destination));
+                if (!surveying)
+                    StartCoroutine(SurveyArea(Destination));
             if (!atDestination)
             {
                 navMeshAgent.SetDestination(Destination);
@@ -323,10 +317,7 @@ public class CharacterAI : MonoBehaviour
     {
         if (waypoint_bool && !heard)
         {
-            if (atDestination && !doOnce)
-            {
-                moveWaypoint.MovetoWaypoint();
-            }
+            moveWaypoint.MovetoWaypoint();
         }
     }
 
@@ -348,22 +339,28 @@ public class CharacterAI : MonoBehaviour
         }
     }
 
-    private IEnumerator SurvayArea(Vector3 position)
+    private IEnumerator SurveyArea(Vector3 position)
     {
-        survaying = true;
+        surveying = true;
+        surveyTimes = 0;
         List<Vector3> finalPos = new List<Vector3>();
         for (int i = 0; i < 3; i++)
         {
-            finalPos.Add(AreaToSurvay(position));
+            Vector3 targetpos = AreaToSurvey(position);
+            finalPos.Add(targetpos);
         }
         for (int i = 0; i < 3; ++i)
         {
             if (atDestination)
             {
-                navMeshAgent.isStopped = true;
-                yield return new WaitForSeconds(1f);
-                navMeshAgent.isStopped = false;
+                animator.SetTrigger("Search");
+                stopAI = true;
+                yield return new WaitForSeconds(4.333f);
+                Debug.Log("[Survey Area] NavMesh Agent is Stopped");
+                stopAI = false;
                 Destination = finalPos[i];
+                surveyTimes++;
+                yield return new WaitForSeconds(1f);
             }
         }
         if (heard)
@@ -375,7 +372,8 @@ public class CharacterAI : MonoBehaviour
         {
             WaypointCheck();
         }
-        survaying = false;
+        finalPos.Clear();
+        surveying = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -409,7 +407,14 @@ public class CharacterAI : MonoBehaviour
 
     private void AnimationUpdate()
     {
-        animator.SetBool(isMoving, navMeshAgent.velocity.magnitude > 0.01f);
+        if(navMeshAgent.velocity.magnitude > 0.1f)
+        {
+            animator.SetFloat("Speed", .5f);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 0f);
+        }
         string roar;
         float seconds;
         float i;

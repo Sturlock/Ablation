@@ -32,7 +32,7 @@ public class Mouse_Look : MonoBehaviour
         }
         else
         {
-            vcam.LookAt = _handyMan.transform.parent.transform;
+            vcam.LookAt = _handyMan.transform;
         }
     }
 
