@@ -55,7 +55,7 @@ public class AIDirector : Singleton<AIDirector>
         }
     }
 
-    private void FindPlayer()
+    public void FindPlayer()
     {
         characterAI.NavMeshAgent.CalculatePath(Player.transform.position, AIPath);
         distanceFromPlayer = AIPath.Length();
@@ -104,7 +104,7 @@ public class AIDirector : Singleton<AIDirector>
         NavMeshHit hit;
         if (!procArea)
         {
-            if (NavMesh.SamplePosition(pos + rad, out hit, .1f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
             {
                 Debug.Log("Destination: True");
                 return hit.position;

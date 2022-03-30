@@ -401,7 +401,7 @@ public class CharacterAI : Singleton<CharacterAI>
                 Debug.Log("[Survey Area] NavMesh Agent is Stopped");
                 stopAI = false;
                 Destination = finalPos[i];
-                _surveyTimes++;
+                _surveyTimes= i;
                 yield return new WaitForSeconds(1f);
             }
         }
