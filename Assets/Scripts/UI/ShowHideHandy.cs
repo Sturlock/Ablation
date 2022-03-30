@@ -22,6 +22,8 @@ public class ShowHideHandy : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+
+
         show = false;
         aniShow = false;
         uiContainer = this.gameObject;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 677027585365158429}
   - component: {fileID: 6609661839415030744}
+  - component: {fileID: 3149453796604140245}
   m_Layer: 15
   m_Name: DetectRange
   m_TagString: Untagged
@@ -44,6 +45,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 30
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3149453796604140245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934613619517554140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78c3a023a80fe9841a47b9709376c92d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3335964668962284556
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,10 +189,10 @@ MonoBehaviour:
   isMoving: IsMoving
   roar1: Roar1
   roar2: Roar2
-  setRoar: 0
-  surveying: 0
-  surveyTimes: 0
-  heard: 0
+  _setRoar: 0
+  _surveying: 0
+  _surveyTimes: 0
+  _heard: 0
   sphereCollider: {fileID: 6609661839415030744}
   heardRange: 30
   lastKnownPos: {x: 0, y: 0, z: 0}
