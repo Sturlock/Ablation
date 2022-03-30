@@ -6,11 +6,12 @@ public class AIDirector : Singleton<AIDirector>
 {
     [Range(0f, 100f)]
     public float tension;
-
+    private Vector3 samplePosition;
+    private Vector3 onNMPosition;
     public bool protectedArea;
     private Coroutine tensionHandle;
     private NavMeshPath AIPath;
-    private float distanceFromPlayer;
+    [SerializeField]private float distanceFromPlayer;
 
     [Space, Header("Characters")]
     public GameObject AI;
@@ -25,40 +26,35 @@ public class AIDirector : Singleton<AIDirector>
     [SerializeField]
     private float requiredHoldTime;
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(Player.transform.position, 15f);
+    }
+
+    public bool OnNavMesh(Vector3 targetDestination)
+    {
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetDestination, out hit, 1f, NavMesh.AllAreas))
+        {
+            onNMPosition = hit.position;
+            return true;
+        }
+        return false;
+    }
     private void Start()
     {
         characterAI = AI.GetComponent<CharacterAI>();
         AIPath = new NavMeshPath();
     }
 
-    private void Update()
+    public Vector3 FindPlayer()
     {
-        //FindPlayer();
-
-        tension = Mathf.Clamp(tension, 0f, 100f);
-        if (tension < 20)
-        {
-            HintPlayerLocation(Player.transform.position, protectedArea);
-        }
-        if (tension == 100f)
-        {
-            stationDownTimer += Time.deltaTime;
-            if (stationDownTimer >= requiredHoldTime)
-            {
-                //WaveOff();
-                stationDownTimer = 0;
-            }
-        }
-        else
-        {
-            stationDownTimer = 0;
-        }
-    }
-
-    public void FindPlayer()
-    {
+        Vector3 playerLocation;
         characterAI.NavMeshAgent.CalculatePath(Player.transform.position, AIPath);
         distanceFromPlayer = AIPath.Length();
+        playerLocation = Player.transform.position;
+        return playerLocation;
     }
 
     public IEnumerator IncreaseTension(float inc)
@@ -99,17 +95,23 @@ public class AIDirector : Singleton<AIDirector>
     public Vector3 HintPlayerLocation(Vector3 position, bool procArea)
     {
         Vector3 pos = position;
-        Vector3 rad = Random.Range(10f, 30f) * Random.insideUnitSphere;
+        Vector3 rad = Random.Range(8f, 15f) * Random.insideUnitSphere;
         rad.y = 0;
-        NavMeshHit hit;
+        
         if (!procArea)
         {
-            if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
+            if (OnNavMesh(pos + rad))
             {
-                Debug.Log("Destination: True");
-                return hit.position;
+                Debug.Log("[HintPlayerLocation] Destination: " + onNMPosition);
+                return onNMPosition;
             }
-            return pos + rad;
+            else
+            {
+                Vector3 errorPos = pos + rad;
+                Debug.LogWarning("[HintPlayerLocation] Destination: " + errorPos);
+                return HintPlayerLocation(position, procArea);
+            }
+
         }
         else
         {
@@ -119,7 +121,7 @@ public class AIDirector : Singleton<AIDirector>
 
     public void GiveDestination(Vector3 position)
     {
-        Debug.Log(position.ToString());
+        Debug.Log("[GiveDestination] Player near " + position.ToString());
         characterAI.Destination = position;
     }
 

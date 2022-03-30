@@ -28,9 +28,9 @@ public class CharacterAI : Singleton<CharacterAI>
 
     [Header("Animation Settings"), Space]
     [ReadOnly] public string isMoving = "IsMoving";
-
     [ReadOnly] public string roar1 = "Roar1";
     [ReadOnly] public string roar2 = "Roar2";
+
     [SerializeField] private bool _setRoar;
     private Coroutine _roarHandler = null;
 
@@ -47,6 +47,7 @@ public class CharacterAI : Singleton<CharacterAI>
     private SphereCollider sphereCollider;
 
     private Vector3 samplePosition;
+    private Vector3 onNMPosition;
 
     [Range(0f, 100f), Space]
     public float heardRange;
@@ -165,6 +166,16 @@ public class CharacterAI : Singleton<CharacterAI>
     #endregion Getters and Setters
 
     #region Public Functions
+    public bool OnNavMesh(Vector3 targetDestination)
+    {
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetDestination, out hit, 1f, NavMesh.AllAreas))
+        {
+            onNMPosition = hit.position;
+            return true;
+        }
+        return false;
+    }
 
     public Vector3 GetWaypointPosition(int id)
     {
@@ -175,17 +186,18 @@ public class CharacterAI : Singleton<CharacterAI>
         Vector3 rad = Random.insideUnitSphere * waypoint.radius;
         rad.y = 0;
         samplePosition = pos + rad;
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(pos + rad, out hit, 1f, NavMesh.AllAreas))
+
+        if (OnNavMesh(samplePosition))
         {
-            Vector3 finalPos = hit.position;
-            finalPos.y = 0;
-            Debug.Log("[GetWaypointPosition] Destination: " + finalPos);
-            return finalPos;
+            Debug.Log("[GetWaypointPosition] Destination: " + onNMPosition);
+            return onNMPosition;
         }
-        Vector3 errorPos = pos + rad;
-        Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
-        return GetWaypointPosition(id);
+        else
+        {
+            Vector3 errorPos = pos + rad;
+            Debug.LogWarning("[GetWaypointPosition] Destination: " + errorPos);
+            return GetWaypointPosition(id);
+        }       
     }
 
     public Vector3 GetTargetPosition(Vector3 targetPos)
@@ -194,26 +206,16 @@ public class CharacterAI : Singleton<CharacterAI>
         Vector3 rad = Random.Range(5f, 20f) * Random.insideUnitSphere;
         rad.y = 0;
         samplePosition = pos + rad;
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(pos + rad, out hit, 2f, NavMesh.AllAreas))
+        if (OnNavMesh(samplePosition))
         {
-            Vector3 finalPos = hit.position;
-            finalPos.y = 0;
-            Debug.Log("[GetTargetPosition] Destination: " + finalPos);
-            return finalPos;
-        }
-        else if (NavMesh.SamplePosition(pos + rad, out hit, 5f, NavMesh.AllAreas))
-        {
-            Vector3 finalPos = hit.position;
-            finalPos.y = 0;
-            Debug.Log("[AreaToSurvay] Destination: " + finalPos);
-            return finalPos;
+            Debug.Log("[GetTargetPosition] Destination: " + onNMPosition);
+            return onNMPosition;
         }
         else
         {
             Vector3 errorPos = pos + rad;
-            Debug.LogWarning("[AreaToSurvay] Destination: " + errorPos);
-            return pos + rad;
+            Debug.LogWarning("[GetTargetPosition] Destination: " + errorPos);
+            return GetTargetPosition(targetPos);
         }
     }
 
@@ -223,20 +225,10 @@ public class CharacterAI : Singleton<CharacterAI>
         Vector3 rad = Random.Range(3f, 8f) * Random.insideUnitSphere;
         rad.y = 0;
         samplePosition = pos + rad;
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(pos + rad, out hit, 1.5f, NavMesh.AllAreas))
+        if (OnNavMesh(samplePosition))
         {
-            Vector3 finalPos = hit.position;
-            finalPos.y = 0;
-            Debug.Log("[AreaToSurvay] Destination: " + finalPos);
-            return finalPos;
-        }
-        else if (NavMesh.SamplePosition(pos + rad, out hit, 5f, NavMesh.AllAreas))
-        {
-            Vector3 finalPos = hit.position;
-            finalPos.y = 0;
-            Debug.Log("[AreaToSurvay] Destination: " + finalPos);
-            return finalPos;
+            Debug.Log("[AreaToSurvey] Destination: " + onNMPosition);
+            return onNMPosition;
         }
         else
         {
@@ -405,14 +397,17 @@ public class CharacterAI : Singleton<CharacterAI>
                 yield return new WaitForSeconds(1f);
             }
         }
-        if (WasKnown)
+        if (atDestination)
         {
-            moveTarget.ToDestination(_target, _navMeshAgent);
-            WasKnown = false;
-        }
-        else if (waypoint_bool)
-        {
-            WaypointCheck();
+            if (WasKnown)
+            {
+                moveTarget.ToDestination(_target, _navMeshAgent);
+                WasKnown = false;
+            }
+            else if (waypoint_bool)
+            {
+                WaypointCheck();
+            }
         }
         finalPos.Clear();
         _surveying = false;
