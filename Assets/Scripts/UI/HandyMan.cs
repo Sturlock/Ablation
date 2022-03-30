@@ -1,21 +1,18 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class HandyMan : MonoBehaviour
 {
-    
     [SerializeField] private Text _title;
     [SerializeField] private GameObject[] _contences;
     [SerializeField] private CanvasGroup _canvasGroup;
     private ShowHideHandy showHide;
-    
 
     private void Start()
     {
         showHide = GetComponent<ShowHideHandy>();
         _canvasGroup.alpha = 0f;
-        
+
         Handy();
     }
 
@@ -70,7 +67,7 @@ public class HandyMan : MonoBehaviour
 
     private void CloseAll()
     {
-        foreach(GameObject go in _contences)
+        foreach (GameObject go in _contences)
         {
             go.SetActive(false);
         }

@@ -1,24 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HasDetection : MonoBehaviour
 {
-    CharacterAI characterAI;
-    GameObject target;
-    bool heard;
-
-    private void Awake()
-    {
-        characterAI = GetComponentInParent<CharacterAI>();
-    }
+    [SerializeField] private CharacterAI characterAI;
+    [SerializeField] private GameObject target;
+    [SerializeField] private bool heard;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
             Debug.Log("PLAYER");
-            target = other.gameObject;
+            target = other.transform.parent.gameObject;
             heard = true;
             characterAI.IsHeard(target, heard);
         }

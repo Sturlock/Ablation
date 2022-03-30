@@ -6,21 +6,22 @@ public class AIDirector : Singleton<AIDirector>
 {
     [Range(0f, 100f)]
     public float tension;
+
     public bool protectedArea;
     private Coroutine tensionHandle;
     private NavMeshPath AIPath;
     private float distanceFromPlayer;
 
-
     [Space, Header("Characters")]
     public GameObject AI;
-    
+
     public GameObject Player;
 
     public CharacterAI characterAI;
 
-    [Space,SerializeField]
+    [Space, SerializeField]
     private float stationDownTimer;
+
     [SerializeField]
     private float requiredHoldTime;
 
@@ -29,6 +30,7 @@ public class AIDirector : Singleton<AIDirector>
         characterAI = AI.GetComponent<CharacterAI>();
         AIPath = new NavMeshPath();
     }
+
     private void Update()
     {
         //FindPlayer();
@@ -68,9 +70,10 @@ public class AIDirector : Singleton<AIDirector>
         }
         tensionHandle = null;
     }
+
     public IEnumerator ReduceTension(float dec)
     {
-       while(tension > 20f)
+        while (tension > 20f)
         {
             tension -= dec;
             yield return new WaitForSeconds(1f);
@@ -82,8 +85,8 @@ public class AIDirector : Singleton<AIDirector>
     {
         Interupt();
         tensionHandle = StartCoroutine(ReduceTension(i));
-
     }
+
     public void Interupt()
     {
         if (tensionHandle != null)
@@ -92,6 +95,7 @@ public class AIDirector : Singleton<AIDirector>
             tensionHandle = null;
         }
     }
+
     public Vector3 HintPlayerLocation(Vector3 position, bool procArea)
     {
         Vector3 pos = position;
@@ -105,13 +109,12 @@ public class AIDirector : Singleton<AIDirector>
                 Debug.Log("Destination: True");
                 return hit.position;
             }
-            return pos + rad; 
+            return pos + rad;
         }
-        else 
+        else
         {
             return characterAI.Destination;
         }
-        
     }
 
     public void GiveDestination(Vector3 position)
@@ -122,7 +125,7 @@ public class AIDirector : Singleton<AIDirector>
 
     public bool IsPlayerNearAlienT1()
     {
-        if(AIPath.Length() <= 20)
+        if (AIPath.Length() <= 20)
         {
             return true;
         }

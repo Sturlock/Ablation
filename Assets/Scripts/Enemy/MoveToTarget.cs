@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class MoveToTarget : MonoBehaviour
 {
     private CharacterAI characterAI;
-    private Vector3 targetPos = Vector3.zero;
+    [SerializeField] private Vector3 targetPos = Vector3.zero;
     private NavMeshPath path = null;
 
     private void OnDrawGizmos()
@@ -41,12 +41,14 @@ public class MoveToTarget : MonoBehaviour
                     if (target.CompareTag(hit.collider.tag))
                     {
                         characterAI.Destination = targetPos;
+                        characterAI.lastKnownPos = targetPos;
                         characterAI.WasKnown = true;
                     }
                     else if (!target.CompareTag(hit.collider.tag))
                     {
                         targetPos = characterAI.GetTargetPosition(targetPos);
                         characterAI.Destination = targetPos;
+                        characterAI.lastKnownPos = targetPos;
                         characterAI.WasKnown = true;
                     }
                 }

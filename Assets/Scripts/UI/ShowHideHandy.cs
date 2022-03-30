@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class ShowHideHandy : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class ShowHideHandy : MonoBehaviour
     {
         get => show;
     }
+
     public bool AniShow
     {
         get => aniShow;
@@ -22,8 +23,6 @@ public class ShowHideHandy : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-
-
         show = false;
         aniShow = false;
         uiContainer = this.gameObject;
@@ -63,7 +62,5 @@ public class ShowHideHandy : MonoBehaviour
         CursorState(aniShow);
         yield return new WaitForSeconds(.1f);
         show = !show;
-
-
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [BurstCompile]
-public class CharacterAI : MonoBehaviour
+public class CharacterAI : Singleton<CharacterAI>
 {
     private Vector3 currentPos;
 
@@ -245,15 +245,15 @@ public class CharacterAI : MonoBehaviour
             return AreaToSurvey(position);
         }
     }
+
     public void IsHeard(GameObject target, bool heard)
     {
-        StopCoroutine(_survayHandeler);
+        if (_survayHandeler != null) { StopCoroutine(_survayHandeler); }
         _heard = heard;
         _survayHandeler = null;
         _setRoar = true;
-        moveTarget.ToDestination(_target, _navMeshAgent);
-        _heard = false;
-        _setRoar = false;
+        moveTarget.ToDestination(target, _navMeshAgent);
+        _target = target;
     }
 
     #endregion Public Functions
@@ -286,6 +286,15 @@ public class CharacterAI : MonoBehaviour
                 _navMeshAgent.isStopped = true;
             else if (!stopAI)
                 _navMeshAgent.isStopped = false;
+
+            if (_heard)
+            {
+                NavMeshAgent.speed = 4;
+            }
+            else if (!_heard)
+            {
+                NavMeshAgent.speed = 1;
+            }
         }
         else
         {
@@ -330,8 +339,27 @@ public class CharacterAI : MonoBehaviour
         if (!_heard)
         {
             if (atDestination)
+            {
+                NavMeshAgent.velocity = Vector3.zero;
                 if (!_surveying)
                     _survayHandeler = StartCoroutine(SurveyArea(Destination));
+            }
+            if (!atDestination)
+            {
+                _navMeshAgent.SetDestination(Destination);
+            }
+        }
+        if (_heard)
+        {
+            if (atDestination)
+            {
+                NavMeshAgent.velocity = Vector3.zero;
+                if (!_surveying)
+                {
+                    _survayHandeler = StartCoroutine(SurveyArea(LastKnownPosition));
+                    _heard = false;
+                }
+            }
             if (!atDestination)
             {
                 _navMeshAgent.SetDestination(Destination);
@@ -346,23 +374,11 @@ public class CharacterAI : MonoBehaviour
             moveWaypoint.MovetoWaypoint();
         }
     }
-    
+
     private void Kill()
     {
-        RaycastHit hit;
-        if (_target != null)
-        {
-            Vector3 direction = transform.position.Direction(_target.transform.position);
-            if (Physics.Raycast(currentPos, direction, out hit, killRad))
-            {
-                Debug.DrawRay(currentPos, direction, Color.cyan);
-                GameObject hitObj = hit.collider.gameObject;
-                if (hitObj.CompareTag("Player"))
-                {
-                    Debug.Log("Kill Player");
-                }
-            }
-        }
+        Debug.Log("Kill Player");
+        GameManager.Instance.Quit();
     }
 
     private IEnumerator SurveyArea(Vector3 position)
@@ -389,10 +405,10 @@ public class CharacterAI : MonoBehaviour
                 yield return new WaitForSeconds(1f);
             }
         }
-        if (_heard)
+        if (WasKnown)
         {
             moveTarget.ToDestination(_target, _navMeshAgent);
-            _heard = false;
+            WasKnown = false;
         }
         else if (waypoint_bool)
         {
@@ -415,9 +431,11 @@ public class CharacterAI : MonoBehaviour
 
     private void AnimationUpdate()
     {
+        float speed;
         if (_navMeshAgent.velocity.magnitude > 0.1f)
         {
-            animator.SetFloat("Speed", .5f);
+            speed = _heard ? 1f : 0.5f;
+            animator.SetFloat("Speed", speed);
         }
         else
         {
@@ -426,11 +444,22 @@ public class CharacterAI : MonoBehaviour
         string roar;
         float seconds;
         float i;
+        float x;
 
-        if (_setRoar)
+        if (_setRoar && _roarHandler == null)
         {
-            i = Random.Range(0, 1);
-            switch (i)
+            _setRoar = false;
+            i = Random.Range(0, 100);
+            if (i >= 80)
+            {
+                x = 0;
+            }
+            else if (i < 80 && i >= 50)
+            {
+                x = 1;
+            }
+            else { x = 2; }
+            switch (x)
             {
                 case 0:
                     roar = roar1;
@@ -451,7 +480,6 @@ public class CharacterAI : MonoBehaviour
             {
                 _roarHandler = StartCoroutine(PlayRoar(roar, seconds));
             }
-            _setRoar = false;
         }
 
         if (_roarHandler == null)
