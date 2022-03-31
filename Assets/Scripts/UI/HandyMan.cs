@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class HandyMan : MonoBehaviour
 {
+    private SecurityClearance lvl;
+    public Image lvlColour;
     [SerializeField] private Text _title;
     [SerializeField] private GameObject[] _contences;
     [SerializeField] private CanvasGroup _canvasGroup;
@@ -10,6 +12,7 @@ public class HandyMan : MonoBehaviour
 
     private void Start()
     {
+        lvl = FindObjectOfType<SecurityClearance>();
         showHide = GetComponent<ShowHideHandy>();
         _canvasGroup.alpha = 0f;
 
@@ -35,6 +38,20 @@ public class HandyMan : MonoBehaviour
         CloseAll();
         _title.text = "Status";
         _contences[0].SetActive(true);
+
+        int i = (int)lvl.GetCurrentLevel;
+        switch (i)
+        {
+            case 0:
+                lvlColour.color = Color.white;
+                break;
+            case 1: 
+                lvlColour.color = Color.blue;
+                break;
+            default: 
+                lvlColour.color = Color.white;
+                break;
+        }
     }
 
     public void Inventory()

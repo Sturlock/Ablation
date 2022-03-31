@@ -51,14 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995c6a2c0b1a4c24c80c495090572a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  type: 0
-  spotLightUV: {fileID: 632392472777678669}
-  areaLightUV: {fileID: 632392472177963379}
-  spotLight: {fileID: 7980941542153514212}
-  areaLight: {fileID: 7980941543288675528}
-  reflectionProbe: {fileID: 7980941541893661575}
-  renderer: {fileID: 1927592299740305425}
+  _source: {fileID: 0}
+  _type: 0
+  _spotLightUV: {fileID: 0}
+  _areaLightUV: {fileID: 0}
+  _spotLight: {fileID: 0}
+  _areaLight: {fileID: 0}
+  _reflectionProbe: {fileID: 0}
+  _renderer: {fileID: 0}
 --- !u!1 &632392471919141700
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +758,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7980941541893661569}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.10744953, y: -0.25360346, z: -0.046361573}
+  m_LocalPosition: {x: 0.10744955, y: -0.25360346, z: -0.04636191}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 632392470975890725}
@@ -1435,7 +1435,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

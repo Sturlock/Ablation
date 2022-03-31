@@ -8,7 +8,11 @@ public class TestDialogue : MonoBehaviour
     public bool played = false;
     public void OnClick()
     {
-        DialogueManager.Instance.BeginDialogue(dialogueClip);
+        if (!played)
+        {
+            DialogueManager.Instance.BeginDialogue(dialogueClip);
+            played = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

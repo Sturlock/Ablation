@@ -10,9 +10,9 @@ public class CharacterAI : Singleton<CharacterAI>
     private Vector3 currentPos;
 
     [SerializeField]
-    private Animator animator;
+    private Animator _animator;
     [SerializeField]
-    private AudioSource aud;
+    private AudioSource _audioSource;
 
     public AudioClip Search;
     public AudioClip Roar;
@@ -30,6 +30,7 @@ public class CharacterAI : Singleton<CharacterAI>
 
     [SerializeField, Space]
     public float killRad = 1.5f;
+    private bool killed = false;
 
     [Header("Animation Settings"), Space]
     [ReadOnly] public string isMoving = "IsMoving";
@@ -248,10 +249,16 @@ public class CharacterAI : Singleton<CharacterAI>
 
     public void IsHeard(GameObject target, bool heard)
     {
-        if (_survayHandeler != null) { StopCoroutine(_survayHandeler); }
+        Interupt();
         _heard = heard;
-        _survayHandeler = null;
         _setRoar = true;
+        moveTarget.ToDestination(target, _navMeshAgent);
+        _target = target;
+    }
+
+    public void isHearing(GameObject target, bool heard)
+    {
+        _heard = heard;
         moveTarget.ToDestination(target, _navMeshAgent);
         _target = target;
     }
@@ -262,6 +269,7 @@ public class CharacterAI : Singleton<CharacterAI>
     private void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _audioSource = GetComponent<AudioSource>();
         //Task Set Up
         moveTarget = GetComponent<MoveToTarget>();
         moveWaypoint = GetComponent<ToNextWaypoint>();
@@ -372,8 +380,15 @@ public class CharacterAI : Singleton<CharacterAI>
 
     public void Kill()
     {
-        Debug.Log("Kill Player");
-        GameManager.Instance.Quit();
+        if (!killed)
+        {
+            Debug.Log("Kill Player");
+            killed = true;
+            GameManager.Instance.LoadLevel("MainMenu");
+            GameManager.Instance.UnloadLevel("Level_Asset");
+            
+        }
+        
     }
 
     private IEnumerator SurveyArea(Vector3 position)
@@ -390,11 +405,11 @@ public class CharacterAI : Singleton<CharacterAI>
         {
             if (atDestination)
             {
-                animator.SetTrigger("Search");
-                aud.PlayOneShot(Search);
+                _animator.SetTrigger("Search");
+                _audioSource.PlayOneShot(Search);
                 stopAI = true;
-                yield return new WaitForSeconds(4.333f);
                 Debug.Log("[Survey Area] NavMesh Agent is Stopped");
+                yield return new WaitForSeconds(4.333f);
                 stopAI = false;
                 Destination = finalPos[i];
                 _surveyTimes= i;
@@ -423,11 +438,11 @@ public class CharacterAI : Singleton<CharacterAI>
         if (_navMeshAgent.velocity.magnitude > 0.1f)
         {
             speed = _heard ? 1f : 0.5f;
-            animator.SetFloat("Speed", speed);
+            _animator.SetFloat("Speed", speed);
         }
         else
         {
-            animator.SetFloat("Speed", 0f);
+            _animator.SetFloat("Speed", 0f);
         }
         string roar;
         float seconds;
@@ -476,8 +491,8 @@ public class CharacterAI : Singleton<CharacterAI>
 
     private IEnumerator PlayRoar(string roar, float seconds)
     {
-        animator.SetTrigger(roar);
-        aud.PlayOneShot(Roar);
+        _animator.SetTrigger(roar);
+        _audioSource.PlayOneShot(Roar);
         stopAI = true;
 
         yield return new WaitForSeconds(seconds);

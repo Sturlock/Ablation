@@ -8,17 +8,31 @@ public class HasDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (!AIDirector.Instance.protectedArea)
         {
-            Debug.Log("PLAYER");
-            target = other.transform.parent.gameObject;
-            heard = true;
-            characterAI.IsHeard(target, heard);
-        }
-        if (other.tag == "SOUND")
-        {
-            target = other.gameObject;
-            heard = true;
+	        if (other.transform.parent.tag == "Player")
+	        {
+	            Debug.Log("[HasDetection] PLAYER ENTER");
+	            target = other.transform.parent.gameObject;
+	            heard = true;
+	            characterAI.IsHeard(target, heard);
+	        }
+	        if (other.tag == "SOUND")
+	        {
+	            target = other.gameObject;
+	            heard = true;
+	        }
         }
     }
+
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.transform.parent.tag == "Player")
+    //    {
+    //        Debug.Log("[HasDetection] PLAYER STAY");
+    //        target = other.transform.parent.gameObject;
+    //        heard = true;
+    //        characterAI.isHearing(target, heard);
+    //    }
+    //}
 }

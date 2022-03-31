@@ -914,6 +914,7 @@ GameObject:
   - component: {fileID: 7397649108086321228}
   - component: {fileID: 9146872247312821297}
   - component: {fileID: 4724982980162943236}
+  - component: {fileID: 4458789002554135208}
   m_Layer: 0
   m_Name: Desk
   m_TagString: Untagged
@@ -999,6 +1000,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6317106008045385693, guid: 9ea86364e5783ff4dbbed336627049fe, type: 3}
+--- !u!114 &4458789002554135208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284350294076397160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71a6ff384535c24ab9b8042947e30a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lvlRequired: 1
+  clearance: {fileID: 0}
+  animator: {fileID: 3267852900214714289}
 --- !u!1 &5292894428205730886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,7 +1631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6974702544152595654}
-  - component: {fileID: 6153263154620365546}
+  - component: {fileID: 3267852900214714289}
   m_Layer: 0
   m_Name: Elevator
   m_TagString: Untagged
@@ -1644,7 +1660,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6153263154620365546
+--- !u!95 &3267852900214714289
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -1654,7 +1670,7 @@ Animator:
   m_GameObject: {fileID: 7746419706324244092}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 105b97bf2581f7b458a53e7a086eda87, type: 2}
+  m_Controller: {fileID: 9100000, guid: c889ca7b056fe0e409445727b2481917, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2305,6 +2321,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6170005316798869979, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 69f8492f299742a4484f7cba26e03a48, type: 2}
     - target: {fileID: 7980941541893661574, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.10744858

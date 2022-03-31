@@ -17,6 +17,7 @@ public class AIDirector : Singleton<AIDirector>
 
     [Space, Header("Characters")]
     public GameObject AI;
+
     public GameObject Player;
     public CharacterAI characterAI;
 
@@ -30,6 +31,11 @@ public class AIDirector : Singleton<AIDirector>
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(Player.transform.position, 15f);
+    }
+
+    public bool Heard
+    {
+        get => characterAI._heard;
     }
 
     public bool OnNavMesh(Vector3 targetDestination)
@@ -52,18 +58,26 @@ public class AIDirector : Singleton<AIDirector>
     private void Update()
     {
         playerLocation = FindPlayer();
-        Vector2 distance = new Vector2(AI.transform.position.x - playerLocation.x, AI.transform.position.z - playerLocation.z);
-        if (distance.magnitude > characterAI.killRad)
-            characterAI.Kill();
+    }
+    private void LateUpdate()
+    {
+        if (characterAI != null)
+        {
+            if (!protectedArea)
+            {
+                Vector2 distance = new Vector2(AI.transform.position.x - playerLocation.x, AI.transform.position.z - playerLocation.z);
+                if (distance.magnitude < characterAI.killRad)
+                    characterAI.Kill();
+            }
+        }
     }
 
     public Vector3 FindPlayer()
     {
-        
         characterAI.NavMeshAgent.CalculatePath(Player.transform.position, AIPath);
         distanceFromPlayer = AIPath.Length();
-         
-        return Player.transform.position; 
+
+        return Player.transform.position;
     }
 
     public IEnumerator IncreaseTension(float inc)
@@ -90,8 +104,7 @@ public class AIDirector : Singleton<AIDirector>
     {
         Interupt();
         characterAI.Interupt();
-        characterAI. Destination = LeavePlayer(Player.transform.position);
-        
+        characterAI.Destination = LeavePlayer(Player.transform.position);
     }
 
     public Vector3 LeavePlayer(Vector3 position)
@@ -99,7 +112,7 @@ public class AIDirector : Singleton<AIDirector>
         Vector3 pos = position;
         Vector3 rad = Random.Range(30f, 50f) * Random.insideUnitSphere;
         rad.y = 0;
-        Vector3 targetpos = pos + rad; 
+        Vector3 targetpos = pos + rad;
         if (OnNavMesh(pos + rad))
         {
             Debug.LogError("[WaveOff] Target Pos " + targetpos);
