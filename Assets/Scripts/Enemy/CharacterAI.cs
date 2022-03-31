@@ -11,6 +11,11 @@ public class CharacterAI : Singleton<CharacterAI>
 
     [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private AudioSource aud;
+
+    public AudioClip Search;
+    public AudioClip Roar;
 
     private NavMeshAgent _navMeshAgent;
     private GameObject _target;
@@ -386,6 +391,7 @@ public class CharacterAI : Singleton<CharacterAI>
             if (atDestination)
             {
                 animator.SetTrigger("Search");
+                aud.PlayOneShot(Search);
                 stopAI = true;
                 yield return new WaitForSeconds(4.333f);
                 Debug.Log("[Survey Area] NavMesh Agent is Stopped");
@@ -471,6 +477,7 @@ public class CharacterAI : Singleton<CharacterAI>
     private IEnumerator PlayRoar(string roar, float seconds)
     {
         animator.SetTrigger(roar);
+        aud.PlayOneShot(Roar);
         stopAI = true;
 
         yield return new WaitForSeconds(seconds);
