@@ -1842,14 +1842,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995c6a2c0b1a4c24c80c495090572a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _source: {fileID: 0}
+  _source: {fileID: 2991489210401212758}
   _type: 0
-  _spotLightUV: {fileID: 0}
-  _areaLightUV: {fileID: 0}
-  _spotLight: {fileID: 0}
-  _areaLight: {fileID: 0}
-  _reflectionProbe: {fileID: 0}
-  _renderer: {fileID: 0}
+  _spotLightUV: {fileID: 8423157547736426432}
+  _areaLightUV: {fileID: 8423157546994223614}
+  _spotLight: {fileID: 1360549703431115881}
+  _areaLight: {fileID: 1360549704459396165}
+  _reflectionProbe: {fileID: 1360549703708269322}
+  _renderer: {fileID: 7413921456859193500}
 --- !u!1 &8423157546994223613
 GameObject:
   m_ObjectHideFlags: 0
