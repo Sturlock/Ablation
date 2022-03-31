@@ -166,17 +166,20 @@ public class CharacterAI : Singleton<CharacterAI>
     #endregion Getters and Setters
 
     #region Public Functions
-    public bool OnNavMesh(Vector3 targetDestination)
+    public void Interupt()
     {
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(targetDestination, out hit, 1f, NavMesh.AllAreas))
+        if (_survayHandeler != null)
         {
-            onNMPosition = hit.position;
-            return true;
+            StopCoroutine(_survayHandeler);
+            _survayHandeler = null;
+            _surveying = false;
         }
-        return false;
+        if (_roarHandler != null)
+        {
+            StopCoroutine(_roarHandler);
+            _roarHandler = null;
+        }
     }
-
     public Vector3 GetWaypointPosition(int id)
     {
         Waypoint waypoint = waypoints[id];
@@ -265,7 +268,6 @@ public class CharacterAI : Singleton<CharacterAI>
 
         Destination = transform.position;
     }
-
     // Update is called once per frame
     private void Update()
     {
@@ -290,9 +292,7 @@ public class CharacterAI : Singleton<CharacterAI>
         }
         else
         {
-            StopAllCoroutines();
-            _survayHandeler = null;
-            _roarHandler = null;
+            Interupt();
         }
 
         #region DEBUG
@@ -306,12 +306,10 @@ public class CharacterAI : Singleton<CharacterAI>
 
         #endregion DEBUG
     }
-
     private void FixedUpdate()
     {
         currentPos = transform.position;
     }
-
     private void LateUpdate()
     {
         if (!AIDirector.Instance.protectedArea)
@@ -413,17 +411,6 @@ public class CharacterAI : Singleton<CharacterAI>
         _surveying = false;
         _survayHandeler = null;
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        //if (other.tag == "Player")
-        //{
-        //    Debug.Log("PLAYER");
-        //    target = other.gameObject;
-        //    heard = true;
-        //}
-    }
-
     private void AnimationUpdate()
     {
         float speed;
@@ -489,5 +476,16 @@ public class CharacterAI : Singleton<CharacterAI>
         yield return new WaitForSeconds(seconds);
 
         _roarHandler = null;
+    }
+
+    private bool OnNavMesh(Vector3 targetDestination)
+    {
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetDestination, out hit, 1f, NavMesh.AllAreas))
+        {
+            onNMPosition = hit.position;
+            return true;
+        }
+        return false;
     }
 }

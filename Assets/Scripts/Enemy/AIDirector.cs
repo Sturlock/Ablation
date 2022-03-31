@@ -6,12 +6,14 @@ public class AIDirector : Singleton<AIDirector>
 {
     [Range(0f, 100f)]
     public float tension;
+
     private Vector3 samplePosition;
     private Vector3 onNMPosition;
+    public Vector3 playerLocation;
     public bool protectedArea;
     private Coroutine tensionHandle;
     private NavMeshPath AIPath;
-    [SerializeField]private float distanceFromPlayer;
+    public float distanceFromPlayer;
 
     [Space, Header("Characters")]
     public GameObject AI;
@@ -42,26 +44,32 @@ public class AIDirector : Singleton<AIDirector>
         }
         return false;
     }
+
     private void Start()
     {
         characterAI = AI.GetComponent<CharacterAI>();
         AIPath = new NavMeshPath();
     }
 
+    private void Update()
+    {
+        playerLocation = FindPlayer();
+    }
+
     public Vector3 FindPlayer()
     {
-        Vector3 playerLocation;
+        
         characterAI.NavMeshAgent.CalculatePath(Player.transform.position, AIPath);
         distanceFromPlayer = AIPath.Length();
-        playerLocation = Player.transform.position;
-        return playerLocation;
+         
+        return Player.transform.position; ;
     }
 
     public IEnumerator IncreaseTension(float inc)
     {
         while (tension < 100f)
         {
-            tension += inc;
+            tension = tension + inc;
             yield return new WaitForSeconds(1f);
         }
         tensionHandle = null;
@@ -69,18 +77,38 @@ public class AIDirector : Singleton<AIDirector>
 
     public IEnumerator ReduceTension(float dec)
     {
-        while (tension > 20f)
+        while (tension > 0f)
         {
-            tension -= dec;
+            tension = tension - dec;
             yield return new WaitForSeconds(1f);
         }
         tensionHandle = null;
     }
 
-    public void WaveOff(int i)
+    public void WaveOff()
     {
         Interupt();
-        tensionHandle = StartCoroutine(ReduceTension(i));
+        characterAI.Interupt();
+        characterAI. Destination = LeavePlayer(Player.transform.position);
+        
+    }
+
+    public Vector3 LeavePlayer(Vector3 position)
+    {
+        Vector3 pos = position;
+        Vector3 rad = Random.Range(30f, 50f) * Random.insideUnitSphere;
+        rad.y = 0;
+        if (OnNavMesh(pos + rad))
+        {
+            Debug.Log("[WaveOff] Destination: " + onNMPosition);
+            return onNMPosition;
+        }
+        else
+        {
+            Vector3 errorPos = pos + rad;
+            Debug.LogWarning("[WaveOff] Destination: " + errorPos);
+            return LeavePlayer(position);
+        }
     }
 
     public void Interupt()
@@ -97,7 +125,7 @@ public class AIDirector : Singleton<AIDirector>
         Vector3 pos = position;
         Vector3 rad = Random.Range(8f, 15f) * Random.insideUnitSphere;
         rad.y = 0;
-        
+
         if (!procArea)
         {
             if (OnNavMesh(pos + rad))
@@ -111,7 +139,6 @@ public class AIDirector : Singleton<AIDirector>
                 Debug.LogWarning("[HintPlayerLocation] Destination: " + errorPos);
                 return HintPlayerLocation(position, procArea);
             }
-
         }
         else
         {
@@ -122,6 +149,7 @@ public class AIDirector : Singleton<AIDirector>
     public void GiveDestination(Vector3 position)
     {
         Debug.Log("[GiveDestination] Player near " + position.ToString());
+        characterAI.Interupt();
         characterAI.Destination = position;
     }
 

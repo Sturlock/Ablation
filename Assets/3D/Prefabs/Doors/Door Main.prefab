@@ -465,7 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7082028381394561300}
   m_Layer: 0
-  m_Name: GameObject_02
+  m_Name: LinkPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -589,7 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3268515656636964417}
   m_Layer: 0
-  m_Name: GameObject_01
+  m_Name: LinkPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2044,7 +2044,7 @@ GameObject:
   - component: {fileID: 8205260945664625550}
   - component: {fileID: 4191278713821614231}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: OffMeshLinkController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
