@@ -51,7 +51,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Sway_Density: 0.02
-    - Sway_Strength: 0.2
+    - Sway_Strength: 0.5
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 0
