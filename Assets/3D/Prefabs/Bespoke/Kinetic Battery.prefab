@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 585360571034283252}
+  - component: {fileID: 1352886651694725464}
   m_Layer: 0
   m_Name: Kinetic Battery
   m_TagString: Untagged
@@ -23,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239903516287891022}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.6, y: 0, z: 4.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -34,6 +35,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1352886651694725464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239903516287891022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3776ad0c79a7d34783bb392659e9f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 0
+  hallways:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bespokeRooms: []
+  dayOn: {fileID: 0}
+  dayOff: {fileID: 0}
+  nightOn: {fileID: 0}
+  nightOff: {fileID: 0}
+  lightsOut: {fileID: 2100000, guid: c7938e1b47a9e43449e5995ba55ed252, type: 2}
+  lightsUV: {fileID: 2100000, guid: eae7dd7b194ab2a42be3519e31b1d91f, type: 2}
+  lightsOn: {fileID: 2100000, guid: 0a863fd79b1cbd548923cf45e8e47a45, type: 2}
+  powerTimer: 90
 --- !u!1 &1994592720462116128
 GameObject:
   m_ObjectHideFlags: 0

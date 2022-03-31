@@ -7,7 +7,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
     public bool power;
     public GameObject[] hallways;
     public GameObject[] bespokeRooms;
-    List<LightBlock> lightBlocks = new List<LightBlock>();
+    [SerializeField] List<LightBlock> lightBlocks = new List<LightBlock>();
 
     [Header("Audio")]
     [SerializeField] private AudioClip dayOn;
@@ -46,6 +46,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
     void Start()
     {
         timer = new WaitForSeconds(powerTimer);
+        
     }
 
     public bool GeneratorBool
@@ -56,6 +57,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract script)
     {
+        Debug.LogError("Having Words");
         StopAllCoroutines();
         StartCoroutine(PoweringLight());
         StartCoroutine(StartPowerDraw());
