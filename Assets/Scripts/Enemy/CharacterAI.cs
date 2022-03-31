@@ -24,7 +24,7 @@ public class CharacterAI : Singleton<CharacterAI>
     public bool atDestination = true;
 
     [SerializeField, Space]
-    private float killRad = 1f;
+    public float killRad = 1.5f;
 
     [Header("Animation Settings"), Space]
     [ReadOnly] public string isMoving = "IsMoving";
@@ -365,7 +365,7 @@ public class CharacterAI : Singleton<CharacterAI>
         }
     }
 
-    private void Kill()
+    public void Kill()
     {
         Debug.Log("Kill Player");
         GameManager.Instance.Quit();

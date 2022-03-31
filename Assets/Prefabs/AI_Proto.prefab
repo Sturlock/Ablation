@@ -58,6 +58,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterAI: {fileID: 3335964668962284597}
+  target: {fileID: 0}
+  heard: 0
 --- !u!1 &3335964668962284556
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +188,7 @@ MonoBehaviour:
   destination: {x: -38.1, y: 1.141, z: 17.04}
   vel: {x: 0, y: 0, z: 0}
   atDestination: 0
-  killRad: 2.5
+  killRad: 1.5
   isMoving: IsMoving
   roar1: Roar1
   roar2: Roar2
@@ -221,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688a69c01544d5947bc78659ef1084ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &3335964668962284596
 MonoBehaviour:
   m_ObjectHideFlags: 0
