@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
 
     private float runMaxSpeed = 100f;
     private float sprintMaxSpeed = 240f;
-    private float crouchingSpeed = 40f;
+    private float crouchingSpeed = 60f;
     private float maxSpeed;
     public float accel = 0.05f;
     public bool jumpBool;
