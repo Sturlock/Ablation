@@ -11,11 +11,14 @@ public class CharacterAI : Singleton<CharacterAI>
 
     [SerializeField]
     private Animator _animator;
+    public Animator transition;
+
     [SerializeField]
     private AudioSource _audioSource;
 
     public AudioClip Search;
     public AudioClip Roar;
+    public AudioClip HaroldDeath;
 
     private NavMeshAgent _navMeshAgent;
     private GameObject _target;
@@ -384,8 +387,17 @@ public class CharacterAI : Singleton<CharacterAI>
         {
             Debug.Log("Kill Player");
             killed = true;
-            GameManager.Instance.LoadLevel("MainMenu");
-            GameManager.Instance.UnloadLevel("Level_Asset");
+            //play Harold death sound (animation?), Pause gamescene time, fade to black, Load mainmenu
+            //Place alien attacting animation trigger.
+            AudioListener.pause = true;
+            _audioSource.ignoreListenerPause = true;
+            _audioSource.clip = HaroldDeath;
+            _audioSource.Play();
+            transition.SetBool("Killed", true);
+            Time.timeScale = 0f;
+
+            //GameManager.Instance.LoadLevel("MainMenu");
+            //GameManager.Instance.UnloadLevel("Level_Asset");
             
         }
         
