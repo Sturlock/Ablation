@@ -15,11 +15,24 @@ public class AutoDoor : MonoBehaviour
         aud = GetComponent<AudioSource>();
     }
 
+    private void OpenDoor(bool open)
+    {
+        if (open)
+        {
+            aud.PlayOneShot(Open);
+        }
+        else if (!open)
+        {
+            aud.PlayOneShot(Close);
+        }
+        ani.SetBool("Open", open);
+    }
+
     private void Update()
     {
         if (doorOpen)
         {
-            ani.SetBool("Open", true);
+            
             //aud.PlayOneShot(Open);
         }
         else
@@ -34,11 +47,7 @@ public class AutoDoor : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("Monster"))
         {
             target = other.gameObject;
-            if (!doorOpen)
-            {
-                aud.PlayOneShot(Open);
-            }
-            doorOpen = true;
+            OpenDoor(true);
         }
     }
 
