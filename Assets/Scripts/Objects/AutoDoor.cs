@@ -17,6 +17,7 @@ public class AutoDoor : MonoBehaviour
 
     private void OpenDoor(bool open)
     {
+        ani.SetBool("Open", open);
         if (open)
         {
             aud.PlayOneShot(Open);
@@ -25,7 +26,7 @@ public class AutoDoor : MonoBehaviour
         {
             aud.PlayOneShot(Close);
         }
-        ani.SetBool("Open", open);
+        
     }
 
     private void Update()

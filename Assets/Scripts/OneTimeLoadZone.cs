@@ -26,23 +26,28 @@ public class OneTimeLoadZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (doOnce)
         {
-            if (_loadZone != null)
+            if (other.CompareTag("Player"))
             {
-                if (!_loadZone.activeSelf)
+                if (_loadZone != null)
                 {
-                    UnloadArea(_unloadZone);
-                    LoadArea(_loadZone);
-                    return;
-                }
-                if (_loadZone.activeSelf)
-                {
-                    UnloadArea(_loadZone);
-                    LoadArea(_unloadZone);
-                    return;
+                    if (!_loadZone.activeSelf)
+                    {
+                        UnloadArea(_unloadZone);
+                        LoadArea(_loadZone);
+                        return;
+                    }
+                    if (_loadZone.activeSelf)
+                    {
+                        UnloadArea(_loadZone);
+                        LoadArea(_unloadZone);
+                        return;
+                    }
                 }
             }
+            doOnce= false;
         }
+        
     }
 }

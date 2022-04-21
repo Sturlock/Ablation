@@ -5,8 +5,7 @@ using UnityEngine;
 public class PowerCharge : MonoBehaviour, IInteractable
 {
     public bool power;
-    public GameObject[] hallways;
-    public GameObject[] bespokeRooms;
+    public GameObject[] rooms;
     [SerializeField] List<LightBlock> lightBlocks = new List<LightBlock>();
 
     [Header("Audio")]
@@ -28,17 +27,17 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     void Awake()
     {
-        if (bespokeRooms != null)
+        for (int i = 0; i < rooms.Length; i++)
         {
-            for (int i = 0; i < bespokeRooms.Length; i++)
-            {
-                lightBlocks.Add(hallways[i].GetComponentInChildren<LightBlock>());
-            }  
-        }
-        for (int i = 0; i < hallways.Length; i++)
-        {
+            LightBlock[] lb = new LightBlock[500];
+            lb = rooms[i].GetComponentsInChildren<LightBlock>();
             //Gets Light prefab that exists on all corridors
-            lightBlocks.Add(hallways[i].GetComponentInChildren<LightBlock>());
+            foreach(LightBlock block in lb)
+            {
+                lightBlocks.Add(block);
+            }
+
+
         }
         
     }
@@ -83,7 +82,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     private IEnumerator UnpoweringLights()
     {
-        for (int i = hallways.Length - 1; i >= 0; i--)
+        for (int i = rooms.Length - 1; i >= 0; i--)
         {
             yield return new WaitForSeconds(0.2f);
 
@@ -101,7 +100,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     private IEnumerator PoweringLight()
     {
-        for (int i = 0; i < hallways.Length; i++)
+        for (int i = 0; i < rooms.Length; i++)
         {
             yield return new WaitForSeconds(0.2f);
             //Turns off Night Lights and changes light Material

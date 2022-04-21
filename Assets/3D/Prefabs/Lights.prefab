@@ -51,14 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995c6a2c0b1a4c24c80c495090572a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _source: {fileID: 0}
+  _source: {fileID: 6170005316798869979}
   _type: 0
-  _spotLightUV: {fileID: 0}
-  _areaLightUV: {fileID: 0}
-  _spotLight: {fileID: 0}
-  _areaLight: {fileID: 0}
-  _reflectionProbe: {fileID: 0}
-  _renderer: {fileID: 0}
+  _spotLightUV: {fileID: 632392472777678669}
+  _areaLightUV: {fileID: 632392472177963379}
+  _spotLight: {fileID: 7980941542153514212}
+  _areaLight: {fileID: 7980941543288675528}
+  _reflectionProbe: {fileID: 7980941541893661575}
+  _renderer: {fileID: 1927592299740305425}
 --- !u!1 &632392471919141700
 GameObject:
   m_ObjectHideFlags: 0

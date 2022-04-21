@@ -4069,6 +4069,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3483199868083719503}
     m_Modifications:
+    - target: {fileID: 491996930364333336, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 632392470975890724, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
       propertyPath: m_Name
       value: Lights
@@ -4135,7 +4139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7980941541893661574, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.84035
+      value: 2.8403504
       objectReference: {fileID: 0}
     - target: {fileID: 7980941541893661575, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
       propertyPath: m_Mode
@@ -4225,6 +4229,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8337042311886600280}
     m_Modifications:
+    - target: {fileID: 491996930364333336, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 632392470975890724, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
       propertyPath: m_Name
       value: Lights
@@ -4315,6 +4323,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3483199868083719503}
     m_Modifications:
+    - target: {fileID: 491996930364333336, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 632392470975890724, guid: c4d2b7fdebd1d4d42a9afdde2dae9a49, type: 3}
       propertyPath: m_Name
       value: Lights
