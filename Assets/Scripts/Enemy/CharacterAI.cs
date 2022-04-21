@@ -387,20 +387,40 @@ public class CharacterAI : Singleton<CharacterAI>
         {
             Debug.Log("Kill Player");
             killed = true;
+
+
             //play Harold death sound (animation?), Pause gamescene time, fade to black, Load mainmenu
             //Place alien attacting animation trigger.
-            AudioListener.pause = true;
-            _audioSource.ignoreListenerPause = true;
+            AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+
+            foreach(AudioSource audioSource in audioSources)
+            {
+                if(audioSource.tag != "Ambient")
+                {
+                    audioSource.Stop();
+                }
+                break;
+            }
+
+            //AudioListener.pause = true;
+            //_audioSource.ignoreListenerPause = true;
             _audioSource.clip = HaroldDeath;
             _audioSource.Play();
             transition.SetBool("Killed", true);
-            Time.timeScale = 0f;
-
-            //GameManager.Instance.LoadLevel("MainMenu");
-            //GameManager.Instance.UnloadLevel("Level_Asset");
+            //Time.timeScale = 0f;
+            StartCoroutine(OnPK());
+            
             
         }
         
+    }
+
+    private IEnumerator OnPK()
+    {
+        yield return new WaitForSeconds(1f);
+        Cursor.lockState = CursorLockMode.None;
+        GameManager.Instance.LoadLevel("MainMenu");
+        GameManager.Instance.UnloadLevel("Level_Asset");
     }
 
     private IEnumerator SurveyArea(Vector3 position)

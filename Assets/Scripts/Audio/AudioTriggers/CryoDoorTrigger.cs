@@ -9,12 +9,15 @@ public class CryoDoorTrigger : MonoBehaviour
     private AudioSource audioSource;
     public Animator animator;
 
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = audioClip;
+    }
     public void CryoDoorOpen()
     {
         pickup = true;
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = audioClip;
         audioSource.Play();
-        animator.SetBool("Pickup", pickup);
+        animator.SetBool("Open", pickup);
     }
 }
