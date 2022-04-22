@@ -12,7 +12,7 @@ public class LoadSceneAnimation : MonoBehaviour
     {
         GameManager.Instance.LoadLevel(SceneNext);
         GameManager.Instance.UnloadLevel(SceneNow);
-        Debug.Log(SceneNow + "going to" + SceneNext);
+        Debug.Log("[LoadSceneAnimation] " + SceneNow + "going to" + SceneNext);
         Time.timeScale = 1f;
         AudioListener.pause = false;
     }

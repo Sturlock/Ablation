@@ -420,7 +420,7 @@ public class CharacterAI : Singleton<CharacterAI>
         yield return new WaitForSeconds(1f);
         Cursor.lockState = CursorLockMode.None;
         GameManager.Instance.LoadLevel("MainMenu");
-        GameManager.Instance.UnloadLevel("Level_Asset");
+        GameManager.Instance.UnloadLevel("GameLevel");
     }
 
     private IEnumerator SurveyArea(Vector3 position)

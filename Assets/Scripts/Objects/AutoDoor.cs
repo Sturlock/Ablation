@@ -47,8 +47,9 @@ public class AutoDoor : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Monster"))
         {
+            doorOpen = true;
             target = other.gameObject;
-            OpenDoor(true);
+            OpenDoor(doorOpen);
         }
     }
 
