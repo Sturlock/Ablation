@@ -377,16 +377,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 0
-  hallways:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  bespokeRooms: []
+  rooms: []
   lightBlocks: []
-  dayOn: {fileID: 0}
-  dayOff: {fileID: 0}
-  nightOn: {fileID: 0}
-  nightOff: {fileID: 0}
+  dayOn: {fileID: 8300000, guid: 54f5f38fce7535e4bb4a5ae070c4298a, type: 3}
+  dayOff: {fileID: 8300000, guid: 9f09420cbf3eba448b1c799af3cafb52, type: 3}
+  nightOn: {fileID: 8300000, guid: 54f5f38fce7535e4bb4a5ae070c4298a, type: 3}
+  nightOff: {fileID: 8300000, guid: 9f09420cbf3eba448b1c799af3cafb52, type: 3}
   lightsOut: {fileID: 2100000, guid: c7938e1b47a9e43449e5995ba55ed252, type: 2}
   lightsUV: {fileID: 2100000, guid: eae7dd7b194ab2a42be3519e31b1d91f, type: 2}
   lightsOn: {fileID: 2100000, guid: 0a863fd79b1cbd548923cf45e8e47a45, type: 2}

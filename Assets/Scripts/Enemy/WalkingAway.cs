@@ -8,6 +8,8 @@ public class WalkingAway : MonoBehaviour
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     AudioSource _audioSource;
+    public BoxCollider _box;
+    
     public AudioClip Roar;
 
     bool _heard = false;
@@ -28,14 +30,19 @@ public class WalkingAway : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
         _audioSource = GetComponent<AudioSource>();
+        _roarHandler = null;
     }
 
     // Update is called once per frame
-    private void MovePlace()
+    private IEnumerator MovePlace()
     {
-
+        _navMeshAgent.SetDestination(target.position);
+        yield return new WaitForSeconds(2f);
     }
-
+    private void Update()
+    {
+        AnimationUpdate();
+    }
     private void AnimationUpdate()
     {
         float speed;
@@ -102,5 +109,14 @@ public class WalkingAway : MonoBehaviour
         yield return new WaitForSeconds(seconds);
 
         _roarHandler = null;
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            StartCoroutine(MovePlace());
+        }
     }
 }
