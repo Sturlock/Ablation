@@ -17,16 +17,9 @@ public class ActivateDialogue : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract script)
     {
-        throw new System.NotImplementedException();
-    }
-    private void Update()
-    {
-        if(!played && Input.GetKeyDown("e") && Inside)
-        {
-            played = false;
-            ani.SetBool("Help", true);
-            DialogueManager.Instance.BeginDialogue(dialogueClip);
-        }
+        played = false;
+        ani.SetBool("Help", true);
+        DialogueManager.Instance.BeginDialogue(dialogueClip);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,7 +27,7 @@ public class ActivateDialogue : MonoBehaviour, IInteractable
         if (other.CompareTag("Player") && !played)
         {
             ani.SetBool("Activate", true);
-            Inside = true;
+            
             
         }
     }
@@ -43,7 +36,7 @@ public class ActivateDialogue : MonoBehaviour, IInteractable
         if (other.CompareTag("Player"))
         {
             ani.SetBool("Activate", false);
-            Inside = false;
+            
 
         }
     }
