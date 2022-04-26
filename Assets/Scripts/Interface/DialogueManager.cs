@@ -50,7 +50,13 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueSource = gameObject.AddComponent<AudioSource>();
     }
 
-    
+    public void StopDialogue()
+    {
+        if (dialogueSource != null)
+        {
+            dialogueSource.Stop();
+        }
+    }
 
     public void BeginDialogue (AudioClip passedClip)
     {

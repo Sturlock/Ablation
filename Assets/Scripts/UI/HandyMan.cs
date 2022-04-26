@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,9 +6,13 @@ public class HandyMan : MonoBehaviour
 {
     private SecurityClearance lvl;
     public Image lvlColour;
+    
     [SerializeField] private Text _title;
+    [SerializeField] private Button[] _hmButtons; 
     [SerializeField] private GameObject[] _contences;
     [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private Button[] _optionsButtons;
+    [SerializeField] private Button[] _quitButtons;
     private ShowHideHandy showHide;
 
     private void Start()
@@ -16,8 +21,25 @@ public class HandyMan : MonoBehaviour
         showHide = GetComponent<ShowHideHandy>();
         _canvasGroup.alpha = 0f;
 
+        #region ButtonSetUp
+        _hmButtons[0].onClick.AddListener(Status);
+        _hmButtons[1].onClick.AddListener(Inventory);
+        _hmButtons[2].onClick.AddListener(AudioLogs);
+        _hmButtons[3].onClick.AddListener(Options);
+
+        _optionsButtons[0].onClick.AddListener(Sound);
+        _optionsButtons[1].onClick.AddListener(Graphics);
+        _optionsButtons[2].onClick.AddListener(Quit);
+
+        _quitButtons[0].onClick.AddListener(QuitGame);
+        _quitButtons[1].onClick.AddListener(Options);
+        #endregion
         Handy();
+
+
     }
+
+   
 
     private void Update()
     {
@@ -33,6 +55,7 @@ public class HandyMan : MonoBehaviour
         _title.text = "HandyMan";
     }
 
+#region Main Menu
     public void Status()
     {
         CloseAll();
@@ -81,6 +104,31 @@ public class HandyMan : MonoBehaviour
         _title.text = "Motion Detector";
         //contences[].SetActive(true);
     }
+    #endregion
+
+#region Options Menu
+    private void Sound()
+    {
+        throw new NotImplementedException();
+    }
+    private void Graphics()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Quit()
+    {
+        CloseAll();
+        _contences[4].SetActive(true);
+    }
+
+    private void QuitGame()
+    {
+        GameManager.Instance.LoadLevel("MainMenu");
+        GameManager.Instance.UnloadLevel("GameLevel");
+
+    }
+    #endregion
 
     private void CloseAll()
     {
@@ -89,4 +137,6 @@ public class HandyMan : MonoBehaviour
             go.SetActive(false);
         }
     }
+
+    
 }

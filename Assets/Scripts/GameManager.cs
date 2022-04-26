@@ -33,17 +33,27 @@ public class GameManager : Singleton<GameManager>
         InstantiateSystemPrefabs();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.PageUp))
+        {
+            UnloadLevel(_currentLevelName);
+            LoadLevel("GameLevel");
+        }
+    }
+
     private void OnLoadOperationComplete(AsyncOperation ao)
     {
         if (_loadOperations.Contains(ao))
         {
             _loadOperations.Remove(ao);
         }
-        Debug.Log("Load Complete");
+        Debug.Log("[GameManager] Load Complete");
     }
     private void OnUnloadOperationComplete(AsyncOperation ao)
     {
-        Debug.Log("Unload Complete");
+        DialogueManager.Instance.StopDialogue();
+        Debug.Log("[GameManager] Unload Complete");
     }
 
     void InstantiateSystemPrefabs()

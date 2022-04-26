@@ -2729,10 +2729,10 @@ RectTransform:
   m_Father: {fileID: 4074344365127813273}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 317, y: 0}
-  m_SizeDelta: {x: 590, y: 192}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 192}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4074344365144452327
 CanvasRenderer:
@@ -2816,30 +2816,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4074344366818001702}
-        m_TargetAssemblyTypeName: HandyMan, Assembly-CSharp
-        m_MethodName: Status
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6077769179162736798}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 6077769179162736798}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
@@ -3095,10 +3071,10 @@ RectTransform:
   m_Father: {fileID: 4074344365127813273}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 317, y: -834.08}
-  m_SizeDelta: {x: 590, y: 200.6}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 200.6}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4074344365441565721
 CanvasRenderer:
@@ -3737,10 +3713,10 @@ RectTransform:
   m_Father: {fileID: 4074344365127813273}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 317, y: -208.52}
-  m_SizeDelta: {x: 590, y: 192}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 192}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4074344365798856020
 CanvasRenderer:
@@ -4038,10 +4014,10 @@ RectTransform:
   m_Father: {fileID: 4074344365127813273}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 317, y: -625.56}
-  m_SizeDelta: {x: 590, y: 192}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 192}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4074344366026164636
 CanvasRenderer:
@@ -5147,7 +5123,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4074344366818001688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -109}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4074344365696201985}
@@ -5187,6 +5163,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lvlColour: {fileID: 602969392091704468}
   _title: {fileID: 3719543199515625330}
+  _hmButtons:
+  - {fileID: 4074344365144452313}
+  - {fileID: 4074344367020460027}
+  - {fileID: 4074344366026164638}
+  - {fileID: 4074344365441565723}
   _contences:
   - {fileID: 4074344367126729873}
   - {fileID: 9198103886758618556}
@@ -5194,6 +5175,13 @@ MonoBehaviour:
   - {fileID: 4074344365299395795}
   - {fileID: 3024893623567388669}
   _canvasGroup: {fileID: 4074344366818001701}
+  _optionsButtons:
+  - {fileID: 8291464700947246451}
+  - {fileID: 7501769447761125864}
+  - {fileID: 6902909486136974971}
+  _quitButtons:
+  - {fileID: 7724737939066857662}
+  - {fileID: 8450461760668066053}
 --- !u!95 &4074344366818001700
 Animator:
   serializedVersion: 3
@@ -5675,10 +5663,10 @@ RectTransform:
   m_Father: {fileID: 4074344365127813273}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 317, y: -417.04}
-  m_SizeDelta: {x: 590, y: 192}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 192}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4074344367020460025
 CanvasRenderer:
