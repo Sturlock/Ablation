@@ -56,7 +56,8 @@ public class ShowHideHandy : MonoBehaviour
         aniShow = !aniShow;
 
         show = !show;
-        _look.AddCineComp(aniShow);
+        //_look.AddCineComp(aniShow);
+        _look.FOVChange(aniShow);
         _hm.AccessHandy(aniShow);
         uiContainer.GetComponent<Animator>().SetBool("retract", aniShow);
         CursorState(aniShow);

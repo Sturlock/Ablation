@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class Mouse_Look : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera vcam;
+    public Animator _animator;
+
+    [SerializeField] private CinemachineVirtualCamera vcam1;
+    [SerializeField] private CinemachineVirtualCamera vcam2;
     [SerializeField] private CinemachinePOV pOV;
     [SerializeField] private CinemachineHardLookAt lookAt;
     [SerializeField] private ShowHideHandy _showHideUI;
@@ -13,7 +16,7 @@ public class Mouse_Look : MonoBehaviour
     public void Start()
     {
         //vcam = FindObjectOfType<CinemachineVirtualCamera>();
-        pOV = vcam.GetCinemachineComponent<CinemachinePOV>();
+        pOV = vcam1.GetCinemachineComponent<CinemachinePOV>();
         _handyMan = FindObjectOfType<HandyMan>();
         //_showHideUI = FindObjectOfType<ShowHideUI_Canvas>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -26,13 +29,13 @@ public class Mouse_Look : MonoBehaviour
         if (!_showHideUI.Show)
         {
             if (pOV == null)
-                pOV = vcam.GetCinemachineComponent<CinemachinePOV>();
+                pOV = vcam1.GetCinemachineComponent<CinemachinePOV>();
             if (pOV != null)
                 transform.rotation = Quaternion.Euler(0f, pOV.m_HorizontalAxis.Value, 0f);
         }
         else
         {
-            vcam.LookAt = _handyMan.transform;
+            //vcam.LookAt = _handyMan.transform;
         }
     }
 
@@ -40,16 +43,16 @@ public class Mouse_Look : MonoBehaviour
     {
         if (_retract)
         {
-            lookAt = vcam.AddCinemachineComponent<CinemachineHardLookAt>();
+            //lookAt = vcam.AddCinemachineComponent<CinemachineHardLookAt>();
         }
         else
         {
-            pOV = vcam.AddCinemachineComponent<CinemachinePOV>();
+            //pOV = vcam.AddCinemachineComponent<CinemachinePOV>();
         }
     }
 
-    public void FOVChange(float fov)
+    public void FOVChange(bool fov)
     {
-        vcam.m_Lens.FieldOfView = fov;
+        _animator.SetBool("Change", fov);
     }
 }
