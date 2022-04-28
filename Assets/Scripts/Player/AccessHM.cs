@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AccessHM : MonoBehaviour
 {
+    public bool can;
     public ShowHideHandy _showHideUI;
     public Animator _ani;
 
@@ -15,6 +16,7 @@ public class AccessHM : MonoBehaviour
     // Update is called once per frame
     public void AccessHandy(bool show)
     {
+        
         if (_showHideUI != null)
         {
             if (show)

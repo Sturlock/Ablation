@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ShowHideHandy : MonoBehaviour
 {
+    public bool can;
     public Mouse_Look _look;
     public AccessHM _hm;
     [SerializeField] private KeyCode toggleKey = KeyCode.Tab;
@@ -53,15 +54,19 @@ public class ShowHideHandy : MonoBehaviour
 
     public IEnumerator Toggle()
     {
-        aniShow = !aniShow;
+        if (can)
+        {
+            aniShow = !aniShow;
 
-        show = !show;
-        //_look.AddCineComp(aniShow);
-        _look.FOVChange(aniShow);
-        _hm.AccessHandy(aniShow);
-        uiContainer.GetComponent<Animator>().SetBool("retract", aniShow);
-        CursorState(aniShow);
-        yield return new WaitForSeconds(.1f);
-        show = !show;
+            show = !show;
+            //_look.AddCineComp(aniShow);
+            _look.FOVChange(aniShow);
+            _hm.AccessHandy(aniShow);
+            uiContainer.GetComponent<Animator>().SetBool("retract", aniShow);
+            CursorState(aniShow);
+            yield return new WaitForSeconds(.1f);
+            show = !show;
+        }
+        
     }
 }
