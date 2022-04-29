@@ -16,6 +16,8 @@ public class PlayerInteract : MonoBehaviour
     private void Start()
     {
         //m_CameraTransform = Camera.main;
+        m_CursorImage = FindObjectOfType<Crosshair>().crosshair;
+        m_CursorImage.color = Color.white;
     }
 
     private void Update()
@@ -54,12 +56,12 @@ public class PlayerInteract : MonoBehaviour
         // Is interactable object detected in front of player? 
         if (Physics.Raycast(ray, out m_RaycastFocus, 10) && (m_RaycastFocus.collider.transform.tag == "Intractable"))
         {
-            //m_CursorImage.color = Color.green;
+            m_CursorImage.enabled = true;
             m_CanInteract = true;
         }
         else
         {
-           //m_CursorImage.color = Color.white;
+            m_CursorImage.enabled = false;
             m_CanInteract = false;
         }
     }
