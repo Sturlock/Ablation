@@ -14,23 +14,25 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] AnimationClip _fadeOutAnimation;
     [SerializeField] AnimationClip _fadeInAnimation;
 
-    [SerializeField] private Button _button1, _button2;
+    [SerializeField] private Button playButton, optionsButton, quitButton;
 
-    public Button PlayButton
-    {
-        get { return _button1; }
-    }
-
-    public Button QuitButton
-    {
-        get { return _button2; }
-    }
+    [SerializeField] private GameObject _mainMenu, _optionsMenu;
+    
     private void Start()
     {
-        PlayButton.onClick.RemoveAllListeners();
-        PlayButton.onClick.AddListener(PlayGame);
-        QuitButton.onClick.RemoveAllListeners();
-        QuitButton.onClick.AddListener(QuitGame);
+        _optionsMenu.SetActive(false);
+        _mainMenu.SetActive(true);
+
+        /*DoubleChecking that buttons Only do intended functions
+         *Then adding intended function
+         */
+        playButton.onClick.RemoveAllListeners();
+        optionsButton.onClick.RemoveAllListeners();
+        quitButton.onClick.RemoveAllListeners();
+
+        playButton.onClick.AddListener(PlayGame);
+        optionsButton.onClick.AddListener(ToOptionsMenu);
+        quitButton.onClick.AddListener(QuitGame);
     }
     public void OnFadeOutComplete()
     {
@@ -65,6 +67,17 @@ public class MainMenuScript : MonoBehaviour
     {
         Debug.Log("[MainMenu] Quit Game");
         GameManager.Instance.Quit();
+    }
+    public void ToOptionsMenu()
+    {
+        _mainMenu.SetActive(false);
+        _optionsMenu.SetActive(true);
+    }
+
+    public void ExitLowerMenu(GameObject menu)
+    {
+        menu.SetActive(false);
+        _mainMenu.SetActive(true);
     }
 
     public void LoadLevel(string sceneName)
