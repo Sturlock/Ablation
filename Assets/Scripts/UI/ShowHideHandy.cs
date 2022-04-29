@@ -6,6 +6,7 @@ public class ShowHideHandy : MonoBehaviour
     public bool can;
     public Mouse_Look _look;
     public AccessHM _hm;
+    public GameObject _hmPrefab;
     [SerializeField] private KeyCode toggleKey = KeyCode.Tab;
     [SerializeField] private GameObject uiContainer = null;
     [SerializeField] private bool show = false;
@@ -26,7 +27,6 @@ public class ShowHideHandy : MonoBehaviour
     {
         show = false;
         aniShow = false;
-        uiContainer = this.gameObject;
     }
 
     private void CursorState(bool bShow)
@@ -49,6 +49,14 @@ public class ShowHideHandy : MonoBehaviour
         if (Input.GetKeyDown(toggleKey))
         {
             StartCoroutine(Toggle());
+        }
+        if (!can)
+        {
+            _hmPrefab.SetActive(false);
+        }
+        else
+        {
+            _hmPrefab.SetActive(true);
         }
     }
 

@@ -13,7 +13,6 @@ public class testTrigger : MonoBehaviour
 
     public void Poof()
     {
-        gameObject.SetActive(false);
         light_04.SetActive(false);
     }
 }

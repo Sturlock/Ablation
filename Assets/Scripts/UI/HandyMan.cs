@@ -13,12 +13,11 @@ public class HandyMan : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private Button[] _optionsButtons;
     [SerializeField] private Button[] _quitButtons;
-    private ShowHideHandy showHide;
+    public ShowHideHandy showHide;
 
     private void Start()
     {
         lvl = FindObjectOfType<SecurityClearance>();
-        showHide = GetComponent<ShowHideHandy>();
         _canvasGroup.alpha = 0f;
 
         #region ButtonSetUp
@@ -38,8 +37,6 @@ public class HandyMan : MonoBehaviour
 
 
     }
-
-   
 
     private void Update()
     {

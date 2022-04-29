@@ -19,7 +19,10 @@ public class ActivateDialogue : MonoBehaviour, IInteractable
     {
         played = false;
         ani.SetBool("Help", true);
+        FindObjectOfType<ShowHideHandy>().can = true;
+        gameObject.SetActive(false);
         DialogueManager.Instance.BeginDialogue(dialogueClip);
+
     }
 
     private void OnTriggerEnter(Collider other)
