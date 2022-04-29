@@ -11,6 +11,10 @@ public class OneTimeLoadZone : MonoBehaviour
     public GameObject _unloadZone;
 
     public GameObject _loadZone;
+    public void Awake()
+    {
+        doOnce = true;
+    }
 
     private void UnloadArea(GameObject zoneObject)
     {
