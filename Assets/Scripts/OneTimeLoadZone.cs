@@ -8,8 +8,6 @@ public class OneTimeLoadZone : MonoBehaviour
     public Collider _zone;
 
     [Header("Zones To Load")]
-    public GameObject _unloadZone;
-
     public GameObject _loadZone;
     public void Awake()
     {
@@ -38,19 +36,13 @@ public class OneTimeLoadZone : MonoBehaviour
                 {
                     if (!_loadZone.activeSelf)
                     {
-                        UnloadArea(_unloadZone);
                         LoadArea(_loadZone);
-                        return;
-                    }
-                    if (_loadZone.activeSelf)
-                    {
-                        UnloadArea(_loadZone);
-                        LoadArea(_unloadZone);
+                        doOnce = false;
                         return;
                     }
                 }
             }
-            doOnce= false;
+            
         }
         
     }
