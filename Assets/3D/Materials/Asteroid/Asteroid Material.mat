@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: new
+  m_Name: Asteroid Material
   m_Shader: {fileID: 4800000, guid: 756bac9090102564582875f4c7e30202, type: 3}
   m_ShaderKeywords: _DISPLACEMENT_LOCK_TILING_SCALE _HEIGHTMAP _HEIGHTMAP0 _LAYEREDLIT_4_LAYERS
     _NORMALMAP _NORMALMAP0 _NORMALMAP_TANGENT_SPACE _NORMALMAP_TANGENT_SPACE0 _NORMALMAP_TANGENT_SPACE1
@@ -502,11 +502,11 @@ Material:
     - _SubsurfaceMask3: 1
     - _SupportDecals: 1
     - _SurfaceType: 0
-    - _TessellationBackFaceCullEpsilon: -0.25
-    - _TessellationFactor: 57.2
+    - _TessellationBackFaceCullEpsilon: -0.1
+    - _TessellationFactor: 20.5
     - _TessellationFactorMaxDistance: 200
     - _TessellationFactorMinDistance: 10
-    - _TessellationFactorTriangleSize: 500
+    - _TessellationFactorTriangleSize: 200
     - _TessellationMode: 0
     - _TessellationShapeFactor: 0.75
     - _TexWorldScale: 1
