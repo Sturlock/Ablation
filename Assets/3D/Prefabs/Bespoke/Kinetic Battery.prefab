@@ -379,10 +379,10 @@ MonoBehaviour:
   power: 0
   rooms: []
   lightBlocks: []
-  dayOn: {fileID: 8300000, guid: 54f5f38fce7535e4bb4a5ae070c4298a, type: 3}
-  dayOff: {fileID: 8300000, guid: 9f09420cbf3eba448b1c799af3cafb52, type: 3}
-  nightOn: {fileID: 8300000, guid: 54f5f38fce7535e4bb4a5ae070c4298a, type: 3}
-  nightOff: {fileID: 8300000, guid: 9f09420cbf3eba448b1c799af3cafb52, type: 3}
+  dayOn: {fileID: 8300000, guid: a514e609f2ad7084eb96bea5073bc748, type: 3}
+  dayOff: {fileID: 8300000, guid: aea8d11e9d0b70145982ac5a3a6e799e, type: 3}
+  nightOn: {fileID: 8300000, guid: a514e609f2ad7084eb96bea5073bc748, type: 3}
+  nightOff: {fileID: 8300000, guid: aea8d11e9d0b70145982ac5a3a6e799e, type: 3}
   lightsOut: {fileID: 2100000, guid: c7938e1b47a9e43449e5995ba55ed252, type: 2}
   lightsUV: {fileID: 2100000, guid: eae7dd7b194ab2a42be3519e31b1d91f, type: 2}
   lightsOn: {fileID: 2100000, guid: 0a863fd79b1cbd548923cf45e8e47a45, type: 2}
