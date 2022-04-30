@@ -7,7 +7,7 @@ public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Camera m_CameraTransform = null;
     [SerializeField] private Image m_CursorImage = null;
-
+    public LayerMask interactionLayers = ~0;
     private RaycastHit m_RaycastFocus;
     [SerializeField]
     private bool m_CanInteract = false;
@@ -46,6 +46,16 @@ public class PlayerInteract : MonoBehaviour
                 // Perform object's action
                 //interactComponent.Action(this);
             }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Ray ray = new Ray(m_CameraTransform.transform.position, m_CameraTransform.transform.forward);
+        Gizmos.color = Color.yellow;
+        if (m_CanInteract)
+        {
+            Gizmos.DrawLine(ray.origin, m_RaycastFocus.transform.position);
         }
     }
 

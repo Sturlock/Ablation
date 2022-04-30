@@ -9,7 +9,14 @@ public class ActivateDialogue : MonoBehaviour, IInteractable
     public Animator ani;
     public bool played = false;
     public bool Inside = false;
+    public GameObject target;
+    public LayerMask _layer;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(target.transform.position, 1.5f);
+    }
     public void Action(PlayerInteract script)
     {
         throw new System.NotImplementedException();
@@ -20,16 +27,32 @@ public class ActivateDialogue : MonoBehaviour, IInteractable
         played = false;
         ani.SetBool("Help", true);
         FindObjectOfType<ShowHideHandy>().can = true;
-        gameObject.SetActive(false);
         DialogueManager.Instance.BeginDialogue(dialogueClip);
+        GetComponent<testTrigger>().Poof();
+        gameObject.SetActive(false);
 
+    }
+
+    private void FixedUpdate()
+    {
+        if (Physics.CheckSphere(target.transform.position, 1.5f, _layer))
+        {
+            if (!played)
+            {
+                ani.SetBool("Activate", true);
+            }
+        }
+        else
+        {
+            ani.SetBool("Activate", false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !played)
         {
-            ani.SetBool("Activate", true);
+            
             
             
         }
