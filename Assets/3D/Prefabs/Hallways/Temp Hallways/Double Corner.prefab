@@ -1881,9 +1881,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -31.642
       objectReference: {fileID: 0}
+    - target: {fileID: 2985760727704124462, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2985760728312091152, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3271955133936327357, guid: 50e0737e154da18489e9987f63867f92, type: 3}
       propertyPath: m_Name
       value: Light Fixture Double Variant_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5722729349949947819, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5722729351076712327, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5722729351337476323, guid: 50e0737e154da18489e9987f63867f92, type: 3}
       propertyPath: m_ProbeSettings.influence.m_BoxSize.x
@@ -1902,6 +1918,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5722729351337476324, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5722729351337476324, guid: 50e0737e154da18489e9987f63867f92, type: 3}
       propertyPath: m_BoxSize.x
       value: 13.851156
       objectReference: {fileID: 0}
@@ -1915,7 +1935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5722729351337476325, guid: 50e0737e154da18489e9987f63867f92, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8663163
+      value: -3.866318
       objectReference: {fileID: 0}
     - target: {fileID: 5722729351337476325, guid: 50e0737e154da18489e9987f63867f92, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2011,9 +2031,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -31.642
       objectReference: {fileID: 0}
+    - target: {fileID: 2985760727704124462, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2985760728312091152, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3271955133936327357, guid: 50e0737e154da18489e9987f63867f92, type: 3}
       propertyPath: m_Name
       value: Light Fixture Double Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5722729349949947819, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5722729351076712327, guid: 50e0737e154da18489e9987f63867f92, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5722729351337476322, guid: 50e0737e154da18489e9987f63867f92, type: 3}
       propertyPath: m_IsActive

@@ -57,6 +57,7 @@ Material:
     m_Floats:
     - Fast_Normal_Strength: 3
     - Normal_Strength: 0.03
+    - Saturation: 1.9
     - Scroll_Speed: 0.008
     - Scroll_Speed_2: 0.003
     - Slow_Normal_Strength: 6
