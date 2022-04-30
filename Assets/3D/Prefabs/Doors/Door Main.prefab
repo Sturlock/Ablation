@@ -1824,7 +1824,7 @@ MonoBehaviour:
   ani: {fileID: 4566270056738118484}
   doorOpen: 0
   target: {fileID: 0}
-  aud: {fileID: 0}
+  aud: {fileID: -6813117831215400445}
   Open: {fileID: 8300000, guid: 8479288931dfe5c4b90f0f0af87f3c58, type: 3}
   Close: {fileID: 8300000, guid: 2bd8e190eb7bb7c44a68b5c609871876, type: 3}
 --- !u!208 &7876975353298610880
@@ -1864,7 +1864,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 6
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

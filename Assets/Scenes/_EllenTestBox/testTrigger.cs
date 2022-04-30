@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class testTrigger : MonoBehaviour
 {
-    public GameObject light_04;
+    public GameObject _light;
 
+    private void Start()
+    {
+        _light.SetActive(false);
+    }
     public void Grab()
     {
-        light_04.SetActive(true);
+        _light.SetActive(true);
     }
 
     public void Poof()
     {
-        light_04.SetActive(false);
+        _light.SetActive(false);
     }
 }

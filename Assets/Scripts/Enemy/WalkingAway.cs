@@ -34,7 +34,7 @@ public class WalkingAway : MonoBehaviour
     }
 
     // Update is called once per frame
-    private IEnumerator MovePlace()
+    public IEnumerator MovePlace()
     {
         _navMeshAgent.SetDestination(target.position);
         yield return new WaitForSeconds(2f);
@@ -109,14 +109,5 @@ public class WalkingAway : MonoBehaviour
         yield return new WaitForSeconds(seconds);
 
         _roarHandler = null;
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            StartCoroutine(MovePlace());
-        }
     }
 }
