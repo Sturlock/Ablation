@@ -38,6 +38,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     //GUI
     private GUIStyle subtitleStyle = new GUIStyle();
+    
     //BAD WE HAVE SINGLETON FOR THIS
     //public static DialogueManager Instance { get; private set; }
     void Start()
