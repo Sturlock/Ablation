@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PowerCharge : MonoBehaviour, IInteractable
 {
+    public Animator _ani;
     public bool power;
     public GameObject[] rooms;
-    [SerializeField] List<LightBlock> lightBlocks = new List<LightBlock>();
+    List<LightBlock> lightBlocks = new List<LightBlock>();
 
     [Header("Audio")]
     [SerializeField] private AudioClip dayOn;
@@ -20,7 +21,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
     public Material lightsOn;
 
     [Header("Generator Time")]
-    [Range(1f, 5400f)]
+    [Range(1f, 300f)]
     public float powerTimer = 60;
 
     private WaitForSeconds timer;
@@ -36,8 +37,6 @@ public class PowerCharge : MonoBehaviour, IInteractable
             {
                 lightBlocks.Add(block);
             }
-
-
         }
         
     }
@@ -45,7 +44,6 @@ public class PowerCharge : MonoBehaviour, IInteractable
     void Start()
     {
         timer = new WaitForSeconds(powerTimer);
-        
     }
 
     public bool GeneratorBool
@@ -56,6 +54,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract script)
     {
+        _ani.SetTrigger("Do");
         Debug.Log("[KineticBattery] Having Words");
         StopAllCoroutines();
         StartCoroutine(PoweringLight());
@@ -100,6 +99,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     private IEnumerator PoweringLight()
     {
+        yield return new WaitForSeconds(.3f);
         for (int i = 0; i < rooms.Length; i++)
         {
             yield return new WaitForSeconds(0.2f);

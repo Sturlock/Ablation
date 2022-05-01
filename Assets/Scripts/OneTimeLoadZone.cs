@@ -14,16 +14,11 @@ public class OneTimeLoadZone : MonoBehaviour
         doOnce = true;
     }
 
-    private void UnloadArea(GameObject zoneObject)
-    {
-        if (zoneObject != null)
-            zoneObject.SetActive(false);
-    }
-
     private void LoadArea(GameObject zoneObject)
     {
+        bool active = !zoneObject.activeInHierarchy;
         if (zoneObject != null)
-            zoneObject.SetActive(true);
+            zoneObject.SetActive(active);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,12 +29,9 @@ public class OneTimeLoadZone : MonoBehaviour
             {
                 if (_loadZone != null)
                 {
-                    if (!_loadZone.activeSelf)
-                    {
                         LoadArea(_loadZone);
                         doOnce = false;
                         return;
-                    }
                 }
             }
             

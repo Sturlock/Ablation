@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class LoadZones : MonoBehaviour
 {
-    [Header("Load Zone")]
-    public Collider _zone;
-
     [Header("Zones To Load")]
     public GameObject _unloadZone;
 
