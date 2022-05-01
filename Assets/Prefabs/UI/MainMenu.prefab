@@ -299,7 +299,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 8227705973226366627}
   m_OnClick:
     m_PersistentCalls:
@@ -461,6 +461,7 @@ MonoBehaviour:
   _fadeInAnimation: {fileID: 7400000, guid: e0c38e01778e880469a3db8f6ab2a0c7, type: 2}
   playButton: {fileID: 8194195835355027584}
   optionsButton: {fileID: 4211301318201592992}
+  creditsButton: {fileID: 7772774956347420517}
   quitButton: {fileID: 4882122624395159917}
   _mainMenu: {fileID: 3399775347329435912}
   _optionsMenu: {fileID: 7246898568408507807}
@@ -6559,7 +6560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3742413214707832868
 RectTransform:
   m_ObjectHideFlags: 0

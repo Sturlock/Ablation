@@ -14,7 +14,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] AnimationClip _fadeOutAnimation;
     [SerializeField] AnimationClip _fadeInAnimation;
 
-    [SerializeField] private Button playButton, optionsButton, quitButton;
+    [SerializeField] private Button playButton, optionsButton, creditsButton, quitButton;
 
     [SerializeField] private GameObject _mainMenu, _optionsMenu;
     
@@ -28,10 +28,12 @@ public class MainMenuScript : MonoBehaviour
          */
         playButton.onClick.RemoveAllListeners();
         optionsButton.onClick.RemoveAllListeners();
+        creditsButton.onClick.RemoveAllListeners();
         quitButton.onClick.RemoveAllListeners();
 
         playButton.onClick.AddListener(PlayGame);
         optionsButton.onClick.AddListener(ToOptionsMenu);
+        creditsButton.onClick.AddListener(PlayCredits);
         quitButton.onClick.AddListener(QuitGame);
     }
     public void OnFadeOutComplete()
@@ -74,6 +76,11 @@ public class MainMenuScript : MonoBehaviour
         _optionsMenu.SetActive(true);
     }
 
+    public void PlayCredits()
+    {
+        GameManager.Instance.LoadLevel("Credits");
+        GameManager.Instance.UnloadLevel("MainMenu");
+    }
     public void ExitLowerMenu(GameObject menu)
     {
         menu.SetActive(false);
