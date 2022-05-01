@@ -20,7 +20,7 @@ public class EndLevel : MonoBehaviour
         yield return new WaitForSeconds(1f);
         animator.SetBool("Activate", true);
         yield return new WaitForSeconds(21f);
-        GameManager.Instance.LoadLevel("MainMenu");
+        GameManager.Instance.LoadLevel("Credits");
         GameManager.Instance.UnloadLevel("GameLevel");
     }
 }
