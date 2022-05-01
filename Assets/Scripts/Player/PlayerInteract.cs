@@ -64,7 +64,7 @@ public class PlayerInteract : MonoBehaviour
         Ray ray = new Ray(m_CameraTransform.transform.position, m_CameraTransform.transform.forward);
         Debug.DrawRay(m_CameraTransform.transform.localPosition, m_CameraTransform.transform.forward, Color.gray);
         // Is interactable object detected in front of player? 
-        if (Physics.Raycast(ray, out m_RaycastFocus, 1.5f) && (m_RaycastFocus.collider.transform.tag == "Intractable"))
+        if (Physics.Raycast(ray, out m_RaycastFocus, 3f) && (m_RaycastFocus.collider.transform.tag == "Intractable"))
         {
             m_CursorImage.enabled = true;
             m_CanInteract = true;
