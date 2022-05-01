@@ -56,7 +56,7 @@ public class PowerCharge : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract script)
     {
-        Debug.LogError("Having Words");
+        Debug.Log("[KineticBattery] Having Words");
         StopAllCoroutines();
         StartCoroutine(PoweringLight());
         StartCoroutine(StartPowerDraw());

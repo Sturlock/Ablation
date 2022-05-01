@@ -389,8 +389,8 @@ public class CharacterAI : Singleton<CharacterAI>
             killed = true;
 
 
-            //play Harold death sound (animation?), Pause gamescene time, fade to black, Load mainmenu
-            //Place alien attacting animation trigger.
+            //play Harold death sound (animation?), Pause game scene time, fade to black, Load main menu
+            //Place alien attacking animation trigger.
             AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
 
             foreach(AudioSource audioSource in audioSources)
@@ -408,11 +408,8 @@ public class CharacterAI : Singleton<CharacterAI>
             _audioSource.Play();
             transition.SetBool("Killed", true);
             //Time.timeScale = 0f;
-            StartCoroutine(OnPK());
-            
-            
+            StartCoroutine(OnPK());            
         }
-        
     }
 
     private IEnumerator OnPK()

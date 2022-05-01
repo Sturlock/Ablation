@@ -238,7 +238,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2139787474227869582, guid: d77d33db0486e4f43a8f8c872e1474f0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2562854837671100904, guid: d77d33db0486e4f43a8f8c872e1474f0, type: 3}
       propertyPath: m_Pivot.x
@@ -324,6 +324,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3174240825614230794, guid: d77d33db0486e4f43a8f8c872e1474f0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8460746681353658633, guid: d77d33db0486e4f43a8f8c872e1474f0, type: 3}
       propertyPath: m_Name
       value: HUD
@@ -355,7 +359,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 8298173515603117800}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7969970039220253030}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
