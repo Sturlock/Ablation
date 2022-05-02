@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
     public CapsuleCollider cap;
     public Animator animator;
     public Rigidbody rb;
+    public PlayerAudio playerAudio;
     private Vector3 controlInput;
     [SerializeField] private Vector3 rawInput;
 
@@ -22,6 +23,9 @@ public class Movement : MonoBehaviour
     private float jumpForce = 20;
     private bool sprintBool;
     private bool crouchBool;
+
+    [SerializeField] float walkTime = .5f;
+    [SerializeField] float sprintTime = .2f;
 
     public bool b_Flashlight = false;
     public Light o_Flashlight;
@@ -48,6 +52,7 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cap = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
+        playerAudio = GetComponent<PlayerAudio>();
     }
 
     private void Inputs()
@@ -103,9 +108,34 @@ public class Movement : MonoBehaviour
         float aniStrafe = animator.GetFloat("Strafe");
         float aniCrouch = animator.GetFloat("Crouching");
         if (rawInput.z > 0.1f)
-            speed = sprintBool ? 1f : 0.5f;
+        {
+            if (!sprintBool)
+            {
+                speed = 0.5f;
+                float timer = walkTime -= Time.fixedDeltaTime;
+
+                if (walkTime <= 0.0f)
+                {
+                    playerAudio.FootSteps();
+                    timer = 0.5f;
+                }
+            }
+            else if (sprintBool)
+            {
+                speed = 1f;
+                float timer = sprintTime -= Time.fixedDeltaTime;
+
+                if (sprintTime <= 0.0f)
+                {
+                    playerAudio.FootSteps();
+                    timer = 0.2f;
+                }
+            }
+        }  
         else if (rawInput.z < -0.1f)
+        {
             speed = -0.5f;
+        }
         else speed = 0f;
         strafe = rawInput.x;
         crouch = crouchBool ? 1f : 0f;

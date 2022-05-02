@@ -299,6 +299,7 @@ public class CharacterAI : Singleton<CharacterAI>
 
             if (_heard)
             {
+                Interupt();
                 NavMeshAgent.speed = 4;
             }
             else if (!_heard)
@@ -388,7 +389,6 @@ public class CharacterAI : Singleton<CharacterAI>
             Debug.Log("Kill Player");
             killed = true;
 
-
             //play Harold death sound (animation?), Pause game scene time, fade to black, Load main menu
             //Place alien attacking animation trigger.
             AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
@@ -402,12 +402,9 @@ public class CharacterAI : Singleton<CharacterAI>
                 break;
             }
 
-            //AudioListener.pause = true;
-            //_audioSource.ignoreListenerPause = true;
             _audioSource.clip = HaroldDeath;
             _audioSource.Play();
             transition.SetBool("Killed", true);
-            //Time.timeScale = 0f;
             StartCoroutine(OnPK());            
         }
     }
