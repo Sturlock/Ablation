@@ -68,6 +68,7 @@ public class GraphicsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+        qualityLevel.value = (int)QualitySettings.currentLevel;
     }
 
     public void SetResolution(int resolutionIndex)
