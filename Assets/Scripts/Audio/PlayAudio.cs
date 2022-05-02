@@ -7,7 +7,7 @@ public class PlayAudio : MonoBehaviour
     [SerializeField] private Animator ani;
     [SerializeField] private bool Fade;
     [SerializeField] private bool Hit;
-    [SerializeField] private GameObject target;
+    //[SerializeField] private GameObject target;
     [SerializeField] private AudioSource aud;
     public AudioClip playClip;
 

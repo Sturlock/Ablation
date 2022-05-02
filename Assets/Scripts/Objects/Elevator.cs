@@ -8,6 +8,9 @@ public class Elevator : MonoBehaviour, IInteractable
     public SecurityClearance clearance;
     public TestDialogue dialogue;
     public Animator animator;
+    public AudioClip ElevatorOpen;
+    public AudioClip ElevatorClose;
+    [SerializeField] private AudioSource audioSource;
     public void Action(PlayerInteract script)
     {
         throw new System.NotImplementedException();
@@ -17,8 +20,9 @@ public class Elevator : MonoBehaviour, IInteractable
     {
         if(clearance.lvl == lvlRequired)
         {
+            audioSource.PlayOneShot(ElevatorOpen);
             animator.SetBool("Open", true);
-            StartCoroutine(CloseElevator());
+            //StartCoroutine(CloseElevator());
         }
         else if(clearance.lvl != lvlRequired)
         {
@@ -26,9 +30,15 @@ public class Elevator : MonoBehaviour, IInteractable
         }
     }
 
-    public IEnumerator CloseElevator()
+    //public IEnumerator CloseElevator()
+    //{
+    //    yield return new WaitForSeconds(11f);
+    //    animator.SetBool("Open", false);
+    //}
+
+    public void CloseElevator()
     {
-        yield return new WaitForSeconds(11f);
+        audioSource.PlayOneShot(ElevatorClose);
         animator.SetBool("Open", false);
     }
 

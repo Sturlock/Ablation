@@ -10,11 +10,11 @@ public class LoadSceneAnimation : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            GameManager.Instance.LoadLevel(SceneNext);
-            GameManager.Instance.UnloadLevel(SceneNow);
-        }
+        //if (Input.GetKeyUp(KeyCode.Escape))
+        //{
+        //    GameManager.Instance.LoadLevel(SceneNext);
+        //    GameManager.Instance.UnloadLevel(SceneNow);
+        //}
     }
     public void LoadNewScene()
     {

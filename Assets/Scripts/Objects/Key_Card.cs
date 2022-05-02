@@ -5,6 +5,7 @@ using UnityEngine;
 public class Key_Card : MonoBehaviour, IInteractable
 {
     private SecurityClearance security;
+    public AudioClip dialogueClip;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class Key_Card : MonoBehaviour, IInteractable
     public void Interact(PlayerInteract script)
     {
         security.IncreaseLevel();
+        DialogueManager.Instance.BeginDialogue(dialogueClip);
         Destroy(gameObject);
     }
 }
