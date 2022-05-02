@@ -4,14 +4,13 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(Waypoint)), ExecuteInEditMode]
 public class WaypointPropertyDrawer : PropertyDrawer
 {
-    protected MoveToTarget ai;
-
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);
 
         //Draw lable
-        position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent(label.text.Replace("Waypoint", "")));
+        position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), 
+            new GUIContent(label.text.Replace("Waypoint", "")));
 
         var indent = EditorGUI.indentLevel;
 
