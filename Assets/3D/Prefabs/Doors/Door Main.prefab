@@ -1825,8 +1825,8 @@ MonoBehaviour:
   doorOpen: 0
   target: {fileID: 0}
   aud: {fileID: -6813117831215400445}
-  Open: {fileID: 8300000, guid: 2828e05e86df4fd4aadd9a56bfe2eba3, type: 3}
-  Close: {fileID: 8300000, guid: d5aeeeb865564fd40a0777b5692b8e44, type: 3}
+  Open: {fileID: 8300000, guid: 4528e87efa6600945ad1a54c96a67540, type: 3}
+  Close: {fileID: 8300000, guid: 7d4433f26420404428e2f0be644b7155, type: 3}
 --- !u!208 &7876975353298610880
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1863,7 +1863,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0
+  MinDistance: 2.5
   MaxDistance: 6
   Pan2D: 0
   rolloffMode: 0

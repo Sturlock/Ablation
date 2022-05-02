@@ -4,40 +4,49 @@ using UnityEngine;
 
 public class PlayAudio : MonoBehaviour
 {
-    [SerializeField] private Animator ani;
+    //[SerializeField] private Animator ani;
     [SerializeField] private bool Fade;
     [SerializeField] private bool Hit;
     //[SerializeField] private GameObject target;
     [SerializeField] private AudioSource aud;
-    public AudioClip playClip;
+    //public AudioClip playClip;
+    public float volumelevel = 0f;
+    public float maxVol = .5f;
 
     private void Awake()
     {
-        ani = GetComponent<Animator>();
+        //ani = GetComponent<Animator>();
         aud = GetComponent<AudioSource>();
+        aud.volume = volumelevel;
     }
 
     private void Update()
     {
-        if (Fade)
+        if (Fade && (volumelevel < maxVol))
         {
-            ani.SetBool("Fade", true);
+            volumelevel += .005f;
+            aud.volume = volumelevel;
         }
-        else
+        if (!Fade && (volumelevel != 0))
         {
-            ani.SetBool("Fade", false);
+            volumelevel -= .005f;
+            aud.volume = volumelevel;
+            if (volumelevel < 0)
+            {
+                volumelevel = 0;
+            }
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            //target = other.gameObject;
-            if (!Hit)
-            {
-                aud.PlayOneShot(playClip);
-            }
+            //if (!Hit)
+            //{
+            //    aud.PlayOneShot(playClip);
+            //}
             Fade = true;
         }
     }
@@ -46,7 +55,6 @@ public class PlayAudio : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //target = null;
             Fade = false;
         }
     }
