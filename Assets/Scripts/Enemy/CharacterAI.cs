@@ -404,17 +404,19 @@ public class CharacterAI : Singleton<CharacterAI>
 
             _audioSource.clip = HaroldDeath;
             _audioSource.Play();
-            transition.SetBool("Killed", true);
+            //transition.SetBool("Killed", true);
+            transition.SetTrigger("EndGame");
+            //Cursor.lockState = CursorLockMode.None;
             StartCoroutine(OnPK());            
         }
     }
 
     private IEnumerator OnPK()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(7f);
         Cursor.lockState = CursorLockMode.None;
-        GameManager.Instance.LoadLevel("MainMenu");
-        GameManager.Instance.UnloadLevel("GameLevel");
+        //GameManager.Instance.LoadLevel("MainMenu");
+        //GameManager.Instance.UnloadLevel("GameLevel");
     }
 
     private IEnumerator SurveyArea(Vector3 position)
