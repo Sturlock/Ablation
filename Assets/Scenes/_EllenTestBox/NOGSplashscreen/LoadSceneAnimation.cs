@@ -18,6 +18,7 @@ public class LoadSceneAnimation : MonoBehaviour
     }
     public void LoadNewScene()
     {
+        Cursor.lockState = CursorLockMode.None;
         GameManager.Instance.LoadLevel(SceneNext);
         GameManager.Instance.UnloadLevel(SceneNow);
         Debug.Log("[LoadSceneAnimation] " + SceneNow + "going to" + SceneNext);
