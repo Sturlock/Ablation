@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HasDetection : MonoBehaviour
@@ -5,15 +6,16 @@ public class HasDetection : MonoBehaviour
     [SerializeField] private CharacterAI characterAI;
     [SerializeField] private GameObject target;
     [SerializeField] private bool heard;
+    bool go;
 
     private void OnTriggerEnter(Collider other)
     {
         if (!AIDirector.Instance.protectedArea)
         {
-	        if (other.transform.parent.tag == "Player")
+	        if (other.tag == "Player")
 	        {
 	            Debug.Log("[HasDetection] PLAYER ENTER");
-	            target = other.transform.parent.gameObject;
+	            target = other.gameObject;
 	            heard = true;
 	            characterAI.IsHeard(target, heard);
 	        }
@@ -25,14 +27,21 @@ public class HasDetection : MonoBehaviour
         }
     }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.transform.parent.tag == "Player")
-    //    {
-    //        Debug.Log("[HasDetection] PLAYER STAY");
-    //        target = other.transform.parent.gameObject;
-    //        heard = true;
-    //        characterAI.isHearing(target, heard);
-    //    }
-    //}
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player" && !go)
+        {
+            Debug.Log("[HasDetection] PLAYER STAY");
+            target = other.gameObject;
+            heard = true;
+            characterAI.isHearing(target, heard);
+            go = true;
+            StartCoroutine(StillHere());
+        }
+    }
+    public IEnumerator StillHere()
+    {
+        yield return new WaitForSeconds(10f);
+        go = false;
+    }
 }

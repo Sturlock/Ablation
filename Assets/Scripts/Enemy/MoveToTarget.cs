@@ -30,8 +30,6 @@ public class MoveToTarget : MonoBehaviour
         agent.CalculatePath(targetPos, path);
         float pathLenth = path.Length();
         Vector3 targetDirection = characterAI.transform.position.Direction(targetPos);
-        if (!characterAI.WasKnown)
-        {
             RaycastHit hit;
             if (Physics.Raycast(characterAI.transform.position, targetDirection, out hit))
             {
@@ -53,6 +51,5 @@ public class MoveToTarget : MonoBehaviour
                     }
                 }
             }
-        }
     }
 }

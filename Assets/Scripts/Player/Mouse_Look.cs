@@ -39,18 +39,6 @@ public class Mouse_Look : MonoBehaviour
         }
     }
 
-    public void AddCineComp(bool _retract)
-    {
-        if (_retract)
-        {
-            //lookAt = vcam.AddCinemachineComponent<CinemachineHardLookAt>();
-        }
-        else
-        {
-            //pOV = vcam.AddCinemachineComponent<CinemachinePOV>();
-        }
-    }
-
     public void FOVChange(bool fov)
     {
         _animator.SetBool("Change", fov);

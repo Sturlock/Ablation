@@ -114,9 +114,9 @@ public class Movement : MonoBehaviour
                 speed = 0.5f;
                 float timer = walkTime -= Time.fixedDeltaTime;
 
-                if (walkTime <= 0.0f)
+                if (timer <= 0.0f)
                 {
-                    playerAudio.FootSteps();
+                    //playerAudio.FootSteps();
                     timer = 0.5f;
                 }
             }
@@ -125,9 +125,9 @@ public class Movement : MonoBehaviour
                 speed = 1f;
                 float timer = sprintTime -= Time.fixedDeltaTime;
 
-                if (sprintTime <= 0.0f)
+                if (timer <= 0.0f)
                 {
-                    playerAudio.FootSteps();
+                    //playerAudio.FootSteps();
                     timer = 0.2f;
                 }
             }

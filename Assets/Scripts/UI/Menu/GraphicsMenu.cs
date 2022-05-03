@@ -29,7 +29,6 @@ public class GraphicsMenu : MonoBehaviour
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
         exitButton.onClick.AddListener(ExitMenu);
     }
-
     private void Start()
     {
         switch (Screen.fullScreenMode)
@@ -55,7 +54,8 @@ public class GraphicsMenu : MonoBehaviour
         int currentResolutionIndex = 0;
         for(int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + "x" + resolutions[i].height + " - " + resolutions[i].refreshRate + "Hz";
+            string option = resolutions[i].width + "x" + resolutions[i].height + 
+                " - " + resolutions[i].refreshRate + "Hz";
             options.Add(option);
 
             if (resolutions[i].width == Screen.currentResolution.width &&

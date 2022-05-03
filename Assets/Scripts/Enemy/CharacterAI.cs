@@ -188,6 +188,7 @@ public class CharacterAI : Singleton<CharacterAI>
             StopCoroutine(_roarHandler);
             _roarHandler = null;
         }
+        StopAllCoroutines();
     }
     public Vector3 GetWaypointPosition(int id)
     {
@@ -404,21 +405,10 @@ public class CharacterAI : Singleton<CharacterAI>
 
             _audioSource.clip = HaroldDeath;
             _audioSource.Play();
-            //transition.SetBool("Killed", true);
-            transition.SetTrigger("EndGame");
-            //Cursor.lockState = CursorLockMode.None;
-            StartCoroutine(OnPK());            
+            Cursor.lockState = CursorLockMode.None;
+            transition.SetTrigger("EndGame");         
         }
     }
-
-    private IEnumerator OnPK()
-    {
-        yield return new WaitForSeconds(7f);
-        Cursor.lockState = CursorLockMode.None;
-        //GameManager.Instance.LoadLevel("MainMenu");
-        //GameManager.Instance.UnloadLevel("GameLevel");
-    }
-
     private IEnumerator SurveyArea(Vector3 position)
     {
         _surveying = true;
@@ -426,34 +416,52 @@ public class CharacterAI : Singleton<CharacterAI>
         List<Vector3> finalPos = new List<Vector3>();
         for (int i = 0; i < 3; i++)
         {
-            Vector3 targetpos = AreaToSurvey(position);
-            finalPos.Add(targetpos);
+            if(!_heard)
+            {
+                Vector3 targetpos = AreaToSurvey(position);
+                finalPos.Add(targetpos);
+            }
+            else if (_heard)
+            {
+                break;
+            }
+
         }
         for (int i = 0; i < 3; ++i)
         {
             if (atDestination)
             {
-                _animator.SetTrigger("Search");
-                _audioSource.PlayOneShot(Search);
-                stopAI = true;
-                Debug.Log("[Survey Area] NavMesh Agent is Stopped");
-                yield return new WaitForSeconds(4.333f);
-                stopAI = false;
-                Destination = finalPos[i];
-                _surveyTimes= i;
-                yield return new WaitForSeconds(1f);
+                if (!_heard)
+                {
+                    _animator.SetTrigger("Search");
+                    _audioSource.PlayOneShot(Search);
+                    stopAI = true;
+                    Debug.Log("[Survey Area] NavMesh Agent is Stopped");
+                    yield return new WaitForSeconds(4.333f);
+                    stopAI = false;
+                    Destination = finalPos[i];
+                    _surveyTimes = i;
+                    yield return new WaitForSeconds(1f);
+                }
+            }
+            else if (_heard)
+            {
+                break;
             }
         }
         if (atDestination)
         {
-            if (WasKnown)
+            if (!_heard)
             {
-                moveTarget.ToDestination(_target, _navMeshAgent);
-                WasKnown = false;
-            }
-            else if (waypoint_bool)
-            {
-                WaypointCheck();
+                if (WasKnown)
+                {
+                    moveTarget.ToDestination(_target, _navMeshAgent);
+                    WasKnown = false;
+                }
+                else if (waypoint_bool)
+                {
+                    WaypointCheck();
+                }
             }
         }
         finalPos.Clear();

@@ -35,7 +35,6 @@ public class PlayerInteract : MonoBehaviour
 
             }
         }
-
         // Has action button been pressed whilst interactable object is in front of player?
         if (Input.GetButtonDown("Fire2") && m_CanInteract)
         {
