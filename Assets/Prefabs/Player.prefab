@@ -298,10 +298,13 @@ MonoBehaviour:
   cap: {fileID: 8113079212316738098}
   animator: {fileID: 5085746869387310938}
   rb: {fileID: 8113079212316738097}
+  playerAudio: {fileID: 0}
   rawInput: {x: 0, y: 0, z: 0}
   accel: 0.8
   jumpBool: 0
   jumpCount: 0
+  walkTime: 0.5
+  sprintTime: 0.2
   b_Flashlight: 0
   o_Flashlight: {fileID: 0}
   layerMask:
@@ -341,6 +344,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CameraTransform: {fileID: 0}
   m_CursorImage: {fileID: 0}
+  interactionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_CanInteract: 0
 --- !u!114 &8113079212316738109
 MonoBehaviour:
@@ -355,17 +361,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioS: {fileID: 8113079212316738110}
-  idleSnapshot: {fileID: 24500006, guid: 2329b827260f3e14b9dc07b06cbefa38, type: 2}
-  auxInSnapshot: {fileID: -8643397380533899908, guid: 2329b827260f3e14b9dc07b06cbefa38, type: 2}
-  ambIdleSnapshot: {fileID: 24500006, guid: bcaea0ce65e2f53469a406b300b9bbf7, type: 2}
-  ambInSnapshot: {fileID: 5603930611458457246, guid: bcaea0ce65e2f53469a406b300b9bbf7, type: 2}
+  idleSnapshot: {fileID: 0}
+  auxInSnapshot: {fileID: 0}
+  ambIdleSnapshot: {fileID: 0}
+  ambInSnapshot: {fileID: 0}
   monsterMask:
     serializedVersion: 2
     m_Bits: 0
   metalSteps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 3d161e333d2dda2469550363dbcff62e, type: 3}
+  - {fileID: 8300000, guid: bdd5621c0f294bd41a0336fe67d0117b, type: 3}
   woodSteps:
   - {fileID: 0}
   - {fileID: 0}
@@ -799,6 +804,10 @@ PrefabInstance:
     - target: {fileID: 4731856759335148143, guid: f080955b1171aaf47ac85582410cbf76, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.011184931
+      objectReference: {fileID: 0}
+    - target: {fileID: 6077769179162736798, guid: f080955b1171aaf47ac85582410cbf76, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6245504350611485534, guid: f080955b1171aaf47ac85582410cbf76, type: 3}
       propertyPath: m_Size

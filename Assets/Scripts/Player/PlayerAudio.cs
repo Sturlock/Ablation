@@ -66,7 +66,7 @@ public class PlayerAudio : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, -transform.up);
-        int r = Random.Range(0,3);
+        int r = Random.Range(0,1);
         if (Physics.Raycast(ray, out hit, 1f))
         {
             switch (hit.transform.tag)
