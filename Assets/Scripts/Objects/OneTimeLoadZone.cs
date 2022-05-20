@@ -4,9 +4,6 @@ public class OneTimeLoadZone : MonoBehaviour
 {
     public bool doOnce = true;
 
-    [Header("Load Zone")]
-    public Collider _zone;
-
     [Header("Zones To Load")]
     public GameObject _loadZone;
     public void Awake()

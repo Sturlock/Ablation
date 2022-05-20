@@ -21,28 +21,24 @@ public class LoadZones : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-
-        //BoxCollider box = hit.collider as BoxCollider;
-        //if (box == null) Debug.LogWarning("[LoadZone] Collider is not a BoxCollider");
-
-
+        Vector3 localDir = transform.localPosition.Direction(other.gameObject.transform.localPosition);
+        float localPoint = Vector3.Dot(transform.forward, localDir);
         
-
-        Vector3 localPoint = gameObject.transform.localPosition.Direction(other.gameObject.transform.localPosition);
-        Vector3 localDir = localPoint.normalized;
-        Debug.Log("[LoadZone] Direction" + localDir);
+        
         if (other.CompareTag("Player"))
         {
             if(_loadZone != null)
             {
-                if (!_loadZone.activeSelf && localDir.z > 0.01f)
+                if (!_loadZone.activeSelf && localPoint > 0.01f)
                 {
+                    Debug.Log("[LoadZone] Direction = " + localPoint);
                     UnloadArea(_unloadZone);
                     LoadArea(_loadZone);
                     return;
                 }
-                if (_loadZone.activeSelf && localDir.z < 0.01f)
+                if (_loadZone.activeSelf && localPoint < 0.01f)
                 {
+                    Debug.Log("[LoadZone] Direction = " + localPoint);
                     UnloadArea(_loadZone);
                     LoadArea(_unloadZone);
                     return;
