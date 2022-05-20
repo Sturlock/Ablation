@@ -20,28 +20,17 @@ public class AutoDoor : MonoBehaviour
         ani.SetBool("Open", open);
         if (open)
         {
+            aud.clip = Open;
             aud.PlayOneShot(Open);
         }
         else if (!open)
         {
+            aud.clip = Close;
             aud.PlayOneShot(Close);
         }
         
     }
 
-    private void Update()
-    {
-        if (doorOpen)
-        {
-            
-            //aud.PlayOneShot(Open);
-        }
-        else
-        {
-            ani.SetBool("Open", false);
-            //aud.PlayOneShot(Close);
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -57,12 +46,9 @@ public class AutoDoor : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Monster"))
         {
-            target = null;
-            if (doorOpen)
-            {
-                aud.PlayOneShot(Close);
-            }
             doorOpen = false;
+            target = null;
+            OpenDoor(doorOpen);
         }
     }
 }
