@@ -27,23 +27,25 @@ public class LoadZones : MonoBehaviour
         
         if (other.CompareTag("Player"))
         {
-            if(_loadZone != null)
-            {
-                if (!_loadZone.activeSelf && localPoint > 0.01f)
+                if (localPoint > 0.01f)
                 {
                     Debug.Log("[LoadZone] Direction = " + localPoint);
+                    if(_unloadZone != null)
                     UnloadArea(_unloadZone);
+                    if(_loadZone != null)
                     LoadArea(_loadZone);
                     return;
                 }
-                if (_loadZone.activeSelf && localPoint < 0.01f)
+                if (localPoint < -0.01f)
                 {
                     Debug.Log("[LoadZone] Direction = " + localPoint);
+                    if (_loadZone != null)
                     UnloadArea(_loadZone);
+
+                    if (_unloadZone != null)
                     LoadArea(_unloadZone);
                     return;
                 }
-            }
         }
     }
 }

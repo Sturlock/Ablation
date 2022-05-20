@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
 
         InstantiateSystemPrefabs();
     }
-
+#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.PageUp))
@@ -41,7 +41,7 @@ public class GameManager : Singleton<GameManager>
             LoadLevel("GameLevel");
         }
     }
-
+#endif
     private void OnLoadOperationComplete(AsyncOperation ao)
     {
         if (_loadOperations.Contains(ao))
