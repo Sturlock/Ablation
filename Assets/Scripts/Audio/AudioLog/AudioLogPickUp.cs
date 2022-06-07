@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class AudioLogPickUp : MonoBehaviour, IInteractable
 {
-    public AudioSource audioSource;
-    //public AudioClip Pickup;
-    public AudioClip AudioLog;
-    public GameObject Recorder;
+    [SerializeField] LogGiver lg;
 
-    private void OnDrawGizmos()
+    private void Start()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(Recorder.transform.position, 1.5f);
+        lg = GetComponent<LogGiver>();
     }
     public void Action(PlayerInteract script)
     {
@@ -21,11 +17,7 @@ public class AudioLogPickUp : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract script)
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = AudioLog;
-        audioSource.PlayOneShot(AudioLog);
-        //DialogueManager.Instance.BeginDialogue(AudioLog);
-        Recorder.SetActive(false);
-
+        lg.GiveLog();
+        Destroy(gameObject);
     }
 }

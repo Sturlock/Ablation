@@ -5,13 +5,13 @@ using Ablation.Item;
 
 public class PickUpAL : MonoBehaviour, IInteractable
 {
-    public AudioLogTextItem textLog;
-    public AudioLogTextControl Ctrl;
+    public AudioLogItem textLog;
+    public AudioLogUI Ctrl;
 
     // Start is called before the first frame update
     void Start()
     {
-        Ctrl = FindObjectOfType<AudioLogTextControl>();
+        Ctrl = FindObjectOfType<AudioLogUI>();
     }
 
     public void Action(PlayerInteract script)
