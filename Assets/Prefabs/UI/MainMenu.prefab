@@ -463,15 +463,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9753773f91fbd4a876862a6b166822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainMenuAnimator: {fileID: 7451474889818101896}
-  _fadeOutAnimation: {fileID: 7400000, guid: 517f47c4944099c4d80739034e3c040a, type: 2}
-  _fadeInAnimation: {fileID: 7400000, guid: e0c38e01778e880469a3db8f6ab2a0c7, type: 2}
-  playButton: {fileID: 8194195835355027584}
-  optionsButton: {fileID: 4211301318201592992}
-  creditsButton: {fileID: 7772774956347420517}
-  quitButton: {fileID: 4882122624395159917}
-  _mainMenu: {fileID: 3399775347329435912}
-  _optionsMenu: {fileID: 7246898568408507807}
+  _MainMenuAnimator: {fileID: 7451474889818101896}
+  _FadeOutAnimation: {fileID: 7400000, guid: 517f47c4944099c4d80739034e3c040a, type: 2}
+  _FadeInAnimation: {fileID: 7400000, guid: e0c38e01778e880469a3db8f6ab2a0c7, type: 2}
+  _PlayButton: {fileID: 8194195835355027584}
+  _OptionsButton: {fileID: 4211301318201592992}
+  _CreditsButton: {fileID: 7772774956347420517}
+  _QuitButton: {fileID: 4882122624395159917}
+  _MainMenu: {fileID: 3399775347329435912}
+  _OptionsMenu: {fileID: 7246898568408507807}
 --- !u!114 &4265761200537509044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,11 +504,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _GraphicsMenu: {fileID: 3939372324055875068}
-  fullscreen: {fileID: 5655973902326700614}
-  resolutionDropdown: {fileID: 5197240591517358577}
-  qualityLevel: {fileID: 9088746923392199906}
-  _exit: {fileID: 4265761200537509044}
-  exitButton: {fileID: 1867878800278035100}
+  _Fullscreen: {fileID: 5655973902326700614}
+  _ResolutionDropdown: {fileID: 5197240591517358577}
+  _QualityLevel: {fileID: 9088746923392199906}
+  _Exit: {fileID: 4265761200537509044}
+  _ExitButton: {fileID: 1867878800278035100}
 --- !u!1 &581578853333792910
 GameObject:
   m_ObjectHideFlags: 0
@@ -4214,7 +4214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6648698002470959151
 Transform:
   m_ObjectHideFlags: 0
@@ -8237,7 +8237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6156290513430558403
 Transform:
   m_ObjectHideFlags: 0

@@ -21,10 +21,7 @@ public class GameManager : Singleton<GameManager>
     private List<AsyncOperation> _loadOperations;
     private List<GameObject> _instancedSystemPrefrabs;
 
-    public string CurrentLevelName
-    {
-        get => _currentLevelName;
-    }
+    public string CurrentLevelName => _currentLevelName;
 
     private void Start()
     {
@@ -72,10 +69,14 @@ public class GameManager : Singleton<GameManager>
     
     public void LoadLevel(string levelName) 
     {
-        AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
-        if (ao == null) { Debug.LogError("[Game Manager] Unable to load level"); return; }
-        ao.completed += OnLoadOperationComplete;
-        _loadOperations.Add(ao);
+		AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+		if (asyncOperation == null)
+		{
+			Debug.LogError("[Game Manager] Unable to load level"); 
+			return;
+		}
+        asyncOperation.completed += OnLoadOperationComplete;
+        _loadOperations.Add(asyncOperation);
         _currentLevelName = levelName;
     }
 

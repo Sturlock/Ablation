@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,37 +10,43 @@ namespace UI.Menu
 		//Track AnimationClips for Fade in and out
 		//Function that can receive animation events
 		//Function to play fade in/out animation
-    
-		[SerializeField] private Animation _mainMenuAnimator;
-		[SerializeField] private AnimationClip _fadeOutAnimation;
-		[SerializeField] private AnimationClip _fadeInAnimation;
 
-		[SerializeField] private Button playButton, optionsButton, creditsButton, quitButton;
+		[SerializeField] private Animation _MainMenuAnimator;
+		[SerializeField] private AnimationClip _FadeOutAnimation;
+		[SerializeField] private AnimationClip _FadeInAnimation;
 
-		[SerializeField] private GameObject _mainMenu, _optionsMenu;
-    
+		[SerializeField] private Button _PlayButton;
+		[SerializeField] private Button _OptionsButton;
+		[SerializeField] private Button _CreditsButton;
+		[SerializeField] private Button _QuitButton;
+
+		[SerializeField] private GameObject _MainMenu;
+		[SerializeField] private GameObject _OptionsMenu;
+
 		private void Start()
 		{
-			_optionsMenu.SetActive(false);
-			_mainMenu.SetActive(true);
+			_OptionsMenu.SetActive(false);
+			_MainMenu.SetActive(true);
 
 			/*DoubleChecking that buttons Only do intended functions
-         *Then adding intended function
-         */
-			playButton.onClick.RemoveAllListeners();
-			optionsButton.onClick.RemoveAllListeners();
-			creditsButton.onClick.RemoveAllListeners();
-			quitButton.onClick.RemoveAllListeners();
+			 *Then adding intended function
+			 */
+			_PlayButton.onClick.RemoveAllListeners();
+			_OptionsButton.onClick.RemoveAllListeners();
+			_CreditsButton.onClick.RemoveAllListeners();
+			_QuitButton.onClick.RemoveAllListeners();
 
-			playButton.onClick.AddListener(PlayGame);
-			optionsButton.onClick.AddListener(ToOptionsMenu);
-			creditsButton.onClick.AddListener(PlayCredits);
-			quitButton.onClick.AddListener(QuitGame);
+			_PlayButton.onClick.AddListener(PlayGame);
+			_OptionsButton.onClick.AddListener(ToOptionsMenu);
+			_CreditsButton.onClick.AddListener(PlayCredits);
+			_QuitButton.onClick.AddListener(QuitGame);
 		}
+
 		public void OnFadeOutComplete()
 		{
 			Debug.LogWarning("[UI Manager] FadeOut Complete");
 		}
+
 		public void OnFadeInComplete()
 		{
 			Debug.LogWarning("[UI Manager] FadeIn Complete");
@@ -47,16 +54,16 @@ namespace UI.Menu
 
 		public void FadeIn()
 		{
-			_mainMenuAnimator.Stop();
-			_mainMenuAnimator.clip = _fadeInAnimation;
-			_mainMenuAnimator.Play();
-
+			_MainMenuAnimator.Stop();
+			_MainMenuAnimator.clip = _FadeInAnimation;
+			_MainMenuAnimator.Play();
 		}
+
 		public void FadeOut()
 		{
-			_mainMenuAnimator.Stop();
-			_mainMenuAnimator.clip = _fadeOutAnimation;
-			_mainMenuAnimator.Play();
+			_MainMenuAnimator.Stop();
+			_MainMenuAnimator.clip = _FadeOutAnimation;
+			_MainMenuAnimator.Play();
 		}
 
 		public void PlayGame()
@@ -65,15 +72,17 @@ namespace UI.Menu
 			GameManager.Instance.UnloadLevel("MainMenu");
 			Debug.Log("[MainMenu] Play Game");
 		}
+
 		public void QuitGame()
 		{
 			Debug.Log("[MainMenu] Quit Game");
 			GameManager.Instance.Quit();
 		}
+
 		public void ToOptionsMenu()
 		{
-			_mainMenu.SetActive(false);
-			_optionsMenu.SetActive(true);
+			_MainMenu.SetActive(false);
+			_OptionsMenu.SetActive(true);
 		}
 
 		public void PlayCredits()
@@ -81,13 +90,14 @@ namespace UI.Menu
 			GameManager.Instance.LoadLevel("Credits");
 			GameManager.Instance.UnloadLevel("MainMenu");
 		}
+
 		public void ExitLowerMenu(GameObject menu)
 		{
 			menu.SetActive(false);
-			_mainMenu.SetActive(true);
+			_MainMenu.SetActive(true);
 		}
 
-		public void LoadLevel(string sceneName)
+		public void LoadLevel(String sceneName)
 		{
 			GameManager.Instance.LoadLevel(sceneName);
 			GameManager.Instance.UnloadLevel("MainMenu");

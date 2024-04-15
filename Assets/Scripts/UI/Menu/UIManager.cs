@@ -1,37 +1,59 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI.Menu
 {
 	public class UIManager : MonoBehaviour
 	{
-		[SerializeField] private MainMenuScript _mainMenu;
-		[SerializeField] private GameObject _hud;
-    
+		[SerializeField] private MainMenuScript _MainMenu;
+		[SerializeField] private GameObject _HUD;
+
+		[SerializeField] private String _MainMenuLevel;
+		[SerializeField] private String _GameLevel;
+
 		private void Start()
 		{
-			//_mainMenu.FadeIn();
+			List<String> sceneNames = new List<String>();
+			Int32 sceneCount = SceneManager.sceneCountInBuildSettings;
+			for (Int32 i = 0; i < sceneCount; i++)
+			{
+				String sceneName = SceneManager.GetSceneByBuildIndex(i).name;
+				sceneNames.Add(sceneName);
+			}
+
+			Boolean levelExists = sceneNames.Exists(scene => scene == _MainMenuLevel);
+			if (!levelExists)
+			{
+				Debug.LogError($"{_MainMenuLevel} is not a currently valid scene name");
+			}
+
+			levelExists = sceneNames.Exists(scene => scene == _GameLevel);
+			if (!levelExists)
+			{
+				Debug.LogError($"{_GameLevel} is not a currently valid scene name");
+			}
 		}
+
 		private void Update()
 		{
-			if (GameManager.Instance.CurrentLevelName == "MainMenu")
+			if (GameManager.Instance.CurrentLevelName == _MainMenuLevel)
 			{
-				_hud.SetActive(false);
-				_mainMenu.gameObject.SetActive(true);
-            
+				_HUD.SetActive(false);
+				_MainMenu.gameObject.SetActive(true);
 			}
-			else if (GameManager.Instance.CurrentLevelName == "GameLevel")
+			else if (GameManager.Instance.CurrentLevelName == _GameLevel)
 			{
-				_mainMenu.gameObject.SetActive(false);
-				_hud.SetActive(true);
+				_MainMenu.gameObject.SetActive(false);
+				_HUD.SetActive(true);
 			}
-			else if ((GameManager.Instance.CurrentLevelName != "MainMenu") || 
+			else if ((GameManager.Instance.CurrentLevelName != "MainMenu") ||
 			         (GameManager.Instance.CurrentLevelName != "GameLevel"))
 			{
-				_mainMenu.gameObject.SetActive(false);
-				_hud.SetActive(false);
-
+				_MainMenu.gameObject.SetActive(false);
+				_HUD.SetActive(false);
 			}
 		}
-    
 	}
 }
