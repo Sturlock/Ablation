@@ -1,22 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class testTrigger : MonoBehaviour
+namespace Scenes._EllenTestBox
 {
-    public GameObject _light;
+	public class testTrigger : MonoBehaviour
+	{
+		public GameObject _light;
 
-    private void Start()
-    {
-        _light.SetActive(false);
-    }
-    public void Grab()
-    {
-        _light.SetActive(true);
-    }
+		private void Start()
+		{
+			_light.SetActive(false);
+		}
+		public void Grab()
+		{
+			_light.SetActive(true);
+		}
 
-    public void Poof()
-    {
-        _light.SetActive(false);
-    }
+		public void Poof()
+		{
+			_light.SetActive(false);
+		}
+	}
 }
