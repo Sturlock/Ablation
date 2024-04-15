@@ -6,7 +6,7 @@ namespace Audio.AudioLog
 {
 	public class AudioLogPickUp : MonoBehaviour, IInteractable
 	{
-		[SerializeField] LogGiver lg;
+		[SerializeField] private LogGiver lg;
 
 		private void Start()
 		{

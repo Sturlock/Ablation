@@ -7,7 +7,7 @@ namespace Audio.AudioLog
 		[SerializeField] private AudioLogUI logPrefab;
 		private LogList logList;
 		// Start is called before the first frame update
-		void OnEnable()
+		private void OnEnable()
 		{
 			logList = GameObject.FindGameObjectWithTag("Player").GetComponent<LogList>();
 			logList.onUpdate += Redraw;

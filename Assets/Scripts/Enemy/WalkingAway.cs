@@ -7,15 +7,15 @@ namespace Enemy
 {
 	public class WalkingAway : MonoBehaviour
 	{
-		NavMeshAgent _navMeshAgent;
-		Animator _animator;
-		AudioSource _audioSource;
+		private NavMeshAgent _navMeshAgent;
+		private Animator _animator;
+		private AudioSource _audioSource;
 		public BoxCollider _box;
     
 		public AudioClip Roar;
 
-		bool _heard = false;
-		bool _stopAI;
+		private bool _heard = false;
+		private bool _stopAI;
 
 		[Header("Animation Settings"), Space]
 		[ReadOnly] public string isMoving = "IsMoving";
@@ -27,7 +27,7 @@ namespace Enemy
 		public bool go;
 		public Transform target;
 		// Start is called before the first frame update
-		void Start()
+		private void Start()
 		{
 			_navMeshAgent = GetComponent<NavMeshAgent>();
 			_animator = GetComponentInChildren<Animator>();

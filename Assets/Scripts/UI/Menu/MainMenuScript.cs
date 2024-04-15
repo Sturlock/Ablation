@@ -10,9 +10,9 @@ namespace UI.Menu
 		//Function that can receive animation events
 		//Function to play fade in/out animation
     
-		[SerializeField] Animation _mainMenuAnimator;
-		[SerializeField] AnimationClip _fadeOutAnimation;
-		[SerializeField] AnimationClip _fadeInAnimation;
+		[SerializeField] private Animation _mainMenuAnimator;
+		[SerializeField] private AnimationClip _fadeOutAnimation;
+		[SerializeField] private AnimationClip _fadeInAnimation;
 
 		[SerializeField] private Button playButton, optionsButton, creditsButton, quitButton;
 

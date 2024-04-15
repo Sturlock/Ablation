@@ -17,9 +17,9 @@ public class GameManager : Singleton<GameManager>
 {
     public GameObject[] SystemPrefabs;
     [SerializeField] private string _currentLevelName = string.Empty;
-    
-    List<AsyncOperation> _loadOperations;
-    List<GameObject> _instancedSystemPrefrabs;
+
+    private List<AsyncOperation> _loadOperations;
+    private List<GameObject> _instancedSystemPrefrabs;
 
     public string CurrentLevelName
     {
@@ -59,7 +59,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("[GameManager] Unload Complete");
     }
 
-    void InstantiateSystemPrefabs()
+    private void InstantiateSystemPrefabs()
     {
         GameObject prefabInstance;
         for(int i = 0; i <  SystemPrefabs.Length; ++i)

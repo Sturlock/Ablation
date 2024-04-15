@@ -8,7 +8,7 @@ namespace Enemy
 		[SerializeField] private CharacterAI characterAI;
 		[SerializeField] private GameObject target;
 		[SerializeField] private bool heard;
-		bool go;
+		private bool go;
 
 		private void OnTriggerEnter(Collider other)
 		{

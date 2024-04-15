@@ -5,7 +5,7 @@ using UnityEngine;
 public class EndLevel : MonoBehaviour
 {
     public Animator animator;
-    bool doOnce = false;
+    private bool doOnce = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !doOnce)

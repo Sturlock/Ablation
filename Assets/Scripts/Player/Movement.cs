@@ -26,8 +26,8 @@ namespace Player
 		private bool sprintBool;
 		private bool crouchBool;
 
-		[SerializeField] float walkTime = .5f;
-		[SerializeField] float sprintTime = .2f;
+		[SerializeField] private float walkTime = .5f;
+		[SerializeField] private float sprintTime = .2f;
 
 		public bool b_Flashlight = false;
 		public Light o_Flashlight;

@@ -11,7 +11,7 @@ namespace Objects
 		[SerializeField] private Rigidbody m_ThisRigidbody = null;
 		[SerializeField] private FixedJoint m_HoldJoint = null;
 
-		GameObject go;
+		private GameObject go;
 
 
 		private void Start()

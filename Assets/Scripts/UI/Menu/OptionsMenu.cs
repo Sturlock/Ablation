@@ -5,8 +5,7 @@ namespace UI.Menu
 {
 	public class OptionsMenu : MonoBehaviour
 	{
-		[SerializeField]
-		MainMenuScript _exit;
+		[SerializeField] private MainMenuScript _exit;
 		[SerializeField]
 		private Button graphicsButton, soundButton, exitButton;
 		[SerializeField]
@@ -44,7 +43,7 @@ namespace UI.Menu
 			_optionsMenu.SetActive(true);
 		}
 
-		void ExitMenu()
+		private void ExitMenu()
 		{
 			_exit.ExitLowerMenu(_optionsMenu);
 		}

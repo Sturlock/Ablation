@@ -28,14 +28,14 @@ namespace _Example
 		private Transform[] transforms = null;
 		private TransformAccessArray transformAccess = default;
 		// Start is called before the first frame update
-		void Start()
+		private void Start()
 		{
 			SpawnCube();
 			transformAccess = new TransformAccessArray(transforms);
 		}
 
 		// Update is called once per frame
-		void Update()
+		private void Update()
 		{
 			UpdatePositionJob updateJob = new UpdatePositionJob();
 			updateJob.gridX = gridX;

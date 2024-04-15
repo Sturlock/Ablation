@@ -11,7 +11,7 @@ namespace Audio
 		public AudioLogUI Ctrl;
 
 		// Start is called before the first frame update
-		void Start()
+		private void Start()
 		{
 			Ctrl = FindObjectOfType<AudioLogUI>();
 		}
@@ -28,7 +28,7 @@ namespace Audio
 			Debug.Log("[PickUpAL] DESTROY ME! HAHAHAHAHA");
 		}
 		// Update is called once per frame
-		void Update()
+		private void Update()
 		{
         
 		}

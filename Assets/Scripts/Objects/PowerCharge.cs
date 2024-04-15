@@ -11,7 +11,7 @@ namespace Objects
 		public Animator _ani;
 		public bool power;
 		public GameObject[] rooms;
-		List<LightBlock> lightBlocks = new List<LightBlock>();
+		private List<LightBlock> lightBlocks = new List<LightBlock>();
 
 		[Header("Audio")]
 		[SerializeField] private AudioClip dayOn;
@@ -30,7 +30,7 @@ namespace Objects
 
 		private WaitForSeconds timer;
 
-		void Awake()
+		private void Awake()
 		{
 			for (int i = 0; i < rooms.Length; i++)
 			{
@@ -45,7 +45,7 @@ namespace Objects
         
 		}
 
-		void Start()
+		private void Start()
 		{
 			timer = new WaitForSeconds(powerTimer);
 		}

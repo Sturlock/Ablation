@@ -43,7 +43,7 @@ namespace Audio
     
 		//BAD WE HAVE SINGLETON FOR THIS
 		//public static DialogueManager Instance { get; private set; }
-		void Start()
+		private void Start()
 		{
 			//if(Instance != null && Instance != this) 
 			//{
@@ -129,7 +129,7 @@ namespace Audio
 			return digitsOnly.Replace(timeString, "");
 		}
 
-		void OnGUI()
+		private void OnGUI()
 		{
 			//using dialogueAudio File?
 			//Debug.Log(GetComponent<AudioSource>().clip.name);

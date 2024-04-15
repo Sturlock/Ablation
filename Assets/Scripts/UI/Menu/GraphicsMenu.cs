@@ -8,16 +8,17 @@ namespace UI.Menu
 {
 	public class GraphicsMenu : MonoBehaviour
 	{
-		[FormerlySerializedAs("_graphicsMenu")] [SerializeField] GameObject _GraphicsMenu;
-		[SerializeField] TMP_Dropdown fullscreen;
-		[SerializeField] TMP_Dropdown resolutionDropdown;
-		[SerializeField] TMP_Dropdown qualityLevel;
+		[FormerlySerializedAs("_graphicsMenu")] [SerializeField]
+		private GameObject _GraphicsMenu;
+		[SerializeField] private TMP_Dropdown fullscreen;
+		[SerializeField] private TMP_Dropdown resolutionDropdown;
+		[SerializeField] private TMP_Dropdown qualityLevel;
 
-		[SerializeField] OptionsMenu _exit;
-		[SerializeField] Button exitButton;
-    
+		[SerializeField] private OptionsMenu _exit;
+		[SerializeField] private Button exitButton;
 
-		Resolution[] resolutions;
+
+		private Resolution[] resolutions;
 
 		private void Awake()
 		{
@@ -105,7 +106,8 @@ namespace UI.Menu
 			}
         
 		}
-		void ExitMenu()
+
+		private void ExitMenu()
 		{
 			_exit.ExitLowerMenu(_GraphicsMenu);
 		}
