@@ -1,37 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Enemy;
 using UnityEditor;
+using UnityEngine;
 
-[UnityEditor.CustomEditor(typeof(CharacterAI))] [CanEditMultipleObjects]
-public class WaypointHandlesDrawerEditor : Editor
+namespace Editor
 {
-    protected CharacterAI character;
-    protected bool drawWaypointsHandles = true;
+	[UnityEditor.CustomEditor(typeof(CharacterAI))] [CanEditMultipleObjects]
+	public class WaypointHandlesDrawerEditor : UnityEditor.Editor
+	{
+		protected CharacterAI character;
+		protected bool drawWaypointsHandles = true;
 
-    SerializedProperty characterProperty;
+		SerializedProperty characterProperty;
 
-    void OnEnable()
-    {
-        //     characterProperty = serializedObject.FindProperty("lookAtPoint");
-        character = serializedObject.targetObject as CharacterAI;
-    }
+		void OnEnable()
+		{
+			//     characterProperty = serializedObject.FindProperty("lookAtPoint");
+			character = serializedObject.targetObject as CharacterAI;
+		}
 
-    protected virtual void OnSceneGUI()
-    {
+		protected virtual void OnSceneGUI()
+		{
         
-        if (!drawWaypointsHandles) return;
-        //Debug.Log("DRAW");
+			if (!drawWaypointsHandles) return;
+			//Debug.Log("DRAW");
         
-        var refPoint = Vector3.zero;
-        //var aiBase = ;
-        if (character != null)
-        {
-            AblationEditorHelpers.WaypointHandles(character.Waypoints, refPoint, character);
-            //Debug.Log("CHARACTER");
-        }
-        else { Debug.Log("NULL"); }
+			var refPoint = Vector3.zero;
+			//var aiBase = ;
+			if (character != null)
+			{
+				AblationEditorHelpers.WaypointHandles(character.Waypoints, refPoint, character);
+				//Debug.Log("CHARACTER");
+			}
+			else { Debug.Log("NULL"); }
         
-    }
+		}
 
+	}
 }

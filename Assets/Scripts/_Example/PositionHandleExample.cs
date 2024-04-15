@@ -1,16 +1,19 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class PositionHandleExample : MonoBehaviour
+namespace _Example
 {
-    public Vector3 targetPosition
-    { get { return m_TargetPosition; } set { m_TargetPosition = value; } }
+	[ExecuteInEditMode]
+	public class PositionHandleExample : MonoBehaviour
+	{
+		public Vector3 targetPosition
+		{ get { return m_TargetPosition; } set { m_TargetPosition = value; } }
 
-    [SerializeField]
-    private Vector3 m_TargetPosition = new Vector3(1f, 0f, 2f);
+		[SerializeField]
+		private Vector3 m_TargetPosition = new Vector3(1f, 0f, 2f);
 
-    public virtual void Update()
-    {
-        transform.LookAt(m_TargetPosition);
-    }
+		public virtual void Update()
+		{
+			transform.LookAt(m_TargetPosition);
+		}
+	}
 }

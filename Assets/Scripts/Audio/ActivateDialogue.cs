@@ -1,69 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
+using Interface;
+using Player;
+using Scenes._EllenTestBox;
+using UI;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ActivateDialogue : MonoBehaviour, IInteractable
+namespace Audio
 {
-    public AudioClip dialogueClip;
-    public Animator ani;
-    public bool played = false;
-    public bool Inside = false;
-    public GameObject target;
-    public LayerMask _layer;
+	public class ActivateDialogue : MonoBehaviour, IInteractable
+	{
+		public AudioClip dialogueClip;
+		public Animator ani;
+		public bool played = false;
+		public bool Inside = false;
+		public GameObject target;
+		public LayerMask _layer;
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(target.transform.position, 1.5f);
-    }
-    public void Action(PlayerInteract script)
-    {
-        throw new System.NotImplementedException();
-    }
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.green;
+			Gizmos.DrawWireSphere(target.transform.position, 1.5f);
+		}
+		public void Action(PlayerInteract script)
+		{
+			throw new System.NotImplementedException();
+		}
 
-    public void Interact(PlayerInteract script)
-    {
-        played = false;
-        ani.SetBool("Help", true);
-        FindObjectOfType<ShowHideHandy>().can = true;
-        DialogueManager.Instance.BeginDialogue(dialogueClip);
-        GetComponent<testTrigger>().Poof();
-        gameObject.SetActive(false);
+		public void Interact(PlayerInteract script)
+		{
+			played = false;
+			ani.SetBool("Help", true);
+			FindObjectOfType<ShowHideHandy>().can = true;
+			DialogueManager.Instance.BeginDialogue(dialogueClip);
+			GetComponent<testTrigger>().Poof();
+			gameObject.SetActive(false);
 
-    }
+		}
 
-    private void FixedUpdate()
-    {
-        if (Physics.CheckSphere(target.transform.position, 1.5f, _layer))
-        {
-            if (!played)
-            {
-                ani.SetBool("Activate", true);
-            }
-        }
-        else
-        {
-            ani.SetBool("Activate", false);
-        }
-    }
+		private void FixedUpdate()
+		{
+			if (Physics.CheckSphere(target.transform.position, 1.5f, _layer))
+			{
+				if (!played)
+				{
+					ani.SetBool("Activate", true);
+				}
+			}
+			else
+			{
+				ani.SetBool("Activate", false);
+			}
+		}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && !played)
-        {
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.CompareTag("Player") && !played)
+			{
             
             
             
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            ani.SetBool("Activate", false);
+			}
+		}
+		private void OnTriggerExit(Collider other)
+		{
+			if (other.CompareTag("Player"))
+			{
+				ani.SetBool("Activate", false);
             
 
-        }
-    }
+			}
+		}
+	}
 }

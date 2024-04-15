@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Ablation.Item
+namespace Objects
 {
     public enum ItemType
     {

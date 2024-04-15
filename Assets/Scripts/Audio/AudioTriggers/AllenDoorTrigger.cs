@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AllenDoorTrigger : MonoBehaviour
+namespace Audio.AudioTriggers
 {
-    public void Activate()
-    {
-        gameObject.GetComponent<SphereCollider>().enabled = true;
-    }
+	public class AllenDoorTrigger : MonoBehaviour
+	{
+		public void Activate()
+		{
+			gameObject.GetComponent<SphereCollider>().enabled = true;
+		}
 
+	}
 }

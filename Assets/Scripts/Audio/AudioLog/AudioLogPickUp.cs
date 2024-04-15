@@ -1,23 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+using Interface;
+using Player;
 using UnityEngine;
 
-public class AudioLogPickUp : MonoBehaviour, IInteractable
+namespace Audio.AudioLog
 {
-    [SerializeField] LogGiver lg;
+	public class AudioLogPickUp : MonoBehaviour, IInteractable
+	{
+		[SerializeField] LogGiver lg;
 
-    private void Start()
-    {
-        lg = GetComponent<LogGiver>();
-    }
-    public void Action(PlayerInteract script)
-    {
-        throw new System.NotImplementedException();
-    }
+		private void Start()
+		{
+			lg = GetComponent<LogGiver>();
+		}
+		public void Action(PlayerInteract script)
+		{
+			throw new System.NotImplementedException();
+		}
 
-    public void Interact(PlayerInteract script)
-    {
-        lg.GiveLog();
-        Destroy(gameObject);
-    }
+		public void Interact(PlayerInteract script)
+		{
+			lg.GiveLog();
+			Destroy(gameObject);
+		}
+	}
 }

@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
+
 /// <summary>
 /// The 'GameManager' tracks:
 /// What level the game is currently in

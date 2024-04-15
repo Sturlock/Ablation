@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Player;
 
-public interface IInteractable
+namespace Interface
 {
-    void Interact(PlayerInteract script);
+	public interface IInteractable
+	{
+		void Interact(PlayerInteract script);
 
-    void Action(PlayerInteract script);
+		void Action(PlayerInteract script);
+	}
 }
