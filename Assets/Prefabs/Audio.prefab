@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 7299223775489031751}
   - component: {fileID: 7299223775489031750}
   - component: {fileID: 7299223775489031753}
-  - component: {fileID: 7299223775489031752}
   - component: {fileID: 7299223775489031755}
   - component: {fileID: 7299223775489031746}
+  - component: {fileID: 765210072283500662}
+  - component: {fileID: 4122737784278707470}
   m_Layer: 0
   m_Name: Audio
-  m_TagString: Untagged
+  m_TagString: Intractable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,21 +117,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7299223775489031752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7299223775489031754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3b9da215b17bd54485656b77d3197a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  sphere: {fileID: 0}
-  play: 0
 --- !u!82 &7299223775489031755
 AudioSource:
   m_ObjectHideFlags: 0
@@ -243,3 +229,29 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &765210072283500662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7299223775489031754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d6a5483f4f94b042bd6e4fff4c1fb21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lg: {fileID: 4122737784278707470}
+  audioLog: {fileID: 0}
+--- !u!114 &4122737784278707470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7299223775489031754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 026979071d39c83448a80a1a53088cb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -2,33 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Ablation.Item;
 
 public class LogList : MonoBehaviour
 {
-    private List<AudioLogTextItem> texts;
-
+    public List<LogStatus> logs = new List<LogStatus>();
+    public LogTextUI logText;
     public event Action onUpdate;
 
-    public void AddLog(AudioLogTextItem log)
+    public void AddLog(AudioLogItem log)
     {
         if (HasLog(log)) return;
-        texts.Add(log);
+
+        LogStatus logStatus = new LogStatus(log);
+        logs.Add(logStatus);
         if (onUpdate != null) onUpdate();
     }
 
-    private bool HasLog(AudioLogTextItem log)
+    private bool HasLog(AudioLogItem log)
     {
-        return GetLogs(log) != null;
+        return GetAudioLogs(log) != null;
     }
 
-    private AudioLogTextItem GetLogs(AudioLogTextItem log)
+    public IEnumerable<LogStatus> GetLogs()
     {
-        foreach (AudioLogTextItem text in texts)
+        return logs;
+    }
+
+    private LogStatus GetAudioLogs(AudioLogItem log)
+    {
+        foreach (LogStatus status in logs)
         {
-            if (log == text)
+            if(status.GetAudioLog() == log)
             {
-                return log;
+                return status;
             }
         }
         return null;
