@@ -1,0 +1,80 @@
+﻿name: Build Unity
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event_name}}-${{github.ref_name}}
+    cancel-in-progress: true
+
+on: 
+  - workflow_dispatch
+  - workflow_call
+
+env:
+ TARGET_PLATFORM: StandaloneWindows64 # Build a Windows 64-bit standalone.
+
+jobs:
+# Build Game For Windows
+  BuildForWindows:
+    timeout-minutes: 90
+    name: Build Unity for Windows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+# LFS
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v4.0.2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+# Restore Library cache 
+      - name: Restore Library cache
+        uses: actions/cache@v4.0.2
+        with:
+          path: ./Library
+          key: Library-{{ env.PROJECT_PATH }}
+          restore-keys: |
+            Library-{{ env.PROJECT_PATH }}-
+            Library-
+
+# Restore Build cache 
+      - name: Restore Build cache
+        uses: actions/cache@v4.0.2
+        with:
+          path: build
+          key: Build-{{ env.PROJECT_PATH }}
+          restore-keys: |
+            Build-{{ env.PROJECT_PATH }}-
+            Build-
+
+# Builder
+      - name: Unity Builder - ${{ github.event.repository.name }} (${{ env.TARGET_PLATFORM }})
+        id: unityBuilder
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: ${{ env.TARGET_PLATFORM }}
+          versioning: Semantic
+
+      - run: |
+          echo 'Project Version: ${{ steps.unityBuilder.outputs.buildVersion }}' 
+
+      - uses: actions/upload-artifact@v4.3.3
+        with:
+          name: ${{ github.event.repository.name }} ${{ steps.unityBuilder.outputs.buildVersion }} (${{ env.TARGET_PLATFORM }})
+          path: build/${{ env.TARGET_PLATFORM }}
