@@ -1,6 +1,5 @@
 using Interface;
 using Player;
-using Scenes._EllenTestBox;
 using UI;
 using UnityEngine;
 
@@ -31,7 +30,6 @@ namespace Audio
 			ani.SetBool("Help", true);
 			FindObjectOfType<ShowHideHandy>().can = true;
 			DialogueManager.Instance.BeginDialogue(dialogueClip);
-			GetComponent<testTrigger>().Poof();
 			gameObject.SetActive(false);
 
 		}
