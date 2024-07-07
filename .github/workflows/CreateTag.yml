@@ -21,7 +21,7 @@ jobs:
         id: get_version
         run: |
           VERSION=$(grep -oP '(?<=^## )\d+\.\d+\.\d+' CHANGELOG.md | head -n 1)
-          echo "Current version: $VERSION"
+          echo "Current version: v$VERSION"
           echo "version=$VERSION" >> $GITHUB_ENV
 
       - name: Create a new tag
