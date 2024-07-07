@@ -17,19 +17,20 @@ namespace UI.Menu
 		{
 			List<String> sceneNames = new List<String>();
 			Int32 sceneCount = SceneManager.sceneCountInBuildSettings;
-			for (Int32 i = 0; i < sceneCount; i++)
+			for (Int32 buildIndex = 0; buildIndex < sceneCount; buildIndex++)
 			{
-				String sceneName = SceneManager.GetSceneByBuildIndex(i).name;
+				String sceneName = SceneUtility.GetScenePathByBuildIndex(buildIndex);
+				
 				sceneNames.Add(sceneName);
 			}
 
-			Boolean levelExists = sceneNames.Exists(scene => scene == _MainMenuLevel);
+			Boolean levelExists = sceneNames.Exists(scene => scene.Contains(_MainMenuLevel));
 			if (!levelExists)
 			{
 				Debug.LogError($"{_MainMenuLevel} is not a currently valid scene name");
 			}
 
-			levelExists = sceneNames.Exists(scene => scene == _GameLevel);
+			levelExists = sceneNames.Exists(scene => scene.Contains(_GameLevel));
 			if (!levelExists)
 			{
 				Debug.LogError($"{_GameLevel} is not a currently valid scene name");

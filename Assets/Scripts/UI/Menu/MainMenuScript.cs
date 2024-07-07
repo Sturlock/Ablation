@@ -68,7 +68,7 @@ namespace UI.Menu
 
 		public void PlayGame()
 		{
-			GameManager.Instance.LoadLevel("TempCut");
+			GameManager.Instance.LoadLevel("TempCutScene");
 			GameManager.Instance.UnloadLevel("MainMenu");
 			Debug.Log("[MainMenu] Play Game");
 		}
