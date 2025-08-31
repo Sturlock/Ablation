@@ -22,7 +22,6 @@ jobs:
     timeout-minutes: 60
     name: Test in ${{ matrix.testMode }} 📝
     runs-on: ubuntu-latest
-    # needs: [resharper]
     strategy:
       matrix:
         testMode:
@@ -31,24 +30,8 @@ jobs:
           - standalone
 
     steps:
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          # this might remove tools that are actually needed,
-          # if set to "true" but frees about 6 GB
-          tool-cache: false
-          
-          # all of these default to true, but feel free to set to
-          # "false" if necessary for your workflow
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
           lfs: true
@@ -58,7 +41,7 @@ jobs:
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v4.0.2
+        uses: actions/cache@v4.2.3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -72,7 +55,7 @@ jobs:
       
       # Restore Library cache
       - name: Restore Library cache
-        uses: actions/cache@v4.0.2
+        uses: actions/cache@v4.2.3
         with:
           path: ./Library
           key: Library-{{ env.PROJECT_PATH }}
@@ -94,12 +77,12 @@ jobs:
           checkName: ${{ matrix.testMode }} Test Results
           coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;'
       # OUTPUT
-      - uses: actions/upload-artifact@v4.3.3
+      - uses: actions/upload-artifact@v4.6.2
         if: always()
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
-      - uses: actions/upload-artifact@v4.3.3
+      - uses: actions/upload-artifact@v4.6.2
         if: always()
         with:
           name: Coverage results for ${{ matrix.testMode }}
