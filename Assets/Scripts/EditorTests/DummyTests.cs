@@ -2,7 +2,7 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
-namespace Tests
+namespace Owl.EditorTests
 {
 	public class DummyTests
 	{
