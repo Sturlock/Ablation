@@ -1,0 +1,30 @@
+﻿name: "On Push To Branch"
+
+on:
+  push:
+    branches-ignore:
+      - develop
+      - master
+      - 'CICD/**'
+      - '[Aa]rt/**'
+
+jobs:
+  skip-if-pr-open:
+    runs-on: ubuntu-latest
+    outputs:
+      prcount: ${{ steps.prcheck.outputs.prcount }}
+    steps:
+      - name: Check if PR exists
+        id: prcheck
+        run: |
+          prs=$(gh pr list --head "$GITHUB_REF_NAME" --state open --json number --jq length)
+          echo "prcount=$prs" >> $GITHUB_ENV
+          echo "prcount=$prs" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  unit-tests:
+    uses: ./.github/workflows/UnitTests.yml
+    secrets: inherit
+    needs: skip-if-pr-open
+    if: needs.skip-if-pr-open.outputs.prcount == '0'
