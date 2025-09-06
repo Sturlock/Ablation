@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Scenes._EllenTestBox
 {
-	public class testTrigger : MonoBehaviour
+	public class TestTrigger : MonoBehaviour
 	{
 		public GameObject _light;
 

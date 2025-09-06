@@ -1,5 +1,5 @@
-using Cinemachine;
 using UI;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Player

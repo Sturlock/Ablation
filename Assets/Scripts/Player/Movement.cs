@@ -177,12 +177,12 @@ namespace Player
 
 		private void FixedUpdate()
 		{
-			Vector2 velocity2D = new Vector2(rb.velocity.x, rb.velocity.z);
+			Vector2 velocity2D = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z);
 			if (velocity2D.magnitude > maxSpeed)
 			{
 				velocity2D = velocity2D.normalized * maxSpeed;
 			}
-			rb.velocity = new Vector3(velocity2D.x, rb.velocity.y, velocity2D.y);
+			rb.linearVelocity = new Vector3(velocity2D.x, rb.linearVelocity.y, velocity2D.y);
 			if (jumpBool)
 			{
 				//Jump();
@@ -203,7 +203,7 @@ namespace Player
 
 			Vector2 inputVelocity = new Vector2(controlInput.x * maxSpeed * Time.fixedDeltaTime,
 				controlInput.z * maxSpeed * Time.fixedDeltaTime);
-			rb.velocity = new Vector3(inputVelocity.x, rb.velocity.y, inputVelocity.y);
+			rb.linearVelocity = new Vector3(inputVelocity.x, rb.linearVelocity.y, inputVelocity.y);
 
 			sphere.radius = detectRange;
 
