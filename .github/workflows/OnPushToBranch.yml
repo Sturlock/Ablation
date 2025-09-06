@@ -14,11 +14,13 @@ jobs:
     outputs:
       prcount: ${{ steps.prcheck.outputs.prcount }}
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Check if PR exists
         id: prcheck
         run: |
           prs=$(gh pr list --head "$GITHUB_REF_NAME" --state open --json number --jq length)
-          echo "prcount=$prs" >> $GITHUB_ENV
           echo "prcount=$prs" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
