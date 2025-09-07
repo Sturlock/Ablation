@@ -27,12 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7507710912065326983}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1782.2405, y: -65.18944, z: -0.26122817}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7507710912065326982
 MonoBehaviour:
@@ -99,7 +100,7 @@ MonoBehaviour:
   _parentBlackboard: {fileID: 0}
   _serializedBlackboard: '{"_variables":{"AI":{"_propertyPath":"AI_Director.AI","_name":"AI","_id":"cf23e351-ea2d-42fc-98ef-5172eb8f2e06","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Player":{"_propertyPath":"AI_Director.Player","_name":"Player","_id":"dc941188-237e-45c1-aabc-83247548031a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
-    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"characterAI":{"_propertyPath":"AI_Director.characterAI","_name":"characterAI","_id":"8c262d1a-c91e-432d-8cde-f23a2ce617bd","$type":"NodeCanvas.Framework.Variable`1[[CharacterAI,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"characterAI":{"_propertyPath":"AI_Director.characterAI","_name":"characterAI","_id":"8c262d1a-c91e-432d-8cde-f23a2ce617bd","$type":"NodeCanvas.Framework.Variable`1[[Enemy.CharacterAI,
     Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"tension":{"_propertyPath":"AI_Director.tension","_name":"tension","_id":"0eff12c3-74b1-41ae-9545-45aac59d63a4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"protectedArea":{"_propertyPath":"AI_Director.protectedArea","_name":"protectedArea","_id":"18759267-3d30-40a5-8d58-b693ec8aded3","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"Slow":{"_value":1.0,"_name":"Slow","_id":"e30e0406-38c0-411c-82c1-5a2870bd4e66","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
@@ -115,7 +116,7 @@ MonoBehaviour:
   - _json: '{"_propertyPath":"AI_Director.Player","_name":"Player","_id":"dc941188-237e-45c1-aabc-83247548031a","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references: []
-  - _json: '{"_propertyPath":"AI_Director.characterAI","_name":"characterAI","_id":"8c262d1a-c91e-432d-8cde-f23a2ce617bd","$type":"NodeCanvas.Framework.Variable`1[[CharacterAI,
+  - _json: '{"_propertyPath":"AI_Director.characterAI","_name":"characterAI","_id":"8c262d1a-c91e-432d-8cde-f23a2ce617bd","$type":"NodeCanvas.Framework.Variable`1[[Enemy.CharacterAI,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references: []
   - _json: '{"_propertyPath":"AI_Director.tension","_name":"tension","_id":"0eff12c3-74b1-41ae-9545-45aac59d63a4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
