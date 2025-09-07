@@ -31,7 +31,7 @@ namespace Audio
 			ani.SetBool("Help", true);
 			FindObjectOfType<ShowHideHandy>().can = true;
 			DialogueManager.Instance.BeginDialogue(dialogueClip);
-			GetComponent<testTrigger>().Poof();
+			GetComponent<TestTrigger>().Poof();
 			gameObject.SetActive(false);
 
 		}

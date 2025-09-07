@@ -5,12 +5,6 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
-    branches-ignore:
-      - develop
-      - master
-      - 'CICD/**'
-      - '[Aa]rt/**'
   workflow_dispatch: {}
   workflow_call: {}
 
@@ -22,7 +16,6 @@ jobs:
     timeout-minutes: 60
     name: Test in ${{ matrix.testMode }} 📝
     runs-on: ubuntu-latest
-    # needs: [resharper]
     strategy:
       matrix:
         testMode:
@@ -32,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
           lfs: true
@@ -42,7 +35,7 @@ jobs:
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v4.0.2
+        uses: actions/cache@v4.2.3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -56,7 +49,7 @@ jobs:
       
       # Restore Library cache
       - name: Restore Library cache
-        uses: actions/cache@v4.0.2
+        uses: actions/cache@v4.2.3
         with:
           path: ./Library
           key: Library-{{ env.PROJECT_PATH }}
@@ -66,7 +59,7 @@ jobs:
       
       # Configure test runner
       - name: Run ${{ github.event.repository.name }} Unit Tests
-        uses: game-ci/unity-test-runner@v4
+        uses: game-ci/unity-test-runner@v4.3.1
         id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -77,13 +70,17 @@ jobs:
           artifactsPath: ${{ matrix.testMode }}-artifacts
           checkName: ${{ matrix.testMode }} Test Results
           coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;'
+
       # OUTPUT
-      - uses: actions/upload-artifact@v4.3.3
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4.6.2
         if: always()
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
-      - uses: actions/upload-artifact@v4.3.3
+      
+      - name: Upload Code Coverage Results
+        uses: actions/upload-artifact@v4.6.2
         if: always()
         with:
           name: Coverage results for ${{ matrix.testMode }}

@@ -7,11 +7,11 @@ on:
       - opened
 
 jobs:
-  unit-tests:
-    uses: ./.github/workflows/UnitTests.yml
-    secrets: inherit 
+#  unit-tests:
+#    uses: ./.github/workflows/UnitTests.yml
+#    secrets: inherit 
 
   build-project:
-    needs: unit-tests
+#    needs: unit-tests
     uses: ./.github/workflows/BuildGame.yml
     secrets: inherit

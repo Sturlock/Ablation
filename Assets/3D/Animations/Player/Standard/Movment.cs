@@ -58,7 +58,7 @@ namespace _3D.Animations.Player.Standard
 
 			if (IsWalking && !IsRunning && running)
 			{
-				animator.SetBool("IsRunning", true); 
+				animator.SetBool("IsRunning", true);
 			}
 
 			if (IsWalking && IsRunning && !running)
@@ -79,8 +79,6 @@ namespace _3D.Animations.Player.Standard
 			Debug.Log(CrouchToggle);
 			animator.SetBool("IsCrouching", CrouchToggle);
 			//animator.SetBool("IsRunning", false);
-
-        
 		}
 	}
 }
