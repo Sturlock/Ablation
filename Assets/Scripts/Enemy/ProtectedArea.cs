@@ -7,7 +7,7 @@ namespace Enemy
 		private void OnTriggerExit(Collider other)
 		{
 			if (other != null && other.CompareTag("Player"))
-				AIDirector.Instance.protectedArea = false;
+				AIDirector.Instance.ProtectedArea = false;
 		}
 	}
 }

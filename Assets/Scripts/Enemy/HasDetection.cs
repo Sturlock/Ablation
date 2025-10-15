@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,12 +8,12 @@ namespace Enemy
 	{
 		[SerializeField] private CharacterAI characterAI;
 		[SerializeField] private GameObject target;
-		[SerializeField] private bool heard;
-		private bool go;
+		[SerializeField] private Boolean heard;
+		private Boolean go;
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (!AIDirector.Instance.protectedArea)
+			if (!AIDirector.Instance.ProtectedArea)
 			{
 				if (other.tag == "Player")
 				{

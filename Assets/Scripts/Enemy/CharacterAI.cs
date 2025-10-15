@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -29,31 +31,31 @@ namespace Enemy
 		private MoveToTarget moveTarget;
 		[SerializeField, ReadOnly] private Vector3 destination;
 		[SerializeField, ReadOnly] private Vector3 vel;
-		private float destinationThreshold = 1f;
-		private bool doOnce = false;
-		private bool stopAI = false;
-		public bool atDestination = true;
+		private Single destinationThreshold = 1f;
+		private Boolean doOnce = false;
+		private Boolean stopAI = false;
+		public Boolean atDestination = true;
 
 		[SerializeField, Space]
-		public float killRad = 1.5f;
-		private bool killed = false;
+		public Single killRad = 1.5f;
+		private Boolean killed = false;
 
 		[Header("Animation Settings"), Space]
-		[ReadOnly] public string isMoving = "IsMoving";
-		[ReadOnly] public string roar1 = "Roar1";
-		[ReadOnly] public string roar2 = "Roar2";
+		[ReadOnly] public String isMoving = "IsMoving";
+		[ReadOnly] public String roar1 = "Roar1";
+		[ReadOnly] public String roar2 = "Roar2";
 
-		[SerializeField] private bool _setRoar;
+		[SerializeField] private Boolean _setRoar;
 		private Coroutine _roarHandler = null;
 
 		[Header("Behavioral Settings"), Space]
-		[SerializeField] private bool _surveying;
+		[SerializeField] private Boolean _surveying;
 
-		public int _surveyTimes = 0;
+		public Int32 _surveyTimes = 0;
 		private Coroutine _survayHandeler = null;
 
 		[Header("Detection Settings"), Space]
-		public bool _heard;
+		public Boolean _heard;
 
 		[SerializeField]
 		private SphereCollider sphereCollider;
@@ -62,22 +64,22 @@ namespace Enemy
 		private Vector3 onNMPosition;
 
 		[Range(0f, 100f), Space]
-		public float heardRange;
+		public Single heardRange;
 
 		[Space]
 		public Vector3 lastKnownPos;
 
-		public bool wasKnown;
+		public Boolean wasKnown;
 
 		[Header("Waypoints"), Space]
-		[SerializeField] private bool waypoint_bool;
+		[SerializeField] private Boolean waypoint_bool;
 
-		[SerializeField] private float maxPathLenght = 50f;
-		[SerializeField] private bool loop;
-		[SerializeField] private bool randomWaypoint;
+		[SerializeField] private Single maxPathLenght = 50f;
+		[SerializeField] private Boolean loop;
+		[SerializeField] private Boolean randomWaypoint;
 		[SerializeField] private List<Waypoint> waypoints = new List<Waypoint>();
-		private int maxWaypoints;
-		private int currentWaypoint;
+		private Int32 maxWaypoints;
+		private Int32 currentWaypoint;
 
 		#region Gizmos
 
@@ -98,7 +100,7 @@ namespace Enemy
 			Gizmos.color = Color.magenta;
 			if (_navMeshAgent != null && _navMeshAgent.path != null && _navMeshAgent.path.corners != null)
 			{
-				for (int i = 0; i < _navMeshAgent.path.corners.Length - 1; i++)
+				for (Int32 i = 0; i < _navMeshAgent.path.corners.Length - 1; i++)
 				{
 					Gizmos.DrawLine(_navMeshAgent.path.corners[i], _navMeshAgent.path.corners[i + 1]);
 				}
@@ -127,43 +129,43 @@ namespace Enemy
 			set => waypoints = value;
 		}
 
-		public int MaxWaypoints
+		public Int32 MaxWaypoints
 		{
 			get => maxWaypoints;
 			set => maxWaypoints = waypoints.Count;
 		}
 
-		public int CurrentWaypoint
+		public Int32 CurrentWaypoint
 		{
 			get => currentWaypoint;
 			set => currentWaypoint = value;
 		}
 
-		public bool UsingWaypoint
+		public Boolean UsingWaypoint
 		{
 			get => waypoint_bool;
 			set => waypoint_bool = value;
 		}
 
-		public bool SelectRandomWaypoint
+		public Boolean SelectRandomWaypoint
 		{
 			get => randomWaypoint;
 			set => randomWaypoint = value;
 		}
 
-		public bool LoopWaypoint
+		public Boolean LoopWaypoint
 		{
 			get => loop;
 			set => loop = value;
 		}
 
-		public bool WasKnown
+		public Boolean WasKnown
 		{
 			get => wasKnown;
 			set => wasKnown = value;
 		}
 
-		public float MaxPathLenght
+		public Single MaxPathLenght
 		{
 			get => maxPathLenght;
 			set => maxPathLenght = value;
@@ -193,7 +195,7 @@ namespace Enemy
 			}
 			StopAllCoroutines();
 		}
-		public Vector3 GetWaypointPosition(int id)
+		public Vector3 GetWaypointPosition(Int32 id)
 		{
 			Waypoint waypoint = waypoints[id];
 
@@ -254,7 +256,7 @@ namespace Enemy
 			}
 		}
 
-		public void IsHeard(GameObject target, bool heard)
+		public void IsHeard(GameObject target, Boolean heard)
 		{
 			Interupt();
 			_heard = heard;
@@ -263,7 +265,7 @@ namespace Enemy
 			_target = target;
 		}
 
-		public void isHearing(GameObject target, bool heard)
+		public void isHearing(GameObject target, Boolean heard)
 		{
 			_heard = heard;
 			moveTarget.ToDestination(target, _navMeshAgent);
@@ -291,7 +293,7 @@ namespace Enemy
 		// Update is called once per frame
 		private void Update()
 		{
-			if (!AIDirector.Instance.protectedArea)
+			if (!AIDirector.Instance.ProtectedArea)
 			{
 				vel = _navMeshAgent.velocity;
 				AnimationUpdate();
@@ -333,7 +335,7 @@ namespace Enemy
 		}
 		private void LateUpdate()
 		{
-			if (!AIDirector.Instance.protectedArea)
+			if (!AIDirector.Instance.ProtectedArea)
 			{
 				Vector2 distance = new Vector2(gameObject.transform.position.x - Destination.x, gameObject.transform.position.z - Destination.z);
 				AtDestination(distance);
@@ -409,7 +411,7 @@ namespace Enemy
 				_audioSource.clip = HaroldDeath;
 				_audioSource.Play();
 				Cursor.lockState = CursorLockMode.None;
-				transition.SetTrigger("EndGame");         
+				transition.SetTrigger("EndGame");
 			}
 		}
 		private IEnumerator SurveyArea(Vector3 position)
@@ -417,7 +419,7 @@ namespace Enemy
 			_surveying = true;
 			_surveyTimes = 0;
 			List<Vector3> finalPos = new List<Vector3>();
-			for (int i = 0; i < 3; i++)
+			for (Int32 i = 0; i < 3; i++)
 			{
 				if(!_heard)
 				{
@@ -430,7 +432,7 @@ namespace Enemy
 				}
 
 			}
-			for (int i = 0; i < 3; ++i)
+			for (Int32 i = 0; i < 3; ++i)
 			{
 				if (atDestination)
 				{
@@ -473,7 +475,7 @@ namespace Enemy
 		}
 		private void AnimationUpdate()
 		{
-			float speed;
+			Single speed;
 			if (_navMeshAgent.velocity.magnitude > 0.1f)
 			{
 				speed = _heard ? 1f : 0.5f;
@@ -483,10 +485,10 @@ namespace Enemy
 			{
 				_animator.SetFloat("Speed", 0f);
 			}
-			string roar;
-			float seconds;
-			float i;
-			float x;
+			String roar;
+			Single seconds;
+			Single i;
+			Single x;
 
 			if (_setRoar && _roarHandler == null)
 			{
@@ -528,7 +530,7 @@ namespace Enemy
 				stopAI = false;
 		}
 
-		private IEnumerator PlayRoar(string roar, float seconds)
+		private IEnumerator PlayRoar(String roar, Single seconds)
 		{
 			_animator.SetTrigger(roar);
 			_audioSource.PlayOneShot(Roar);
@@ -539,7 +541,7 @@ namespace Enemy
 			_roarHandler = null;
 		}
 
-		private bool OnNavMesh(Vector3 targetDestination)
+		private Boolean OnNavMesh(Vector3 targetDestination)
 		{
 			NavMeshHit hit;
 			if (NavMesh.SamplePosition(targetDestination, out hit, 1f, NavMesh.AllAreas))
@@ -548,6 +550,10 @@ namespace Enemy
 				return true;
 			}
 			return false;
+		}
+
+		public void MoveToPosition(Vector3 hintPlayerLocation, TaskPriority priority)
+		{
 		}
 	}
 }

@@ -1,9 +1,10 @@
+using Interface;
 using TMPro;
 using UnityEngine;
 
 namespace Player
 {
-	public class Movement : MonoBehaviour
+	public class Movement : MonoBehaviour, IPlayer
 	{
 		public CapsuleCollider cap;
 		public Animator animator;
@@ -254,5 +255,8 @@ namespace Player
 				detectRange = 0;
 			}
 		}
+
+		/// <inheritdoc />
+		public GameObject GameObject => gameObject;
 	}
 }
