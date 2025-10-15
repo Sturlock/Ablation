@@ -13,6 +13,6 @@ jobs:
   #  secrets: inherit 
 
   build-project:
-    needs: unit-tests
+#    needs: unit-tests
     uses: ./.github/workflows/BuildGame.yml
     secrets: inherit
