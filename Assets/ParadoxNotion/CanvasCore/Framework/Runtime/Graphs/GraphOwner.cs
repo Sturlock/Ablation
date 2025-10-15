@@ -35,7 +35,8 @@ namespace NodeCanvas.Framework
 
         ///----------------------------------------------------------------------------------------------
         [SerializeField] private SerializationPair[] _serializedExposedParameters;
-        internal List<ExposedParameter> exposedParameters { get; set; }
+        ///<summary>The list of exposed parameters if any</summary>
+        public List<ExposedParameter> exposedParameters { get; set; }
 
         //serialize exposed parameters
         void ISerializationCallbackReceiver.OnBeforeSerialize() {
@@ -192,16 +193,18 @@ namespace NodeCanvas.Framework
                 return originalGraph;
             }
 
-            Graph instance = null;
 
             //if it's not a strored instance create, store and return a new instance.
-            if ( !instances.TryGetValue(originalGraph, out instance) ) {
+            if ( !instances.TryGetValue(originalGraph, out Graph instance) ) {
                 instance = Graph.Clone<Graph>(originalGraph, null);
                 instances[originalGraph] = instance;
             }
 
             return instance;
         }
+
+        ///<summary>Makes and returns the runtime instance based on the current graph set.</summary>
+        public Graph MakeRuntimeGraphInstance() { return graph = GetInstance(graph); }
 
         ///<summary>Start the graph assigned. It will be auto updated.</summary>
         public void StartBehaviour() { StartBehaviour(updateMode, null); }
@@ -212,9 +215,7 @@ namespace NodeCanvas.Framework
             graph = GetInstance(graph);
             if ( graph != null ) {
                 graph.StartGraph(this, blackboard, updateMode, callback);
-                if ( onOwnerBehaviourStateChange != null ) {
-                    onOwnerBehaviourStateChange(this);
-                }
+                onOwnerBehaviourStateChange?.Invoke(this);
             }
         }
 
@@ -222,9 +223,7 @@ namespace NodeCanvas.Framework
         public void PauseBehaviour() {
             if ( graph != null ) {
                 graph.Pause();
-                if ( onOwnerBehaviourStateChange != null ) {
-                    onOwnerBehaviourStateChange(this);
-                }
+                onOwnerBehaviourStateChange?.Invoke(this);
             }
         }
 
@@ -232,17 +231,13 @@ namespace NodeCanvas.Framework
         public void StopBehaviour(bool success = true) {
             if ( graph != null ) {
                 graph.Stop(success);
-                if ( onOwnerBehaviourStateChange != null ) {
-                    onOwnerBehaviourStateChange(this);
-                }
+                onOwnerBehaviourStateChange?.Invoke(this);
             }
         }
 
         ///<summary>Manually update the assigned graph</summary>
         public void UpdateBehaviour() {
-            if ( graph != null ) {
-                graph.UpdateGraph();
-            }
+            graph?.UpdateGraph();
         }
 
         ///<summary>The same as calling Stop, Start Behaviour</summary>
@@ -254,18 +249,18 @@ namespace NodeCanvas.Framework
         ///----------------------------------------------------------------------------------------------
 
         ///<summary>Send an event to the graph. Note that this overload has no sender argument thus sender will be null.</summary>
-        public void SendEvent(string eventName) { if ( graph != null ) { graph.SendEvent(eventName, null, null); } }
+        public void SendEvent(string eventName) { graph?.SendEvent(eventName, null, null); }
         ///<summary>Send an event to the graph</summary>
-        public void SendEvent(string eventName, object value, object sender) { if ( graph != null ) { graph.SendEvent(eventName, value, sender); } }
+        public void SendEvent(string eventName, object value, object sender) { graph?.SendEvent(eventName, value, sender); }
         ///<summary>Send an event to the graph</summary>
-        public void SendEvent<T>(string eventName, T eventValue, object sender) { if ( graph != null ) { graph.SendEvent(eventName, eventValue, sender); } }
+        public void SendEvent<T>(string eventName, T eventValue, object sender) { graph?.SendEvent(eventName, eventValue, sender); }
 
         ///----------------------------------------------------------------------------------------------
 
         ///<summary>Return an exposed parameter value</summary>
         public T GetExposedParameterValue<T>(string name) {
             var param = exposedParameters.Find(x => x.varRefBoxed != null && x.varRefBoxed.name == name);
-            return param != null ? ( param as ExposedParameter<T> ).value : default(T);
+            return param != null ? ( param as ExposedParameter<T> ).value : default;
         }
 
         ///<summary>Set an exposed parameter value</summary>
@@ -275,8 +270,8 @@ namespace NodeCanvas.Framework
             if ( param != null ) { ( param as ExposedParameter<T> ).value = value; }
         }
 
-        ///<summary>Make a new exposed parameter from a blackboard variable name and bind it</summary>
-        ExposedParameter MakeNewExposedParameter<T>(string name) {
+        ///<summary>Make and return a new exposed parameter from a blackboard variable name and bind it</summary>
+        public ExposedParameter MakeNewExposedParameter<T>(string name) {
             if ( exposedParameters == null ) { exposedParameters = new List<ExposedParameter>(); }
             var variable = graph.blackboard.GetVariable<T>(name);
             if ( variable != null && variable.isExposedPublic && !variable.isPropertyBound ) {
@@ -285,6 +280,7 @@ namespace NodeCanvas.Framework
                 exposedParameters.Add(exposedParam);
                 return exposedParam;
             }
+            ParadoxNotion.Services.Logger.LogWarning(string.Format("Exposed Graph Variable named '{0}' was not found", name));
             return null;
         }
 
@@ -296,7 +292,7 @@ namespace NodeCanvas.Framework
         }
 
         ///<summary>Initialize the bound or asset graph. This is called in Awake automatically, but it's public so that you can call this manually to pre-initialize when gameobject is deactive, if required.</summary>
-        public void Initialize() {
+        public void Initialize(System.Action callback = null) {
 
             Debug.Assert(Application.isPlaying, "GraphOwner Initialize should have been called in runtime only");
 
@@ -349,13 +345,15 @@ namespace NodeCanvas.Framework
                         StartBehaviour();
                         InvokeStartEvent();
                     }
+                    initialized = true;
+                    callback?.Invoke();
                 });
             } else {
                 graph.LoadOverwrite(loadData);
                 BindExposedParameters();
+                initialized = true;
+                callback?.Invoke();
             }
-
-            initialized = true;
         }
 
         ///<summary>Bind exposed parameters to local graph blackboard variables</summary>
@@ -363,6 +361,15 @@ namespace NodeCanvas.Framework
             if ( exposedParameters != null && graph != null ) {
                 for ( var i = 0; i < exposedParameters.Count; i++ ) {
                     exposedParameters[i].Bind(graph.blackboard);
+                }
+            }
+        }
+
+        ///<summary>UnBind exposed parameters any local graph blackboard variables</summary>
+        public void UnBindExposedParameters() {
+            if ( exposedParameters != null ) {
+                for ( var i = 0; i < exposedParameters.Count; i++ ) {
+                    exposedParameters[i].UnBind();
                 }
             }
         }
@@ -436,11 +443,11 @@ namespace NodeCanvas.Framework
         protected Graph boundGraphInstance;
 
         ///<summary>Editor. Called after assigned graph is serialized.</summary>
-        internal void OnAfterGraphSerialized(Graph serializedGraph) {
+        public void OnAfterGraphSerialized(Graph serializedGraph) {
             //If the graph is bound, we store the serialization data here.
             if ( this.graphIsBound && this.boundGraphInstance == serializedGraph ) {
 
-                //---
+                //--- This is basically only for showing the log...
                 if ( UnityEditor.PrefabUtility.IsPartOfPrefabInstance(this) ) {
                     var boundProp = new UnityEditor.SerializedObject(this).FindProperty(nameof(_boundGraphSerialization));
                     if ( !boundProp.prefabOverride && boundGraphSerialization != serializedGraph.GetSerializedJsonData() ) {
@@ -454,7 +461,7 @@ namespace NodeCanvas.Framework
                 }
                 //---
 
-                ParadoxNotion.Design.UndoUtility.RecordObject(this, ParadoxNotion.Design.UndoUtility.GetLastOperationNameOr("Bound Graph Change"));
+                ParadoxNotion.Design.UndoUtility.RecordObjectComplete(this, ParadoxNotion.Design.UndoUtility.GetLastOperationNameOr("Bound Graph Change"));
                 boundGraphSource = serializedGraph.GetGraphSource();
                 boundGraphSerialization = serializedGraph.GetSerializedJsonData();
                 boundGraphObjectReferences = serializedGraph.GetSerializedReferencesData();
@@ -465,7 +472,7 @@ namespace NodeCanvas.Framework
         ///<summary>Editor. Validate.</summary>
         protected void OnValidate() { Validate(); }
         ///<summary>Editor. Validate.</summary>
-        internal void Validate() {
+        public void Validate() {
 
             if ( !UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode ) {
                 //everything here is relevant to bound graphs only.
@@ -486,14 +493,12 @@ namespace NodeCanvas.Framework
                     graph.Validate();
                 }
 
-                //done in editor as well only for convenience purposes.
-                // DISABLE: was creating confusion when editing multiple graphowner instances using asset graphs and having different variable overrides
-                // BindExposedParameters();
+                // BindExposedParameters(); // DISABLE: was creating confusion when editing multiple graphowner instances using asset graphs and having different variable overrides
             }
         }
 
         ///<summary>Editor. Binds the target graph (null to delete current bound).</summary>
-        internal void SetBoundGraphReference(Graph target) {
+        public void SetBoundGraphReference(Graph target) {
 
             if ( UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode ) {
                 Debug.LogError("SetBoundGraphReference method is an Editor only method!");
@@ -527,12 +532,12 @@ namespace NodeCanvas.Framework
         }
 
         //...
-        protected void OnDrawGizmos() {
-            Gizmos.DrawIcon(transform.position, "GraphOwnerGizmo.png", true);
+        virtual protected void OnDrawGizmos() {
+
         }
 
         ///<summary>Forward Gizmos callback</summary>
-        protected void OnDrawGizmosSelected() {
+        virtual protected void OnDrawGizmosSelected() {
             if ( Editor.GraphEditorUtility.activeElement != null ) {
                 var rootElement = Editor.GraphEditorUtility.activeElement.graph.GetFlatMetaGraph().FindReferenceElement(Editor.GraphEditorUtility.activeElement);
                 if ( rootElement != null ) {
@@ -553,8 +558,10 @@ namespace NodeCanvas.Framework
     abstract public class GraphOwner<T> : GraphOwner where T : Graph
     {
 
-        [SerializeField] private T _graph;
-        [SerializeField] private Object _blackboard;
+        [SerializeField]
+        private T _graph;
+        [SerializeField]
+        private Object _blackboard;
 
         ///<summary>The current behaviour Graph assigned</summary>
         sealed public override Graph graph {
@@ -562,7 +569,7 @@ namespace NodeCanvas.Framework
             {
 #if UNITY_EDITOR
                 //In Editor only and if graph is bound, return the bound graph instance
-                if ( graphIsBound && !ParadoxNotion.Services.Threader.applicationIsPlaying ) {
+                if ( graphIsBound && !Application.isPlaying ) {
                     return boundGraphInstance;
                 }
 #endif
@@ -586,9 +593,7 @@ namespace NodeCanvas.Framework
             {
                 if ( !ReferenceEquals(_blackboard, value) ) {
                     _blackboard = (Object)value;
-                    if ( graph != null ) {
-                        graph.UpdateReferences(this, value);
-                    }
+                    graph?.UpdateReferences(this, value);
                 }
             }
         }

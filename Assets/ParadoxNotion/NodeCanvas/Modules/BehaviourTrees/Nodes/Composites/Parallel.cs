@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
@@ -10,22 +9,21 @@ namespace NodeCanvas.BehaviourTrees
 
     [Name("Parallel", 8)]
     [Category("Composites")]
-    [Description("Execute all child nodes once but simultaneously and return Success or Failure depending on the selected ParallelPolicy.")]
+    [Description("Executes all children simultaneously and return Success or Failure depending on the selected Policy.")]
     [ParadoxNotion.Design.Icon("Parallel")]
     [Color("ff64cb")]
     public class Parallel : BTComposite
     {
-
         public enum ParallelPolicy
         {
-            FirstFailure,
-            FirstSuccess,
-            FirstSuccessOrFailure
+            FirstFailure = 0,
+            FirstSuccess = 1,
+            FirstSuccessOrFailure = 2,
         }
 
         [Tooltip("The policy determines when the Parallel node will end and return its Status.")]
         public ParallelPolicy policy = ParallelPolicy.FirstFailure;
-        [Name("Repeat"), Tooltip("If true, child nodes are repeated until the Policy set is met, or until all children have had a chance to complete at least once.")]
+        [Name("Repeat"), Tooltip("If true, finished children are repeated until the Policy set is met, or until all children have had a chance to finish at least once.")]
         public bool dynamic;
 
         private bool[] finishedConnections;
@@ -71,6 +69,7 @@ namespace NodeCanvas.BehaviourTrees
 
             if ( defferedStatus != Status.Resting ) {
                 ResetRunning();
+                status = defferedStatus;
                 return defferedStatus;
             }
 
@@ -105,8 +104,16 @@ namespace NodeCanvas.BehaviourTrees
 
 #if UNITY_EDITOR
 
+        public override string GetConnectionInfo(int i) {
+            if ( dynamic && status == Status.Running ) {
+                return string.Format("Branch Finished: {0}", finishedConnections[i].ToString());
+            }
+            return null;
+        }
+
+
         protected override void OnNodeGUI() {
-            GUILayout.Label(( dynamic ? "<b>REPEAT</b>\n" : "" ) + policy.ToString().SplitCamelCase());
+            GUILayout.Label(( dynamic ? "<b>REPEAT</b>\n" : string.Empty ) + ( string.Format("<b>{0}</b>", policy.ToString().SplitCamelCase()) ));
         }
 
 #endif

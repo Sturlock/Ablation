@@ -37,8 +37,8 @@ namespace NodeCanvas.DialogueTrees
         [SerializeField, AutoSortWithChildrenConnections]
         private List<Choice> availableChoices = new List<Choice>();
 
-        public override int maxOutConnections { get { return availableChoices.Count; } }
-        public override bool requireActorSelection { get { return true; } }
+        public override int maxOutConnections => availableChoices.Count;
+        public override bool requireActorSelection => true;
 
         protected override Status OnExecute(Component agent, IBlackboard bb) {
 
@@ -51,7 +51,7 @@ namespace NodeCanvas.DialogueTrees
             for ( var i = 0; i < availableChoices.Count; i++ ) {
                 var condition = availableChoices[i].condition;
                 if ( condition == null || condition.CheckOnce(finalActor.transform, bb) ) {
-                    var tempStatement = availableChoices[i].statement.BlackboardReplace(bb);
+                    var tempStatement = availableChoices[i].statement.ProcessStatementBrackets(bb, DLGTree);
                     finalOptions[tempStatement] = i;
                 }
             }
@@ -63,7 +63,7 @@ namespace NodeCanvas.DialogueTrees
             }
 
             var optionsInfo = new MultipleChoiceRequestInfo(finalActor, finalOptions, availableTime, OnOptionSelected);
-            optionsInfo.showLastStatement = inConnections.Count > 0 && inConnections[0].sourceNode is StatementNode;
+            optionsInfo.showLastStatement = true;
             DialogueTree.RequestMultipleChoices(optionsInfo);
             return Status.Running;
         }
@@ -72,10 +72,10 @@ namespace NodeCanvas.DialogueTrees
 
             status = Status.Success;
 
-            System.Action Finalize = () => { DLGTree.Continue(index); };
+            void Finalize() { DLGTree.Continue(index); }
 
             if ( saySelection ) {
-                var tempStatement = availableChoices[index].statement.BlackboardReplace(graphBlackboard);
+                var tempStatement = availableChoices[index].statement.ProcessStatementBrackets(graphBlackboard, DLGTree);
                 var speechInfo = new SubtitlesRequestInfo(finalActor, tempStatement, Finalize);
                 DialogueTree.RequestSubtitles(speechInfo);
             } else {
@@ -88,7 +88,7 @@ namespace NodeCanvas.DialogueTrees
 #if UNITY_EDITOR
 
         public override void OnConnectionInspectorGUI(int i) {
-            DoChoiceGUI(availableChoices[i]);
+            if ( i >= 0 ) { DoChoiceGUI(availableChoices[i]); }
         }
 
         public override string GetConnectionInfo(int i) {

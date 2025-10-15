@@ -85,7 +85,7 @@ namespace NodeCanvas.Tasks.Conditions
             {
                 if ( eventInfo == null ) { return "No Event Selected"; }
                 if ( targetEvent == null ) { return eventInfo.AsString().FormatError(); }
-                return string.Format("'{0}' Raised", targetEvent.Name);
+                return string.Format("{0}.{1}", agentInfo, targetEvent.Name);
             }
         }
 
@@ -127,7 +127,7 @@ namespace NodeCanvas.Tasks.Conditions
             if ( !Application.isPlaying && GUILayout.Button("Select Event") ) {
                 var menu = new UnityEditor.GenericMenu();
                 if ( agent != null ) {
-                    foreach ( var comp in agent.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) ) {
+                    foreach ( var comp in agent.GetComponents(typeof(Component)).Where(c => !c.hideFlags.HasFlag(HideFlags.HideInInspector)) ) {
                         menu = EditorUtils.GetInstanceEventSelectionMenu(comp.GetType(), null, SetTargetEvent, menu);
                     }
                     menu.AddSeparator("/");
@@ -191,7 +191,7 @@ namespace NodeCanvas.Tasks.Conditions
             {
                 if ( eventInfo == null ) { return "No Event Selected"; }
                 if ( targetEvent == null ) { return eventInfo.AsString().FormatError(); }
-                return string.Format("'{0}' Raised", targetEvent.Name);
+                return string.Format("{0}.{1}", agentInfo, targetEvent.Name);
             }
         }
 

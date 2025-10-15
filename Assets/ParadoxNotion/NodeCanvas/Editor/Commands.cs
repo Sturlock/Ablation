@@ -10,9 +10,11 @@ namespace NodeCanvas.Editor
     public static class Commands
     {
 
-        [MenuItem("Tools/ParadoxNotion/More Tools...", false, 1000)]
-        public static void VisitHome() {
-            Help.BrowseURL("http://paradoxnotion.com");
+        ///----------------------------------------------------------------------------------------------
+
+        [UnityEditor.InitializeOnLoadMethod]
+        public static void SetNodeCanvasDefine() {
+            DefinesManager.SetDefineActiveForCurrentTargetGroup("NODECANVAS", true);
         }
 
         ///----------------------------------------------------------------------------------------------
@@ -67,9 +69,9 @@ namespace NodeCanvas.Editor
             WelcomeWindow.ShowWindow(typeof(NodeCanvas.BehaviourTrees.BehaviourTree));
         }
 
-        [MenuItem("Tools/ParadoxNotion/NodeCanvas/Visit Website")]
+        [MenuItem("Tools/ParadoxNotion/NodeCanvas/Website...")]
         public static void VisitWebsite() {
-            Help.BrowseURL("http://nodecanvas.paradoxnotion.com");
+            Help.BrowseURL("https://nodecanvas.paradoxnotion.com");
         }
     }
 }

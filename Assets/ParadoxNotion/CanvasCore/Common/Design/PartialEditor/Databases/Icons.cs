@@ -27,7 +27,6 @@ namespace ParadoxNotion.Design
             warningIconBig = EditorGUIUtility.FindTexture("d_console.warnicon");
             errorIcon = EditorGUIUtility.FindTexture("d_console.erroricon.sml");
             errorIconBig = EditorGUIUtility.FindTexture("d_console.erroricon");
-            redCircle = EditorGUIUtility.FindTexture("d_winbtn_mac_close");
             folderIcon = EditorGUIUtility.FindTexture("Folder Icon");
             favoriteIcon = EditorGUIUtility.FindTexture("Favorite Icon");
             gearPopupIcon = EditorGUIUtility.FindTexture("d__Popup");
@@ -35,6 +34,7 @@ namespace ParadoxNotion.Design
             scaleIcon = EditorGUIUtility.FindTexture("d_ScaleTool");
             minMaxIcon = EditorGUIUtility.FindTexture("d_winbtn_win_max");
             plusIcon = EditorGUIUtility.FindTexture("d_CreateAddNew");
+            helpIcon = EditorGUIUtility.FindTexture("d__Help");
         }
 
         public static Texture2D playIcon { get; private set; }
@@ -49,7 +49,6 @@ namespace ParadoxNotion.Design
         public static Texture2D warningIconBig { get; private set; }
         public static Texture2D errorIcon { get; private set; }
         public static Texture2D errorIconBig { get; private set; }
-        public static Texture2D redCircle { get; private set; }
         public static Texture2D folderIcon { get; private set; }
         public static Texture2D favoriteIcon { get; private set; }
         public static Texture2D gearPopupIcon { get; private set; }
@@ -57,6 +56,7 @@ namespace ParadoxNotion.Design
         public static Texture2D scaleIcon { get; private set; }
         public static Texture2D minMaxIcon { get; private set; }
         public static Texture2D plusIcon { get; private set; }
+        public static Texture2D helpIcon { get; private set; }
 
 
         ///----------------------------------------------------------------------------------------------

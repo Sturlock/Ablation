@@ -1,5 +1,4 @@
 using NodeCanvas.Framework;
-using ParadoxNotion;
 using ParadoxNotion.Design;
 using UnityEngine;
 
@@ -9,15 +8,15 @@ namespace NodeCanvas.BehaviourTrees
 
     [Name("Conditional")]
     [Category("Decorators")]
-    [Description("Execute and return the child node status if the condition is true, otherwise return Failure. The condition is evaluated only once in the first Tick and when the node is not already Running unless it is set as 'Dynamic' in which case it will revaluate even while running.")]
+    [Description("Executes and returns the child status if the condition is true. Returns the specified status if the condition is or becomes false. If Dynamic is enabled and the condition becomes false while the child node is Running, the child node will be interrupted.")]
     [ParadoxNotion.Design.Icon("Accessor")]
     public class ConditionalEvaluator : BTDecorator, ITaskAssignable<ConditionTask>
     {
 
-        [Name("Dynamic")]
+        [Name("Dynamic"), Tooltip("If enabled, the condition is re-evaluated per tick and the child is interrupted if the condition becomes false.")]
         public bool isDynamic;
-        [Tooltip("The status that will be returned if the assigned condition is false.")]
-        public CompactStatus conditionFailReturn = CompactStatus.Failure;
+        [Tooltip("The status that will be returned if the assigned condition is or becomes false.")]
+        public FinalStatus conditionFailReturn = FinalStatus.Failure;
 
         [SerializeField]
         private ConditionTask _condition;
@@ -66,7 +65,7 @@ namespace NodeCanvas.BehaviourTrees
         }
 
         protected override void OnReset() {
-            if ( condition != null ) { condition.Disable(); }
+            condition?.Disable();
             accessed = false;
         }
 

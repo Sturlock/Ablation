@@ -7,8 +7,9 @@ namespace NodeCanvas.BehaviourTrees
 {
 
     [Name("Condition")]
-    [Description("Check a condition and return Success or Failure.")]
+    [Description("Checks a condition and returns Success or Failure.")]
     [ParadoxNotion.Design.Icon("Condition")]
+    // [Color("ff6d53")]
     public class ConditionNode : BTNode, ITaskAssignable<ConditionTask>
     {
 
@@ -25,9 +26,7 @@ namespace NodeCanvas.BehaviourTrees
             set { _condition = value; }
         }
 
-        public override string name {
-            get { return base.name.ToUpper(); }
-        }
+        public override string name => base.name.ToUpper();
 
         protected override Status OnExecute(Component agent, IBlackboard blackboard) {
             if ( condition == null ) {
@@ -42,7 +41,7 @@ namespace NodeCanvas.BehaviourTrees
         }
 
         protected override void OnReset() {
-            if ( condition != null ) { condition.Disable(); }
+            condition?.Disable();
         }
     }
 }
