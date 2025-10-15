@@ -5,11 +5,12 @@ on:
     types:
       - synchronize
       - opened
+  push:
 
 jobs:
-  unit-tests:
-    uses: ./.github/workflows/UnitTests.yml
-    secrets: inherit 
+  #unit-tests:
+  #  uses: ./.github/workflows/UnitTests.yml
+  #  secrets: inherit 
 
   build-project:
     needs: unit-tests

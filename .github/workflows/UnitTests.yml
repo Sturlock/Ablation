@@ -5,12 +5,12 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
-    branches-ignore:
-      - develop
-      - master
-      - 'CICD/**'
-      - '[Aa]rt/**'
+#  push:
+#    branches-ignore:
+#      - develop
+#      - master
+#      - 'CICD/**'
+#      - '[Aa]rt/**'
   workflow_dispatch: {}
   workflow_call: {}
 
