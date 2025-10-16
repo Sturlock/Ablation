@@ -18,7 +18,7 @@ namespace Enemy
 
 		public IEnumerator IncreaseMenace(Single inc)
 		{
-			while (Menace < 100f)
+			while (_Menace < 100f)
 			{
 				_Menace += inc;
 				yield return new WaitForSeconds(1f);
@@ -27,9 +27,9 @@ namespace Enemy
 
 		public IEnumerator ReduceMenace(Single dec)
 		{
-			while (Menace > 0f)
+			while (_Menace > 0f)
 			{
-				Menace = Menace - dec;
+				_Menace = Menace - dec;
 				yield return new WaitForSeconds(1f);
 			}
 		}
