@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Objects
 {
-	public class Object_Audio : MonoBehaviour
+	public class ObjectAudio : MonoBehaviour
 	{
 		[SerializeField] private AudioSource source;
 		[SerializeField] private SphereCollider sphere;
