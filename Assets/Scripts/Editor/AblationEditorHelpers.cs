@@ -1,53 +1,58 @@
+using System;
 using System.Collections.Generic;
 using Enemy;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Editor
 {
 	public class AblationEditorHelpers : MonoBehaviour
 	{
-		public static void WaypointHandles(List<Waypoint> _waypoints, Vector3 _refPoint, Object _objectToUndo)
+		public static void WaypointHandles(List<InterestPoint> interestPoints, Vector3 refPoint, Object objectToUndo)
 		{
 			//Checking if we have a waypoint list
-			if (_waypoints == null) return;
+			if (interestPoints == null) return;
+			if (interestPoints.Count == 0) return;
 
 			// are we pressing l shift?
-			var shiftPressed = Event.current.shift;
+			Boolean shiftPressed = Event.current.shift;
 
-			for (var i = 0; i < _waypoints.Count; i++)
+			for (Int32 i = 0; i < interestPoints.Count; i++)
 			{
-				var position = _waypoints[i].position + _refPoint;
-				var beforeChangePos = _waypoints[i].position;
+				InterestPoint interestPoint = interestPoints[i];
+
+				Vector3 position = interestPoint.Position + refPoint;
+				Vector3 beforeChangePos = interestPoint.Position;
 
 				Handles.color = Color.white;
-				Handles.DrawWireDisc(position, Vector3.up, _waypoints[i].radius);
+				Handles.DrawWireDisc(position, Vector3.up, 1);
 
 				EditorGUI.BeginChangeCheck();
-				var pos = Handles.PositionHandle(position, Quaternion.identity);
+				Vector3 pos = Handles.PositionHandle(position, Quaternion.identity);
 
 				if (EditorGUI.EndChangeCheck())
 				{
-					Undo.RecordObject(_objectToUndo, "Waypoint move");
-					_waypoints[i].position = pos - _refPoint;
+					Undo.RecordObject(objectToUndo, "Waypoint move");
+					interestPoint.Position = pos - refPoint;
 
 					if (shiftPressed)
 					{
-						var posDelta = _waypoints[i].position - beforeChangePos;
+						Vector3 posDelta = interestPoint.Position - beforeChangePos;
 
-						for (var index = 0; index < _waypoints.Count; index++)
+						for (Int32 index = 0; index < interestPoints.Count; index++)
 						{
 							if (index == i) continue;
-							var waypoint = _waypoints[index];
-							waypoint.position += posDelta;
+							InterestPoint waypoint = interestPoints[index];
+							waypoint.Position += posDelta;
 						}
 					}
-					PrefabUtility.RecordPrefabInstancePropertyModifications(_objectToUndo);
+					PrefabUtility.RecordPrefabInstancePropertyModifications(objectToUndo);
 				}
 
 				Handles.Label(position, $"Waypoint {i + 1}");
-				if (i < _waypoints.Count - 1)
-					Handles.DrawLine(position, _waypoints[i + 1].position + _refPoint);
+				if (i < interestPoints.Count - 1)
+					Handles.DrawLine(position, interestPoints[i + 1].Position + refPoint);
 			}
 		}
 	}
