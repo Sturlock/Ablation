@@ -6,9 +6,12 @@
 
 namespace Enemy
 {
-	public enum MicroState
+	public enum AlienState
 	{
-		ACTIVE,
-		PASSIVE
+		PATROL,
+		INVESTIGATE,
+		SEARCH,
+		CHASE,
+		REST
 	}
 }

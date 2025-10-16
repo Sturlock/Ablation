@@ -8,9 +8,9 @@ namespace Enemy
 {
 	public enum TaskPriority
 	{
-		LOW,
-		NORMAL,
+		IMMEDIATE,
 		HIGH,
-		IMMEDIATE
+		NORMAL,
+		LOW,
 	}
 }

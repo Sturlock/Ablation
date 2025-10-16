@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -11,20 +13,19 @@ namespace Enemy
 		private Animator _animator;
 		private AudioSource _audioSource;
 		public BoxCollider _box;
-    
 		public AudioClip Roar;
 
-		private bool _heard = false;
-		private bool _stopAI;
+		private Boolean _heard = false;
+		private Boolean _stopAI;
 
 		[Header("Animation Settings"), Space]
-		[ReadOnly] public string isMoving = "IsMoving";
-		[ReadOnly] public string roar1 = "Roar1";
-		[ReadOnly] public string roar2 = "Roar2";
-		private bool _setRoar;
+		[ReadOnly] public String isMoving = "IsMoving";
+		[ReadOnly] public String roar1 = "Roar1";
+		[ReadOnly] public String roar2 = "Roar2";
+		private Boolean _setRoar;
 		private Coroutine _roarHandler = null;
 
-		public bool go;
+		public Boolean go;
 		public Transform target;
 		// Start is called before the first frame update
 		private void Start()
@@ -47,7 +48,7 @@ namespace Enemy
 		}
 		private void AnimationUpdate()
 		{
-			float speed;
+			Single speed;
 			if (_navMeshAgent.velocity.magnitude > 0.1f)
 			{
 				speed = _heard ? 1f : 0.5f;
@@ -57,10 +58,10 @@ namespace Enemy
 			{
 				_animator.SetFloat("Speed", 0f);
 			}
-			string roar;
-			float seconds;
-			float i;
-			float x;
+			String roar;
+			Single seconds;
+			Single i;
+			Single x;
 
 			if (_setRoar && _roarHandler == null)
 			{
@@ -102,7 +103,7 @@ namespace Enemy
 				_stopAI = false;
 		}
 
-		private IEnumerator PlayRoar(string roar, float seconds)
+		private IEnumerator PlayRoar(String roar, Single seconds)
 		{
 			_animator.SetTrigger(roar);
 			_audioSource.PlayOneShot(Roar);
