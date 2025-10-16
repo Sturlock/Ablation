@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,15 +11,15 @@ namespace Utils
 			return (destination - origin).normalized;
 		}
 
-		public static float Length(this NavMeshPath path)
+		public static Single Length(this NavMeshPath path)
 		{
-			float currentLenght = 0;
-			if (path != null && path != null && path.corners != null)
+			Single currentLenght = 0;
+
+			if (path?.corners == null) return currentLenght;
+
+			for (Int32 i = 0; i < path.corners.Length - 1; i++)
 			{
-				for (int i = 0; i < path.corners.Length - 1; i++)
-				{
-					currentLenght += Vector3.Distance(path.corners[i], path.corners[i + 1]);
-				}
+				currentLenght += Vector3.Distance(path.corners[i], path.corners[i + 1]);
 			}
 			return currentLenght;
 		}

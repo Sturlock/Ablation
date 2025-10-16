@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Utils
@@ -12,33 +13,26 @@ namespace Utils
 
 	public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 	{
-		private static T instance;
+		private static T _Instance;
 
-		public static T Instance
-		{
-			get => instance;
-		}
+		public static T Instance => _Instance;
 
-		public static bool isInitialized
-		{
-			get { return instance != null; }
-		}
+		public static Boolean IsInitialized => _Instance;
 
 		protected virtual void Awake()
 		{
-			if (instance != null)
+			if (_Instance)
 			{
-				Debug.LogError("[Singleton] Trying to instantiate " +
-				               "a second instance of a singleton class");
+				Debug.LogError("[Singleton] Trying to instantiate a second instance of a singleton class");
 			}
-			else instance = (T)this;
+			else _Instance = (T)this;
 		}
 
 		protected virtual void OnDestroy()
 		{
-			if(instance == this)
+			if(_Instance == this)
 			{
-				instance = null;
+				_Instance = null;
 			}
 		}
 	}
