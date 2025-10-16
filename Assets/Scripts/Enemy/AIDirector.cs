@@ -30,6 +30,7 @@ namespace Enemy
 		private MenaceHandler _MenaceHandler;
 
 		private Single Menace => _MenaceHandler.Menace;
+		public Boolean ProtectedArea => _ProtectedArea;
 
 		private void Start()
 		{
