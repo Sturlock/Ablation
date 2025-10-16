@@ -4,13 +4,13 @@ namespace Objects
 {
 	public class PlaySound : MonoBehaviour
 	{
-		private Object_Audio GetAudio;
+		private ObjectAudio GetAudio;
 		public bool play = false;
 
 		// Start is called before the first frame update
 		private void Start()
 		{
-			GetAudio = GetComponentInChildren<Object_Audio>();
+			GetAudio = GetComponentInChildren<ObjectAudio>();
 		}
 
 		// Update is called once per frame
