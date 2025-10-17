@@ -1,10 +1,4 @@
-﻿// // --------------------------------
-// // -- File Created 	: 23:10 16/10/2025
-// // -- File Part of the Ablation Solution, project Assembly-CSharp
-// // -- Edited By : Will Sturley
-// // --------------------------------
-
-using System;
+﻿using System;
 
 namespace Audio
 {
